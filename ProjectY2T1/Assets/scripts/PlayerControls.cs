@@ -33,7 +33,12 @@ public class PlayerControls : MonoBehaviour
 	{
 		//yaw += Input.GetAxis("Mouse X") * sensitivity;
 		yaw = Mathf.SmoothDamp(yaw, (yaw + Input.GetAxis("Mouse X") * sensitivity), ref yawCameraVelocity, 0.01f);
-		yaw = Mathf.Clamp(yaw, -maxHorizontalLookAngle, maxHorizontalLookAngle);
+		yaw = Mathf.Clamp(yaw, -maxHorizontalLookAngle, maxHorizontalLookAngle + 50);
+
+		if (yaw > maxHorizontalLookAngle)
+		{
+			
+		}
 
 		//pitch -= Input.GetAxis("Mouse Y") * sensitivity;
 		pitch -= Mathf.SmoothDamp(0, Input.GetAxis("Mouse Y") * sensitivity, ref pitchCameraVelocity, 0.01f);
