@@ -1,27 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scenes
+public class MovingTerrain : MonoBehaviour
 {
-    public class MovingTerrain : MonoBehaviour
+    [SerializeField]
+    private Vector3 moveDirection;
+    [SerializeField]
+    private Vector3 moveTo;
+
+    void Start()
     {
-        [SerializeField]
-        private Vector3 moveDirection;
-
-        void Start()
-        {
         
-        }
+    }
 
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        this.transform.position += moveDirection;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("MainCamera"))
         {
-            this.transform.position += moveDirection;
-
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log("Test");
+            this.transform.position = moveTo;
         }
     }
 }
