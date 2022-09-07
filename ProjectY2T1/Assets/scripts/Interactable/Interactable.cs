@@ -5,11 +5,11 @@ namespace Interactable
 {
 	public abstract class Interactable : MonoBehaviour
 	{
-		public event Action OnInteract;
-		protected Interactable() => OnInteract += Execute;
+		public event Action InteractEvent;
+		protected Interactable() => InteractEvent += OnInteract;
 
-		public void Interact() => OnInteract?.Invoke();
+		public void Interact() => InteractEvent?.Invoke();
 
-		protected abstract void Execute();
+		protected abstract void OnInteract();
 	}
 }

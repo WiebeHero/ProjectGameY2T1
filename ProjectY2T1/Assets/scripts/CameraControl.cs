@@ -1,3 +1,5 @@
+using System;
+using Managers;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
@@ -21,7 +23,15 @@ public class CameraControl : MonoBehaviour
     {
         cam = transform.GetComponentInChildren<Camera>().gameObject.transform;
         Cursor.lockState = CursorLockMode.Locked;
+        
     }
+
+    private void Awake()
+    {
+        EventManager.instance.TestButtonPressEvent += Test;
+    }
+
+    private void Test() => Debug.LogWarning("BOOGERS");
 
     private void Update()
     {
