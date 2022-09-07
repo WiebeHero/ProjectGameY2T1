@@ -6,6 +6,8 @@ public class MovingTerrain : MonoBehaviour
 {
     [SerializeField]
     private Vector3 moveDirection;
+    [SerializeField]
+    private Vector3 moveTo;
 
     void Start()
     {
@@ -21,6 +23,9 @@ public class MovingTerrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Test");
+        if (other.gameObject.CompareTag("MainCamera"))
+        {
+            this.transform.position = moveTo;
+        }
     }
 }
