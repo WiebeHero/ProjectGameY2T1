@@ -8,6 +8,8 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] private float maxHorizontalLookAngle = 120;
 	[SerializeField] private float maxVerticalLookAngle = 50f;
 	[SerializeField] private Camera firstPersonCamera;
+
+	[SerializeField] private float interactionRange = 5;
 	
 	private float yaw;
 	private float pitch;
@@ -45,5 +47,18 @@ public class PlayerControls : MonoBehaviour
 		pitch = Mathf.Clamp(pitch, -maxVerticalLookAngle - 20, maxVerticalLookAngle);
 		
 		firstPersonCamera.transform.localEulerAngles = new Vector3(pitch, yaw, 0);
+		
+		
+		/*
+		 * Interaction system
+		 */
+		Transform transform1 = transform;
+		
+		Debug.DrawRay(transform1.position, transform1.forward * interactionRange, Color.red);
+		if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, interactionRange))
+		{
+			Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
+			if (interactable != null) interactable.Interact();
+		}
 	}
 }
