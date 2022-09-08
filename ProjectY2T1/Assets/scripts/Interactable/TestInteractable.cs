@@ -6,7 +6,7 @@ namespace Interactable
 	{
 		protected override void OnInteract()
 		{
-			EventManager.instance.TriggerEvent(EventManager.Event.TestButtonPressed);
+			EventManager.instance.TriggerEvent(EventManager.CustomEvent.TestButtonPressed);
 		}
 	}
 }

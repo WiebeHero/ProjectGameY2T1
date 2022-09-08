@@ -10,6 +10,8 @@ namespace Managers
 		
 		public event Action PhoneOpenEvent;
 		public event Action TestButtonPressEvent;
+		public event Action StartedLookingBackwardsEvent;
+		public event Action StoppedLookingBackwardsEvent;
 		
 		public static EventManager instance { get; private set; }
 		private void Awake()
@@ -19,22 +21,32 @@ namespace Managers
 		}
 
 		
-		public enum Event
+		public enum CustomEvent
 		{
 			PhoneOpen,
-			TestButtonPressed
+			TestButtonPressed,
+			StartedLookingBackwards,
+			StoppedLookingBackwards,
 		}
 		
-		public void TriggerEvent(Event eventName)
+		public void TriggerEvent(CustomEvent customEventName)
 		{
-			switch (eventName)
+			switch (customEventName)
 			{
-				case Event.PhoneOpen:
+				case CustomEvent.PhoneOpen:
 					PhoneOpenEvent?.Invoke();
 					break;
-				case Event.TestButtonPressed:
+				case CustomEvent.TestButtonPressed:
 					TestButtonPressEvent?.Invoke();
 					break;
+				case CustomEvent.StartedLookingBackwards:
+					StartedLookingBackwardsEvent?.Invoke();
+					break;
+				case CustomEvent.StoppedLookingBackwards:
+					StoppedLookingBackwardsEvent?.Invoke();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(customEventName), customEventName, null);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
-using System;
 using Managers;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class CameraControl : MonoBehaviour
 {
@@ -19,23 +20,23 @@ public class CameraControl : MonoBehaviour
     private float rotX;
     private float rotY;
 
+    private float prevRotX;
+    
+    private const float LOOK_BACK_THRESH = 80f;
+
     private void Start()
     {
         cam = transform.GetComponentInChildren<Camera>().gameObject.transform;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; 
         
+        EventManager.instance.StartedLookingBackwardsEvent += TestLookingBack;
+        EventManager.instance.StoppedLookingBackwardsEvent += TestStopLookingBack;
     }
-
-    private void Awake()
-    {
-        EventManager.instance.TestButtonPressEvent += Test;
-    }
-
-    private void Test() => Debug.LogWarning("BOOGERS");
-
+    
     private void Update()
     {
-        Transform camTransform = cam.transform;
+        prevRotX = rotX;
+        
         Transform mainTransform = transform;
         
         rotX += Input.GetAxis("Mouse X") * rotationSpeed;
@@ -44,20 +45,49 @@ public class CameraControl : MonoBehaviour
         rotX = Mathf.Clamp(rotX, clampX.x, clampX.y);
         rotY = Mathf.Clamp(rotY, clampY.x, clampY.y);
         
-        camTransform.localRotation = Quaternion.Euler(-rotY,rotX,0f);
+        cam.transform.localRotation = Quaternion.Euler(-rotY,rotX,0f);
         mainTransform.localRotation = Quaternion.Euler(0f,0f,-rotX * .1f * leanFactor);
+        
+        CheckLookingBack();
 
-        #if UNITY_EDITOR
-            Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
-        #endif
+        // Interaction Debug
+        { 
+            #if UNITY_EDITOR
+                Transform camTransform = cam.transform;
+                Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
+            #endif
+        }
+
+        if (Input.GetMouseButtonDown(0)) CheckForInteraction();
+    }
+
+    private void CheckForInteraction()
+    {
+        Transform camTransform = cam.transform;
         
         if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, interactionRange))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
-                if (interactable != null) interactable.Interact();
-            }
+            Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
+            if (interactable != null) interactable.Interact();
         }
+    }
+
+    private void CheckLookingBack()
+    {
+        bool rotOver = rotX > LOOK_BACK_THRESH;
+        bool prevRotOver = prevRotX > LOOK_BACK_THRESH;
+
+        if (rotOver && !prevRotOver) EventManager.instance.TriggerEvent(EventManager.CustomEvent.StartedLookingBackwards);
+        else if (!rotOver && prevRotOver) EventManager.instance.TriggerEvent(EventManager.CustomEvent.StoppedLookingBackwards);
+    }
+
+    private void TestLookingBack()
+    {
+        Debug.LogWarning("LOOKING BACK");
+    }
+
+    private void TestStopLookingBack()
+    {
+        Debug.LogWarning("STOPPED LOOKING BACK");
     }
 }
