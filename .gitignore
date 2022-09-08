@@ -63,6 +63,5 @@ crashlytics-build.properties
 
 local/
 
-ProjectY2T1/UserSettings/Layouts/default-2021.dwlt
-*.dwlt
-UserSettings/
+
+/[Uu]ser[Ss]ettings/
