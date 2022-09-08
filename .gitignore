@@ -45,6 +45,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.dwlt
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -61,4 +62,3 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-ProjectY2T1/UserSettings/Layouts/
