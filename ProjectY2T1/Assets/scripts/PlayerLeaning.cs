@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerLeaning : MonoBehaviour
 {
-    public Transform cam;
+    Transform cam;
+    public Transform camOffset;
     float rotX;
     float rotY;
 
     [Header("Factors")]
     public float RotationSpeed = 2;
     public float LeanFactor = 1;
+
     [Header("Clamp Values")]
     public Vector2 ClampX;
     public Vector2 ClampY;
@@ -35,6 +37,7 @@ public class PlayerLeaning : MonoBehaviour
 
         //Rotate cam and empty
         cam.transform.localRotation = Quaternion.Euler(-rotY,rotX,0f);
-        transform.rotation = Quaternion.Euler(0f,0f,-rotX*.1f*LeanFactor);
+        camOffset.transform.localRotation = Quaternion.Euler(0f,0f,rotX*.1f*LeanFactor);
+        transform.localRotation = Quaternion.Euler(0f,0f,-rotX*.1f*LeanFactor);
     }
 }
