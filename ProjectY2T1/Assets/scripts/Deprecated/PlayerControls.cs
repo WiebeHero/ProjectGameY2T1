@@ -20,10 +20,6 @@ public class PlayerControls : MonoBehaviour
 		this.yaw = this.transform.localEulerAngles.y;
 		this.pitch = this.transform.localEulerAngles.x;
 
-		this.maxHorizontal = this.yaw + maxHorizontalLookAngle / 2;
-		this.minHorizontal = this.yaw - maxHorizontalLookAngle / 2;
-		this.maxVertical = this.pitch + maxVerticalLookAngle / 2;
-		this.minVertical = this.pitch - maxVerticalLookAngle / 2;
 		Cursor.lockState = CursorLockMode.Locked; 
 	}
 		
