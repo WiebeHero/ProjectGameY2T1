@@ -23,9 +23,11 @@ public class CameraControl : MonoBehaviour
 
     [Header("Phone")] 
     [SerializeField] private float targetZoom;
-    private const int ZOOM_SPEED = 2;
+    private const int ZOOM_IN_SPEED = 2;
+    private const int ZOOM_OUT_SPEED = 3;
     private bool lookingAtPhone;
-    private bool zooming;
+    private bool zoomingOut;
+    private bool zoomingIn;
 
     //Camera
     private Camera cam;
@@ -53,9 +55,6 @@ public class CameraControl : MonoBehaviour
         rotY = Mathf.Clamp(rotY, clampY.x, clampY.y);
         
         //Rotate cam and empty
-        // cam.transform.localRotation = Quaternion.Euler(-rotY,rotX,0f);
-        // camOffset.transform.localRotation = Quaternion.Euler(0f,0f,rotX*.1f*leanFactor);
-        // transform.localRotation = Quaternion.Euler(0f,0f,-rotX*.1f*leanFactor);
         cam.transform.localRotation = Quaternion.Euler(-rotY,rotX,0f);
         camOffset.transform.localPosition = new Vector3(rotX/clampX.y*leanFactor,1.561f,0f);
         
@@ -67,15 +66,25 @@ public class CameraControl : MonoBehaviour
     {
         if (lookingAtPhone)
         {
-            if (zooming)
+            if (zoomingIn)
             {
-                if (cam.fieldOfView > targetZoom && cam.fieldOfView - ZOOM_SPEED >= targetZoom)
-                    cam.fieldOfView -= ZOOM_SPEED;
+                if (cam.fieldOfView > targetZoom && cam.fieldOfView - ZOOM_IN_SPEED >= targetZoom)
+                    cam.fieldOfView -= ZOOM_IN_SPEED;
                 else
                 {
                     cam.fieldOfView = targetZoom;
-                    zooming = false;
+                    zoomingIn = false;
                 }
+            }
+        }
+        else if (zoomingOut)
+        {
+            if (cam.fieldOfView < fov && cam.fieldOfView + ZOOM_OUT_SPEED <= fov)
+                cam.fieldOfView += ZOOM_OUT_SPEED;
+            else
+            {
+                cam.fieldOfView = fov;
+                zoomingOut = false;
             }
         }
     }
@@ -98,7 +107,7 @@ public class CameraControl : MonoBehaviour
                 if (Math.Abs(cam.fieldOfView - fov) < 0.01f)
                 {
                     lookingAtPhone = true;
-                    zooming = true;
+                    zoomingIn = true;
                 }
             }
         }
@@ -106,7 +115,7 @@ public class CameraControl : MonoBehaviour
         if (!hitPhone && lookingAtPhone)
         {
             lookingAtPhone = false;
-            cam.fieldOfView = fov;
+            zoomingOut = true;
         }
 
 
