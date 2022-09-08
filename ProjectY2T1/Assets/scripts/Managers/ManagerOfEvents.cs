@@ -4,16 +4,15 @@ using UnityEngine;
 
 namespace Managers
 {
-	public class EventManager : MonoBehaviour
+	public class ManagerOfEvents : MonoBehaviour
 	{
-		
-		
 		public event Action PhoneOpenEvent;
-		public event Action TestButtonPressEvent;
 		public event Action StartedLookingBackwardsEvent;
 		public event Action StoppedLookingBackwardsEvent;
+		public event Action StartedLookingAtPhoneEvent;
+		public event Action StoppedLookingAtPhoneEvent;
 		
-		public static EventManager instance { get; private set; }
+		public static ManagerOfEvents instance { get; private set; }
 		private void Awake()
 		{
 			if (instance == null) instance = this;
@@ -24,9 +23,10 @@ namespace Managers
 		public enum CustomEvent
 		{
 			PhoneOpen,
-			TestButtonPressed,
 			StartedLookingBackwards,
 			StoppedLookingBackwards,
+			StartedLookingAtPhone,
+			StoppedLookingAtPhone
 		}
 		
 		public void TriggerEvent(CustomEvent customEventName)
@@ -36,14 +36,17 @@ namespace Managers
 				case CustomEvent.PhoneOpen:
 					PhoneOpenEvent?.Invoke();
 					break;
-				case CustomEvent.TestButtonPressed:
-					TestButtonPressEvent?.Invoke();
-					break;
 				case CustomEvent.StartedLookingBackwards:
 					StartedLookingBackwardsEvent?.Invoke();
 					break;
 				case CustomEvent.StoppedLookingBackwards:
 					StoppedLookingBackwardsEvent?.Invoke();
+					break;
+				case CustomEvent.StartedLookingAtPhone:
+					StartedLookingAtPhoneEvent?.Invoke();
+					break;
+				case CustomEvent.StoppedLookingAtPhone:
+					StoppedLookingAtPhoneEvent?.Invoke();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(customEventName), customEventName, null);
