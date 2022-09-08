@@ -3,14 +3,12 @@
 public class PlayerControls : MonoBehaviour
 {
 	//Mouse sensitivity, always higher than 0
-	[SerializeField] [Min(0)] private float sensitivity = 10;
-
+	[SerializeField] [Min(0)] private float sensitivity;
 	[SerializeField] private float maxHorizontalLookAngle = 120;
 	[SerializeField] private float maxVerticalLookAngle = 50f;
 	[SerializeField] private Camera firstPersonCamera;
 
 	[SerializeField] private float interactionRange = 5;
-	
 	private float yaw;
 	private float pitch;
 
@@ -19,13 +17,8 @@ public class PlayerControls : MonoBehaviour
 	
 	private void Start()
 	{
-		if (firstPersonCamera == null)
-		{
-			Debug.LogWarning("No first person camera assigned! Trying if parent is the camera.");
-			firstPersonCamera = gameObject.GetComponentInChildren<Camera>();
-			
-			if (firstPersonCamera == null) Debug.LogError("No first person camera found either!");
-		}
+		this.yaw = this.transform.localEulerAngles.y;
+		this.pitch = this.transform.localEulerAngles.x;
 
 		Cursor.lockState = CursorLockMode.Locked; 
 	}
