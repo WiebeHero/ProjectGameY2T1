@@ -38,7 +38,7 @@ public class Car : MonoBehaviour
         }
         else
         {
-            this.speedOMeter.KMH = this.speedOMeter.KMH += 0.0001F;
+            this.speedOMeter.KMH = this.speedOMeter.KMH += 0.001F;
         }
     }
 }
