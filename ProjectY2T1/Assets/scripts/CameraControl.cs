@@ -49,27 +49,21 @@ public class CameraControl : MonoBehaviour
         mainTransform.localRotation = Quaternion.Euler(0f,0f,-rotX * .1f * leanFactor);
         
         CheckLookingBack();
-
-        // Interaction Debug
-        { 
-            #if UNITY_EDITOR
-                Transform camTransform = cam.transform;
-                Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
-            #endif
-        }
-
-        if (Input.GetMouseButtonDown(0)) CheckForInteraction();
+        CheckForInteraction();
     }
 
     private void CheckForInteraction()
     {
         Transform camTransform = cam.transform;
-        
+
         if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, interactionRange))
-        {
-            Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
-            if (interactable != null) interactable.Interact();
-        }
+            if (Input.GetMouseButtonDown(0))
+                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.Interact();
+        
+        
+        #if UNITY_EDITOR
+        Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
+        #endif
     }
 
     private void CheckLookingBack()
