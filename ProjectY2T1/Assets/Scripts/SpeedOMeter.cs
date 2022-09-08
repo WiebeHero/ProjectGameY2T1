@@ -49,7 +49,7 @@ public class SpeedOMeter : MonoBehaviour
         set
         {
             this.speedPerHour = value;
-            Scenes.MovingTerrain.Speed = value;
+            MovingTerrainManager.Speed = value;
         }
     }
 
