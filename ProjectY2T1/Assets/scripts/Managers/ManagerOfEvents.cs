@@ -6,7 +6,6 @@ namespace Managers
 {
 	public class ManagerOfEvents : MonoBehaviour
 	{
-		public event Action PhoneOpenEvent;
 		public event Action StartedLookingBackwardsEvent;
 		public event Action StoppedLookingBackwardsEvent;
 		public event Action StartedLookingAtPhoneEvent;
@@ -22,7 +21,6 @@ namespace Managers
 		
 		public enum CustomEvent
 		{
-			PhoneOpen,
 			StartedLookingBackwards,
 			StoppedLookingBackwards,
 			StartedLookingAtPhone,
@@ -33,9 +31,6 @@ namespace Managers
 		{
 			switch (customEventName)
 			{
-				case CustomEvent.PhoneOpen:
-					PhoneOpenEvent?.Invoke();
-					break;
 				case CustomEvent.StartedLookingBackwards:
 					StartedLookingBackwardsEvent?.Invoke();
 					break;
