@@ -9,13 +9,12 @@ public class PhoneScript : MonoBehaviour
 	{
 		notification = transform.Find("Notification").gameObject;
 
-		ManagerOfEvents.instance.StartedLookingBackwardsEvent += ShowNotification;
-		ManagerOfEvents.instance.StoppedLookingAtPhoneEvent += HideNotification;
+		ManagerOfEvents.StartedLookingBackwardsEvent += ShowNotification;
+		ManagerOfEvents.StoppedLookingAtPhoneEvent += HideNotification;
 	}
 
 	private void ShowNotification()
 	{
-		Debug.Log("jawel");
 		//Play notification sound here
 		notification.SetActive(true);	
 	} 

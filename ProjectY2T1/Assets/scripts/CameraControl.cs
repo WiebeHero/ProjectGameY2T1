@@ -1,4 +1,5 @@
 using System;
+using Deprecated;
 using Managers;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
@@ -64,7 +65,6 @@ public class CameraControl : MonoBehaviour
         CheckLookingBack();
         CheckForInteraction();
     }
-    
 
     private void FixedUpdate()
     {
@@ -98,7 +98,10 @@ public class CameraControl : MonoBehaviour
 
         bool hitPhone = false;
         
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, interactionRange))
+        if (Physics.Raycast
+                (camTransform.position, camTransform.forward, 
+                    out RaycastHit hit, interactionRange)
+            )
         {
             if (Input.GetMouseButtonDown(0)) 
                 hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.Interact();
@@ -108,7 +111,9 @@ public class CameraControl : MonoBehaviour
                 hitPhone = true;
                 if (Math.Abs(cam.fieldOfView - fov) < 0.01f)
                 {
-                    ManagerOfEvents.instance.TriggerEvent(ManagerOfEvents.CustomEvent.StartedLookingAtPhone);
+                    ManagerOfEvents.TriggerEvent
+                        (ManagerOfEvents.CustomEvent.StartedLookingAtPhone);
+                    
                     lookingAtPhone = true;
                     zoomingIn = true;
                 }
@@ -117,12 +122,12 @@ public class CameraControl : MonoBehaviour
         
         if (!hitPhone && lookingAtPhone)
         {
-            ManagerOfEvents.instance.TriggerEvent(ManagerOfEvents.CustomEvent.StoppedLookingAtPhone);
+            ManagerOfEvents.TriggerEvent
+                (ManagerOfEvents.CustomEvent.StoppedLookingAtPhone);
             lookingAtPhone = false;
             zoomingOut = true;
         }
-
-
+        
         #if UNITY_EDITOR
         Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
         #endif
@@ -133,7 +138,12 @@ public class CameraControl : MonoBehaviour
         bool rotOver = rotX > LOOK_BACK_THRESH;
         bool prevRotOver = prevRotX > LOOK_BACK_THRESH;
 
-        if (rotOver && !prevRotOver) ManagerOfEvents.instance.TriggerEvent(ManagerOfEvents.CustomEvent.StartedLookingBackwards);
-        else if (!rotOver && prevRotOver) ManagerOfEvents.instance.TriggerEvent(ManagerOfEvents.CustomEvent.StoppedLookingBackwards);
+        if (rotOver && !prevRotOver)
+            ManagerOfEvents.TriggerEvent
+                (ManagerOfEvents.CustomEvent.StartedLookingBackwards);
+        
+        else if (!rotOver && prevRotOver) 
+            ManagerOfEvents.TriggerEvent
+                (ManagerOfEvents.CustomEvent.StoppedLookingBackwards);
     }
 }

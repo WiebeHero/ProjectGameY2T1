@@ -1,17 +1,19 @@
 using System;
 using UnityEngine;
+
 // ReSharper disable EventNeverSubscribedTo.Global
 
-namespace Managers
+namespace Deprecated
 {
-	public class ManagerOfEvents : MonoBehaviour
+	// ReSharper disable once InconsistentNaming
+	public class OLDManagerOfEvents : MonoBehaviour
 	{
 		public event Action StartedLookingBackwardsEvent;
 		public event Action StoppedLookingBackwardsEvent;
 		public event Action StartedLookingAtPhoneEvent;
 		public event Action StoppedLookingAtPhoneEvent;
 		
-		public static ManagerOfEvents instance { get; private set; }
+		public static OLDManagerOfEvents instance { get; private set; }
 		private void Awake()
 		{
 			if (instance == null) instance = this;
