@@ -1,4 +1,5 @@
 using System;
+using Deprecated;
 using Managers;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
@@ -29,13 +30,16 @@ public class CameraControl : MonoBehaviour
     private bool zoomingOut;
     private bool zoomingIn;
 
+    private bool hasNotification;
+
     //Camera
     private Camera cam;
     private float rotX;
     private float rotY;
     private float prevRotX;
-    private const float LOOK_BACK_THRESH = 80f;
+    private const float LOOK_BACK_THRESH = 100f;
 
+    
 
 
     private void Start()
@@ -64,25 +68,24 @@ public class CameraControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (lookingAtPhone)
+        if (lookingAtPhone && zoomingIn)
         {
-            if (zoomingIn)
-            {
-                if (cam.fieldOfView > targetZoom && cam.fieldOfView - ZOOM_IN_SPEED >= targetZoom)
-                    cam.fieldOfView -= ZOOM_IN_SPEED;
-                else
-                {
-                    cam.fieldOfView = targetZoom;
-                    zoomingIn = false;
-                }
+
+            if (cam.fieldOfView > targetZoom && cam.fieldOfView - ZOOM_IN_SPEED >= targetZoom)
+                cam.fieldOfView -= ZOOM_IN_SPEED;
+
+            else {
+                cam.fieldOfView = targetZoom;
+                zoomingIn = false;
             }
+
         }
         else if (zoomingOut)
         {
             if (cam.fieldOfView < fov && cam.fieldOfView + ZOOM_OUT_SPEED <= fov)
                 cam.fieldOfView += ZOOM_OUT_SPEED;
-            else
-            {
+            
+            else {
                 cam.fieldOfView = fov;
                 zoomingOut = false;
             }
@@ -95,17 +98,22 @@ public class CameraControl : MonoBehaviour
 
         bool hitPhone = false;
         
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, interactionRange))
+        if (Physics.Raycast
+                (camTransform.position, camTransform.forward, 
+                    out RaycastHit hit, interactionRange)
+            )
         {
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonDown(0)) 
                 hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.Interact();
-            }
-            
+
             if (hit.collider.gameObject.name == "phone")
             {
                 hitPhone = true;
                 if (Math.Abs(cam.fieldOfView - fov) < 0.01f)
                 {
+                    EventHub.TriggerEvent
+                        (EventHub.CustomEvent.StartedLookingAtPhone);
+                    
                     lookingAtPhone = true;
                     zoomingIn = true;
                 }
@@ -114,11 +122,12 @@ public class CameraControl : MonoBehaviour
         
         if (!hitPhone && lookingAtPhone)
         {
+            EventHub.TriggerEvent
+                (EventHub.CustomEvent.StoppedLookingAtPhone);
             lookingAtPhone = false;
             zoomingOut = true;
         }
-
-
+        
         #if UNITY_EDITOR
         Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
         #endif
@@ -129,7 +138,12 @@ public class CameraControl : MonoBehaviour
         bool rotOver = rotX > LOOK_BACK_THRESH;
         bool prevRotOver = prevRotX > LOOK_BACK_THRESH;
 
-        if (rotOver && !prevRotOver) ManagerOfEvents.instance.TriggerEvent(ManagerOfEvents.CustomEvent.StartedLookingBackwards);
-        else if (!rotOver && prevRotOver) ManagerOfEvents.instance.TriggerEvent(ManagerOfEvents.CustomEvent.StoppedLookingBackwards);
+        if (rotOver && !prevRotOver)
+            EventHub.TriggerEvent
+                (EventHub.CustomEvent.StartedLookingBackwards);
+        
+        else if (!rotOver && prevRotOver) 
+            EventHub.TriggerEvent
+                (EventHub.CustomEvent.StoppedLookingBackwards);
     }
 }
