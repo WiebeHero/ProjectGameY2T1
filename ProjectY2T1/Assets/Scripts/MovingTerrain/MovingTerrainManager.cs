@@ -7,38 +7,27 @@ public class MovingTerrainManager : MonoBehaviour
 
     private static float speed;
     private bool addRoad;
-    private long timer;
 
     [SerializeField]
     private Vector3 moveDirection;
-    [SerializeField]
-    private GameObject roadWithSign;
         
 
     void Start()
     {
-        this.timer = System.DateTimeOffset.Now.ToUnixTimeMilliseconds() + 15000L;
         this.queue = new List<GameObject>();
         this.queue.AddRange(GameObject.FindGameObjectsWithTag("Road"));
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         for (int i = 0; i < this.queue.Count; i++)
         {
-            GameObject gameObject = this.queue[i];
-            MovingTerrain terrain = gameObject.GetComponent<MovingTerrain>();
-            if (terrain != null)
-            {
-                gameObject.transform.position += moveDirection * speed;
-            }
-            MovingTerrainTemp terrainTemp = gameObject.GetComponent<MovingTerrainTemp>();
+            MovingTerrain terrainTemp = this.queue[i].GetComponent<MovingTerrain>();
             if (terrainTemp != null)
             {
-                if (terrainTemp.IsDisabled)
+                if (!terrainTemp.IsDisabled)
                 {
-                    gameObject.transform.position += moveDirection * speed;
+                    this.queue[i].transform.position += moveDirection * speed;
                 }
             }
         }
