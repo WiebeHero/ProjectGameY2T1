@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
+using static Managers.EventHub.CustomEvent;
 
 // ReSharper disable EventNeverSubscribedTo.Global
 
 namespace Managers
 {
-	public static class ManagerOfEvents 
+	public static class EventHub 
 	{
 		public static event Action StartedLookingBackwardsEvent;
 		public static event Action StoppedLookingBackwardsEvent;
 		public static event Action StartedLookingAtPhoneEvent;
 		public static event Action StoppedLookingAtPhoneEvent;
 
-		public static readonly Dictionary<CustomEvent, int> EventTriggerCount = new();
-
 		private static bool initialized;
 
 		public enum CustomEvent
 		{
-			StartedLookingBackwards,
+			StartedLookingBackwards, 
 			StoppedLookingBackwards,
 			StartedLookingAtPhone,
 			StoppedLookingAtPhone
@@ -26,30 +24,23 @@ namespace Managers
 		
 		public static void TriggerEvent(CustomEvent customEventName)
 		{
-			if (!initialized)
-			{
-				foreach (CustomEvent customEvent in Enum.GetValues(typeof(CustomEvent))) 
-					EventTriggerCount.Add(customEvent, 0);
-				initialized = true;
-			}
-			
 			switch (customEventName)
 			{
-				case CustomEvent.StartedLookingBackwards:
-					EventTriggerCount[CustomEvent.StartedLookingBackwards]++;
+				case StartedLookingBackwards:
 					StartedLookingBackwardsEvent?.Invoke();
+					InteractionTracker.it.RecordEvent(StartedLookingBackwards);
 					break;
-				case CustomEvent.StoppedLookingBackwards:
-					EventTriggerCount[CustomEvent.StoppedLookingBackwards]++;
+				case StoppedLookingBackwards:
 					StoppedLookingBackwardsEvent?.Invoke();
+					InteractionTracker.it.RecordEvent(StoppedLookingBackwards);
 					break;
-				case CustomEvent.StartedLookingAtPhone:
-					EventTriggerCount[CustomEvent.StartedLookingAtPhone]++;
+				case StartedLookingAtPhone:
 					StartedLookingAtPhoneEvent?.Invoke();
+					InteractionTracker.it.RecordEvent(StartedLookingAtPhone);
 					break;
-				case CustomEvent.StoppedLookingAtPhone:
-					EventTriggerCount[CustomEvent.StoppedLookingAtPhone]++;
+				case StoppedLookingAtPhone:
 					StoppedLookingAtPhoneEvent?.Invoke();
+					InteractionTracker.it.RecordEvent(StoppedLookingAtPhone);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(customEventName), customEventName, null);

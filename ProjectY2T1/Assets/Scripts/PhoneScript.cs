@@ -9,8 +9,8 @@ public class PhoneScript : MonoBehaviour
 	{
 		notification = transform.Find("Notification").gameObject;
 
-		ManagerOfEvents.StartedLookingBackwardsEvent += ShowNotification;
-		ManagerOfEvents.StoppedLookingAtPhoneEvent += HideNotification;
+		EventHub.StartedLookingBackwardsEvent += ShowNotification;
+		EventHub.StoppedLookingAtPhoneEvent += HideNotification;
 	}
 
 	private void ShowNotification()

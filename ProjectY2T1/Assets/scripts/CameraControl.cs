@@ -111,8 +111,8 @@ public class CameraControl : MonoBehaviour
                 hitPhone = true;
                 if (Math.Abs(cam.fieldOfView - fov) < 0.01f)
                 {
-                    ManagerOfEvents.TriggerEvent
-                        (ManagerOfEvents.CustomEvent.StartedLookingAtPhone);
+                    EventHub.TriggerEvent
+                        (EventHub.CustomEvent.StartedLookingAtPhone);
                     
                     lookingAtPhone = true;
                     zoomingIn = true;
@@ -122,8 +122,8 @@ public class CameraControl : MonoBehaviour
         
         if (!hitPhone && lookingAtPhone)
         {
-            ManagerOfEvents.TriggerEvent
-                (ManagerOfEvents.CustomEvent.StoppedLookingAtPhone);
+            EventHub.TriggerEvent
+                (EventHub.CustomEvent.StoppedLookingAtPhone);
             lookingAtPhone = false;
             zoomingOut = true;
         }
@@ -139,11 +139,11 @@ public class CameraControl : MonoBehaviour
         bool prevRotOver = prevRotX > LOOK_BACK_THRESH;
 
         if (rotOver && !prevRotOver)
-            ManagerOfEvents.TriggerEvent
-                (ManagerOfEvents.CustomEvent.StartedLookingBackwards);
+            EventHub.TriggerEvent
+                (EventHub.CustomEvent.StartedLookingBackwards);
         
         else if (!rotOver && prevRotOver) 
-            ManagerOfEvents.TriggerEvent
-                (ManagerOfEvents.CustomEvent.StoppedLookingBackwards);
+            EventHub.TriggerEvent
+                (EventHub.CustomEvent.StoppedLookingBackwards);
     }
 }

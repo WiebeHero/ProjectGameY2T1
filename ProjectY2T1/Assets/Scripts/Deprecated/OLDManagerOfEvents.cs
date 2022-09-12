@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Deprecated
 {
 	// ReSharper disable once InconsistentNaming
+	[Obsolete]
 	public class OLDManagerOfEvents : MonoBehaviour
 	{
 		public event Action StartedLookingBackwardsEvent;
@@ -20,7 +21,7 @@ namespace Deprecated
 			else Destroy(gameObject);
 		}
 
-		
+		[Obsolete]
 		public enum CustomEvent
 		{
 			StartedLookingBackwards,
