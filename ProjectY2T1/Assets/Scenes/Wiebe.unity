@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4978.8105, g: 4955.3867, b: 6699.25, a: 1}
+  m_IndirectSpecularColor: {r: 4980.834, g: 4958.1562, b: 6705.703, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -510,12 +510,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 174974353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 517dd67039518c6428dd36df58b0e572, type: 3}
+  m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   god: {fileID: 1965182597}
   road: {fileID: 2138538353}
-  manager: {fileID: 0}
+  settingType: 0
+  timeToSpawn: 0
+  spawnAfterTile: 0
+  removeOnDespawn: 0
+  disabled: 0
+  added: 0
 --- !u!1001 &193509339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -647,12 +653,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1965182600}
   god: {fileID: 1965182597}
   road: {fileID: 436912109}
-  manager: {fileID: 1965182600}
-  timeToSpawn: 15000
+  settingType: 1
+  timeToSpawn: 10000
+  spawnAfterTile: 0
   removeOnDespawn: 1
   disabled: 1
+  added: 0
 --- !u!4 &333944387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1694797981305002626, guid: 0f6c1e7cae9d94d45b85235c4373bbc2,
@@ -1445,12 +1454,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1118421390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 517dd67039518c6428dd36df58b0e572, type: 3}
+  m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1965182600}
   god: {fileID: 1965182597}
   road: {fileID: 1168332232}
-  manager: {fileID: 0}
+  settingType: 0
+  timeToSpawn: 0
+  spawnAfterTile: 0
+  removeOnDespawn: 0
+  disabled: 0
+  added: 0
 --- !u!1 &1168332232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 46bd3a0ca06f76c4e9fb69bd2275618a,
@@ -1974,12 +1989,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1607625511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 517dd67039518c6428dd36df58b0e572, type: 3}
+  m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   god: {fileID: 1965182597}
   road: {fileID: 96322575}
-  manager: {fileID: 0}
+  settingType: 0
+  timeToSpawn: 0
+  spawnAfterTile: 0
+  removeOnDespawn: 0
+  disabled: 0
+  added: 0
 --- !u!4 &1620702433 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4209018105610702, guid: ef140beec582a5a46a6362fcfc31784d,
