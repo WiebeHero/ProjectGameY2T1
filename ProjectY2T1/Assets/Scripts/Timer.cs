@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class Timer : MonoBehaviour
 {
 	[Tooltip("Duration of timer in seconds")]
@@ -10,7 +11,13 @@ public class Timer : MonoBehaviour
 	
 	public event Action Finished;
 
+	public Timer(int duration_)
+	{
+		duration = duration_;
+	}
+	
 	public void Run() => StartCoroutine(Time());
+	
 	private IEnumerator Time()
 	{
 		yield return new WaitForSeconds(duration);
