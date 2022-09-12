@@ -5,15 +5,12 @@ using static Managers.EventHub;
 
 namespace Managers
 {
-	public class InteractionTracker : MonoBehaviour
+	public class EventTracker : MonoBehaviour
 	{
-		public static InteractionTracker it;
+		public static EventTracker it;
 		
 		[NonSerialized] public string interactionSequence = "";
 		[NonSerialized] public readonly Dictionary<CustomEvent, int> eventCount = new();
-
-
-		[SerializeField] public Timer testTimer;
 
 		public void Awake()
 		{
