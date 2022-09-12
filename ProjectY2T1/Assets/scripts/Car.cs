@@ -1,4 +1,4 @@
-using Scenes;
+
 using UnityEngine;
 
 public class Car : MonoBehaviour
@@ -18,6 +18,6 @@ public class Car : MonoBehaviour
     private void FixedUpdate()
     {
         speed += 1f;
-        MovingTerrain.Speed = speed;
+        MovingTerrainManager.Speed = speed;
     }
 }

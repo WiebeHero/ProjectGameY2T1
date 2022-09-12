@@ -1,5 +1,4 @@
 ﻿using System;
-using Scenes;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
@@ -37,7 +36,7 @@ public class CarCrash : MonoBehaviour
 		
 		
 		Cursor.lockState = CursorLockMode.Confined;
-		MovingTerrain.Speed = 0;
+		MovingTerrainManager.Speed = 0;
 	}
 
 
