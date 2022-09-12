@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingTerrainTemp : MovingTerrain
 {
-    [SerializeField]
-    private long timeToSpawn;
+    public long timeToSpawn;
     [SerializeField]
     private bool removeOnDespawn, disabled;
+
+    public SpawnType spawnType;
 
     private bool added;
 
@@ -73,6 +75,16 @@ public class MovingTerrainTemp : MovingTerrain
                 }
             }
         }
+    }
+    public enum SpawnType
+    {
+        Timer,
+        Spawn_After_Tiles_Passed
+    }
+
+    public SpawnType GetSpawnType()
+    {
+        return this.spawnType;
     }
 
     public bool IsDisabled
