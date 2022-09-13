@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Deprecated
 {
     [Obsolete]
-    public class SpeedOMeter : MonoBehaviour
+    public sealed class SpeedOMeter : MonoBehaviour
     {
         [SerializeField]
         private GameObject carObject;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
-public class CarCrash : MonoBehaviour
+public sealed class CarCrash : MonoBehaviour
 {
 	[SerializeField] private Car car;
 	[SerializeField] private GameObject grandmaButtonObject;

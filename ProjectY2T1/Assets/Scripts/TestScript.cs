@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TestScript : MonoBehaviour
+public sealed class TestScript : MonoBehaviour
 {
 	[SerializeField] private CarCrash carCrash;
 	

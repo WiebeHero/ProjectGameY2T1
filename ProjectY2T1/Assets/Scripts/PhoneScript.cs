@@ -1,7 +1,7 @@
 ﻿using Managers;
 using UnityEngine;
 
-public class PhoneScript : MonoBehaviour
+public sealed class PhoneScript : MonoBehaviour
 {
 	private GameObject notification;
 	

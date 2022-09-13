@@ -2,7 +2,7 @@
 using TerrainMovement;
 using UnityEngine;
 
-public class Car : MonoBehaviour
+public sealed class Car : MonoBehaviour
 {
     [SerializeField]
     private GameObject speedometerDial;

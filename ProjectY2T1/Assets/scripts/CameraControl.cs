@@ -1,10 +1,9 @@
 using System;
-using Deprecated;
 using Managers;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
 
-public class CameraControl : MonoBehaviour
+public sealed class CameraControl : MonoBehaviour
 {
     [SerializeField] private Transform camOffset;
 

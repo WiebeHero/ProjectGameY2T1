@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TerrainMovement
 {
-    public class MovingTerrain : MonoBehaviour
+    public sealed class MovingTerrain : MonoBehaviour
     {
         [SerializeField] private MovingTerrainManager manager;
         [SerializeField] private SettingType settingType;

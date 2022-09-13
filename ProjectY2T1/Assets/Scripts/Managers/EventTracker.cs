@@ -5,7 +5,7 @@ using static Managers.EventHub;
 
 namespace Managers
 {
-	public class EventTracker : MonoBehaviour
+	public sealed class EventTracker : MonoBehaviour
 	{
 		public static EventTracker it;
 		
