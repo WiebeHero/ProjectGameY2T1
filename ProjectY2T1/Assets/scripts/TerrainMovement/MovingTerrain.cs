@@ -39,7 +39,7 @@ namespace TerrainMovement
                     throw new ArgumentOutOfRangeException();
             }
         }
-
+        
         public void FixedUpdate()
         {
             if (added || DateTimeOffset.Now.ToUnixTimeMilliseconds()
@@ -60,12 +60,11 @@ namespace TerrainMovement
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Car")) return; //Prevent collision with self
-            
+
             if (manager.Roads.Contains(gameObject))
             {
                 List<GameObject> roads = manager.Roads;
                 int roadCount = roads.Count; 
-
                 if (removeOnDespawn)
                 {
                     GameObject thisObject = gameObject;

@@ -61,7 +61,7 @@ public sealed class CarCrash : MonoBehaviour
 		
 		parentObject.SetActive(true);		
 		Cursor.lockState = CursorLockMode.Confined;
-		MovingTerrainManager.Speed = 0;
+		MovingTerrainManager.Speed = 0.01f;
 	}
 	
 	private void OnChooseGrandma()
