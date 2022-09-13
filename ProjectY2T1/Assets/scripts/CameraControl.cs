@@ -1,6 +1,7 @@
 using System;
+using DG.Tweening;
 using Managers;
-using UnityEditor;
+using Unity.Mathematics;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
 
@@ -43,6 +44,21 @@ public sealed class CameraControl : MonoBehaviour
 
     public static void SetActive(bool newState) => active = newState;
 
+
+    private static bool panning;
+    //private Vector3 targetRotation;
+    //private float panDuration;
+    public bool DonePanning() => !panning;
+
+    public void PanTowards(Vector3 targetRotation, float duration)
+    {
+        // panning = true;
+        // targetRotation = targetRotation_;
+        // panDuration = duration_;
+        camOffset.transform.DOLocalMoveX(0, duration);
+        cam.transform.DORotate(targetRotation,duration).onComplete += () => panning = false;
+
+    }
     
     private void Start()
     {
@@ -53,8 +69,10 @@ public sealed class CameraControl : MonoBehaviour
     
     private void Update()
     {
+        CheckForInteraction();
+
         if (!active) return;
-        
+
         prevRotX = rotX;
         
         rotX += Input.GetAxis("Mouse X") * rotationSpeed;
@@ -68,14 +86,16 @@ public sealed class CameraControl : MonoBehaviour
         camOffset.transform.localPosition = new Vector3(rotX/clampX.y*leanFactor,1.561f,0f);
         
         CheckLookingBack();
-        CheckForInteraction();
+    }
+
+    private void Pan()
+    {
     }
 
     private void FixedUpdate()
     {
         if (lookingAtPhone && zoomingIn)
         {
-
             if (cam.fieldOfView > targetZoom && cam.fieldOfView - ZOOM_IN_SPEED >= targetZoom)
                 cam.fieldOfView -= ZOOM_IN_SPEED;
 
@@ -83,7 +103,6 @@ public sealed class CameraControl : MonoBehaviour
                 cam.fieldOfView = targetZoom;
                 zoomingIn = false;
             }
-
         }
         else if (zoomingOut)
         {
@@ -99,6 +118,9 @@ public sealed class CameraControl : MonoBehaviour
 
     private void CheckForInteraction()
     {
+
+        Input.GetMouseButton(0);
+        
         Transform camTransform = cam.transform;
 
         bool hitPhone = false;
