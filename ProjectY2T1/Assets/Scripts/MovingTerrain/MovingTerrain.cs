@@ -1,112 +1,100 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingTerrain : MonoBehaviour
+namespace TerrainMovement
 {
-    public MovingTerrainManager manager;
-    public GameObject god;
-    public GameObject road;
-
-    public SettingType settingType;
-    public long timeToSpawn;
-    public int spawnAfterTile;
-    public bool removeOnDespawn, disabled, added;
-
-    public void Start()
+    public sealed class MovingTerrain : MonoBehaviour
     {
-        if (this.god != null)
+        [SerializeField] private MovingTerrainManager manager;
+        [SerializeField] private SettingType settingType;
+        [SerializeField] private long timeToSpawn;
+        [SerializeField] private int spawnAfterTile;
+
+        public GameObject road;
+        public bool removeOnDespawn, disabled, added;
+
+        private MeshRenderer meshRenderer;
+
+        
+        public void Start()
         {
-            MovingTerrainManager manager = this.god.GetComponent<MovingTerrainManager>();
-            if (manager != null)
+            if (manager == null) throw new Exception("No MovingTerrainManager attached");
+            if (road == null) throw new Exception("No road is attached");
+
+            meshRenderer = road.GetComponent<MeshRenderer>();
+            if (meshRenderer == null) throw new Exception("The road doesn't have a mesh renderer");
+
+
+            switch (settingType)
             {
-                this.manager = manager;
-                if (settingType == SettingType.SpawnAfterTimePassed)
-                {
-                    timeToSpawn = System.DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeToSpawn;
-                }
+                case SettingType.None:
+                    break;
+                case SettingType.SpawnAfterTimePassed:
+                    timeToSpawn = DateTimeOffset.Now.ToUnixTimeMilliseconds() + timeToSpawn;
+                    break;
+                case SettingType.SpawnAfterTilesPassed:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
-    }
 
-    public void FixedUpdate()
-    {
-        if (!added && System.DateTimeOffset.Now.ToUnixTimeMilliseconds() >= this.timeToSpawn && timeToSpawn > 0)
+        public void FixedUpdate()
         {
+            if (added || DateTimeOffset.Now.ToUnixTimeMilliseconds()
+                < timeToSpawn || timeToSpawn <= 0) return;
+            
             added = true;
-            List<GameObject> queue = manager.Roads;
             disabled = false;
-            MeshRenderer meshRenderer = road.GetComponent<MeshRenderer>();
-            GameObject last = queue[queue.Count - 1];
-            gameObject.transform.position = last.transform.position;
-            Vector3 vector = gameObject.transform.position;
-            queue.Add(gameObject);
-            vector.x = vector.x + meshRenderer.bounds.size.x;
-            gameObject.transform.position = vector;
-        }
-    }
+            
+            List<GameObject> queue = manager.Roads;
+            Vector3 lastPosition = queue[^1].transform.position; //^1 means index from end, useful information for future
+            lastPosition.x += meshRenderer.bounds.size.x;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Car") && (gameObject.CompareTag("Road") || gameObject.CompareTag("TerrainSign")))
+            GameObject thisObject = gameObject;
+            thisObject.transform.position = lastPosition;
+            queue.Add(thisObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
         {
-            if (manager != null)
+            if (!other.gameObject.CompareTag("Car")) return; //Prevent collision with self
+            
+            if (manager.Roads.Contains(gameObject))
             {
                 List<GameObject> roads = manager.Roads;
-                int roadCount = roads.Count;
-                if (roads.Contains(gameObject))
+                int roadCount = roads.Count; 
+
+                if (removeOnDespawn)
                 {
-                    if (removeOnDespawn)
-                    {
-                        gameObject.SetActive(false);
-                        roads.Remove(gameObject);
-                    }
-                    else
-                    {
-                        roads.Remove(gameObject);
-                        MeshRenderer meshRenderer = road.GetComponent<MeshRenderer>();
-                        Vector3 vector = transform.position;
-                        vector.x = vector.x + meshRenderer.bounds.size.x * (float)roadCount;
-                        transform.position = vector;
-                        roads.Add(gameObject);
-                    }
+                    GameObject thisObject = gameObject;
+                    thisObject.SetActive(false);
+                    roads.Remove(thisObject);
+                }
+                else
+                {
+                    roads.Remove(gameObject);
+                    
+                    Vector3 vector = transform.position;
+                    
+                    #if UNITY_EDITOR
+                        Debug.Log(meshRenderer.bounds.size.x);
+                        Debug.Log(roadCount);
+                        Debug.Log(vector.x + meshRenderer.bounds.size.x * roadCount);
+                    #endif
+                    
+                    vector.x += meshRenderer.bounds.size.x * roadCount;
+                    transform.position = vector;
+                    roads.Add(gameObject);
                 }
             }
         }
-        else if (gameObject.CompareTag("CrashSequence"))
+        public enum SettingType
         {
-            if (manager != null)
-            {
-                manager.End = true;
-            }
+            None,
+            SpawnAfterTimePassed,
+            SpawnAfterTilesPassed
         }
-    }
-    public enum SettingType
-    {
-        None,
-        SpawnAfterTimePassed,
-        SpawnAfterTilesPassed
-    }
-
-    public bool IsDisabled
-    {
-        get
-        {
-            return this.disabled;
-        }
-        set
-        {
-            this.disabled = value;
-        }
-    }
-
-    public bool RemoveOnDespawn
-    {
-        get => removeOnDespawn;
-        set => this.removeOnDespawn = value;
-    }
-
-    public GameObject Road
-    {
-        get => road;
     }
 }

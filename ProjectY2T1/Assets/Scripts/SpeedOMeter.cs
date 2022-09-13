@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TerrainMovement;
 using UnityEngine;
 
 public class SpeedOMeter : MonoBehaviour

@@ -1,57 +1,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingTerrainManager : MonoBehaviour
+namespace TerrainMovement
 {
-    private List<GameObject> queue;
+    public class MovingTerrainManager : MonoBehaviour
+    {
+        private List<GameObject> queue;
 
-    private static float speed;
-    private bool end;
+        private static float speed;
+        private bool addRoad;
 
-    [SerializeField]
-    private Vector3 moveDirection;
+        [SerializeField]
+        private Vector3 moveDirection;
         
 
-    void Start()
-    {
-        queue = new List<GameObject>();
-        queue.AddRange(GameObject.FindGameObjectsWithTag("Road"));
-    }
-
-    void FixedUpdate()
-    {
-        if (!end)
+        void Start()
         {
-            Debug.Log(Roads.Count);
-            for (int i = 0; i < queue.Count; i++)
+            this.queue = new List<GameObject>();
+            this.queue.AddRange(GameObject.FindGameObjectsWithTag("Road"));
+        }
+
+        void FixedUpdate()
+        {
+            for (int i = 0; i < this.queue.Count; i++)
             {
-                MovingTerrain terrainTemp = queue[i].GetComponent<MovingTerrain>();
+                MovingTerrain terrainTemp = this.queue[i].GetComponent<MovingTerrain>();
                 if (terrainTemp != null)
                 {
-                    if (!terrainTemp.IsDisabled)
+                    if (!terrainTemp.disabled)
                     {
-                        queue[i].transform.position += moveDirection * speed;
+                        this.queue[i].transform.position += moveDirection * speed;
                     }
                 }
             }
         }
-    }
 
-    public static float Speed
-    {
-        get => speed;
-        set => speed = value;
-    }
+        public static float Speed
+        {
+            get
+            {
+                return speed;
+            }
+            set
+            {
+                speed = value;
+            }
+        }
 
-    public List<GameObject> Roads
-    {
-        get => queue;
-        set => queue = value;
-    }
-
-    public bool End
-    {
-        get => end;
-        set => end = value;
+        public List<GameObject> Roads
+        {
+            get
+            {
+                return this.queue;
+            }
+            set
+            {
+                this.queue = value;
+            }
+        }
     }
 }
