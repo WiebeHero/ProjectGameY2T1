@@ -1,7 +1,7 @@
 ﻿using Managers;
 using UnityEngine;
 
-public class PhoneScript : MonoBehaviour
+public sealed class PhoneScript : MonoBehaviour
 {
 	private GameObject notification;
 	
@@ -15,8 +15,8 @@ public class PhoneScript : MonoBehaviour
 
 	private void ShowNotification()
 	{
+		if (EventTracker.it.eventCount[EventHub.CustomEvent.StartedLookingBackwards] < 1) notification.SetActive(true);
 		//Play notification sound here
-		notification.SetActive(true);	
 	} 
 
 	private void HideNotification() => notification.SetActive(false);

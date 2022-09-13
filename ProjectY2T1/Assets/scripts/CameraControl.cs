@@ -1,11 +1,13 @@
 using System;
-using Deprecated;
+using DG.Tweening;
 using Managers;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
 
-public class CameraControl : MonoBehaviour
+public sealed class CameraControl : MonoBehaviour
 {
+    public static bool active { get; private set; }
+    
     [SerializeField] private Transform camOffset;
 
     [SerializeField] private float fov = 60f;
@@ -39,17 +41,37 @@ public class CameraControl : MonoBehaviour
     private float prevRotX;
     private const float LOOK_BACK_THRESH = 100f;
 
+    public static void SetActive(bool newState) => active = newState;
+
+
+    private static bool panning;
+    //private Vector3 targetRotation;
+    //private float panDuration;
+    public bool DonePanning() => !panning;
+
+    public void PanTowards(Vector3 targetRotation, float duration)
+    {
+        // panning = true;
+        // targetRotation = targetRotation_;
+        // panDuration = duration_;
+        camOffset.transform.DOLocalMoveX(0, duration);
+        cam.transform.DORotate(targetRotation,duration).onComplete += () => panning = false;
+
+    }
     
-
-
     private void Start()
     {
+        active = true;
         cam = transform.GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
     }
     
     private void Update()
     {
+        CheckForInteraction();
+
+        if (!active) return;
+
         prevRotX = rotX;
         
         rotX += Input.GetAxis("Mouse X") * rotationSpeed;
@@ -63,14 +85,16 @@ public class CameraControl : MonoBehaviour
         camOffset.transform.localPosition = new Vector3(rotX/clampX.y*leanFactor,1.561f,0f);
         
         CheckLookingBack();
-        CheckForInteraction();
+    }
+
+    private void Pan()
+    {
     }
 
     private void FixedUpdate()
     {
         if (lookingAtPhone && zoomingIn)
         {
-
             if (cam.fieldOfView > targetZoom && cam.fieldOfView - ZOOM_IN_SPEED >= targetZoom)
                 cam.fieldOfView -= ZOOM_IN_SPEED;
 
@@ -78,7 +102,6 @@ public class CameraControl : MonoBehaviour
                 cam.fieldOfView = targetZoom;
                 zoomingIn = false;
             }
-
         }
         else if (zoomingOut)
         {
@@ -94,6 +117,9 @@ public class CameraControl : MonoBehaviour
 
     private void CheckForInteraction()
     {
+
+        Input.GetMouseButton(0);
+        
         Transform camTransform = cam.transform;
 
         bool hitPhone = false;
@@ -104,7 +130,9 @@ public class CameraControl : MonoBehaviour
             )
         {
             if (Input.GetMouseButtonDown(0)) 
-                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.Interact();
+                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeft();
+            if (Input.GetMouseButton(0)) 
+                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeftHold();
 
             if (hit.collider.gameObject.name == "phone")
             {
