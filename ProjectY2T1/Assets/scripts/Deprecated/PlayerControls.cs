@@ -51,7 +51,7 @@ public class PlayerControls : MonoBehaviour
 		if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, interactionRange))
 		{
 			Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
-			if (interactable != null) interactable.Interact();
+			if (interactable != null) interactable.OnLeft();
 		}
 	}
 }

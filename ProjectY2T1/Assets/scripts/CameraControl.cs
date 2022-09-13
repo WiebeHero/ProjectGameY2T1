@@ -109,7 +109,9 @@ public sealed class CameraControl : MonoBehaviour
             )
         {
             if (Input.GetMouseButtonDown(0)) 
-                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.Interact();
+                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeft();
+            if (Input.GetMouseButton(0)) 
+                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeftHold();
 
             if (hit.collider.gameObject.name == "phone")
             {

@@ -5,11 +5,17 @@ namespace Interactable
 {
 	public abstract class Interactable : MonoBehaviour
 	{
-		public event Action InteractEvent;
-		protected Interactable() => InteractEvent += OnInteract;
+		public event Action LeftClick, LeftClickHold;
+		protected Interactable()
+		{
+			LeftClick += OnLeftClick;
+			LeftClickHold += OnLeftClickHold;
+		}
 
-		public void Interact() => InteractEvent?.Invoke();
+		public void OnLeft() => LeftClick?.Invoke();
+		public void OnLeftHold() => LeftClickHold?.Invoke();
 
-		protected abstract void OnInteract();
+		protected abstract void OnLeftClick();
+		protected abstract void OnLeftClickHold();
 	}
 }
