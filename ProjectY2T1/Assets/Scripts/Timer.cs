@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class Timer : MonoBehaviour
+public sealed class Timer : MonoBehaviour
 {
 	[Tooltip("Duration of timer in seconds")]
 	[SerializeField] 
