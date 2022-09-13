@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using TerrainMovement;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using Cursor = UnityEngine.Cursor;
@@ -7,17 +9,25 @@ using Cursor = UnityEngine.Cursor;
 public sealed class CarCrash : MonoBehaviour
 {
 	[SerializeField] private Car car;
+	
+	[Header("Panning towards windshield")]
+	[SerializeField] private CameraControl cameraControl;
+	[SerializeField] private float panDuration;
+	[SerializeField] private Vector3 panTarget;
+
+	[Header("Choice buttons")]
 	[SerializeField] private GameObject grandmaButtonObject;
 	[SerializeField] private GameObject childButtonObject;
 
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
-	
+
 
 	private void Start()
 	{
 		if (car == null) throw new Exception("Car crash script has no car attached");
+		if (cameraControl == null) throw new Exception("Car crash script has no camera control attached");
 		if (grandmaButtonObject == null) throw new Exception("Grandma button object has not been attached");
 		if (childButtonObject == null) throw new Exception("Child button object has not been attached");
 
@@ -41,9 +51,15 @@ public sealed class CarCrash : MonoBehaviour
 		childButton.onClick.AddListener(OnChooseChild);
 	}
 	
-	public void Initiate()
+	public void Run() => StartCoroutine(Crash());
+	
+	private IEnumerator Crash()
 	{
+		//Wait for the camera to pan towards the windshield
 		CameraControl.SetActive(false);
+		cameraControl.PanTowards(panTarget, panDuration);
+		yield return new WaitUntil(cameraControl.DonePanning);
+		
 		parentObject.SetActive(true);		
 		Cursor.lockState = CursorLockMode.Confined;
 		MovingTerrainManager.Speed = 0;

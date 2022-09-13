@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2183.4492, g: 2351.6504, b: 3601.0469, a: 1}
+  m_IndirectSpecularColor: {r: 2158.1338, g: 2261.9023, b: 3284.0312, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3022,6 +3022,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 951583418}
+  cameraControl: {fileID: 1495390191}
+  panDuration: 0.5
+  panTarget: {x: 0, y: 90, z: 0}
   grandmaButtonObject: {fileID: 2033693426}
   childButtonObject: {fileID: 62773660}
 --- !u!1001 &722121837
@@ -5298,6 +5301,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 215808883}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1495390191 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1694797981305002627, guid: 0f6c1e7cae9d94d45b85235c4373bbc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 215808883}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f604f56149e7be4a8a7e4176600f7f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1495672120
 PrefabInstance:
   m_ObjectHideFlags: 0
