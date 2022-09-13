@@ -8,7 +8,7 @@ public sealed class TestScript : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.H))
 		{
-			carCrash.Initiate();
+			carCrash.Run();
 		}
 	}
 }
