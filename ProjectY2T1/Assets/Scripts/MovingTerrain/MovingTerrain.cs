@@ -47,7 +47,7 @@ public class MovingTerrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Car"))
+        if (other.gameObject.CompareTag("Car") && (gameObject.CompareTag("Road") || gameObject.CompareTag("TerrainSign")))
         {
             if (manager != null)
             {
@@ -65,14 +65,18 @@ public class MovingTerrain : MonoBehaviour
                         roads.Remove(gameObject);
                         MeshRenderer meshRenderer = road.GetComponent<MeshRenderer>();
                         Vector3 vector = transform.position;
-                        Debug.Log(meshRenderer.bounds.size.x);
-                        Debug.Log(roadCount);
-                        Debug.Log(vector.x + meshRenderer.bounds.size.x * (float)roadCount);
                         vector.x = vector.x + meshRenderer.bounds.size.x * (float)roadCount;
                         transform.position = vector;
                         roads.Add(gameObject);
                     }
                 }
+            }
+        }
+        else if (gameObject.CompareTag("CrashSequence"))
+        {
+            if (manager != null)
+            {
+                manager.End = true;
             }
         }
     }

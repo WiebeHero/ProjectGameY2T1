@@ -6,7 +6,7 @@ public class MovingTerrainManager : MonoBehaviour
     private List<GameObject> queue;
 
     private static float speed;
-    private bool addRoad;
+    private bool end;
 
     [SerializeField]
     private Vector3 moveDirection;
@@ -14,20 +14,24 @@ public class MovingTerrainManager : MonoBehaviour
 
     void Start()
     {
-        this.queue = new List<GameObject>();
-        this.queue.AddRange(GameObject.FindGameObjectsWithTag("Road"));
+        queue = new List<GameObject>();
+        queue.AddRange(GameObject.FindGameObjectsWithTag("Road"));
     }
 
     void FixedUpdate()
     {
-        for (int i = 0; i < this.queue.Count; i++)
+        if (!end)
         {
-            MovingTerrain terrainTemp = this.queue[i].GetComponent<MovingTerrain>();
-            if (terrainTemp != null)
+            Debug.Log(Roads.Count);
+            for (int i = 0; i < queue.Count; i++)
             {
-                if (!terrainTemp.IsDisabled)
+                MovingTerrain terrainTemp = queue[i].GetComponent<MovingTerrain>();
+                if (terrainTemp != null)
                 {
-                    this.queue[i].transform.position += moveDirection * speed;
+                    if (!terrainTemp.IsDisabled)
+                    {
+                        queue[i].transform.position += moveDirection * speed;
+                    }
                 }
             }
         }
@@ -35,25 +39,19 @@ public class MovingTerrainManager : MonoBehaviour
 
     public static float Speed
     {
-        get
-        {
-            return speed;
-        }
-        set
-        {
-            speed = value;
-        }
+        get => speed;
+        set => speed = value;
     }
 
     public List<GameObject> Roads
     {
-        get
-        {
-            return this.queue;
-        }
-        set
-        {
-            this.queue = value;
-        }
+        get => queue;
+        set => queue = value;
+    }
+
+    public bool End
+    {
+        get => end;
+        set => end = value;
     }
 }
