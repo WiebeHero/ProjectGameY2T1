@@ -26,7 +26,7 @@ namespace Deprecated
 
 			Cursor.lockState = CursorLockMode.Locked; 
 		}
-		
+
 
 		private void Update()
 		{
@@ -36,26 +36,27 @@ namespace Deprecated
 
 			if (yaw > maxHorizontalLookAngle)
 			{
-			
+
 			}
 
 			//pitch -= Input.GetAxis("Mouse Y") * sensitivity;
 			pitch -= Mathf.SmoothDamp(0, Input.GetAxis("Mouse Y") * sensitivity, ref pitchCameraVelocity, 0.01f);
 			pitch = Mathf.Clamp(pitch, -maxVerticalLookAngle - 20, maxVerticalLookAngle);
-		
+
 			firstPersonCamera.transform.localEulerAngles = new Vector3(pitch, yaw, 0);
-		
-		
+
+
 			/*
 		 * Interaction system
 		 */
 			Transform transform1 = transform;
-		
-		Debug.DrawRay(transform1.position, transform1.forward * interactionRange, Color.red);
-		if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, interactionRange))
-		{
-			Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
-			if (interactable != null) interactable.OnLeft();
+
+			Debug.DrawRay(transform1.position, transform1.forward * interactionRange, Color.red);
+			if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, interactionRange))
+			{
+				Interactable.Interactable interactable = hit.collider.gameObject.GetComponent<Interactable.Interactable>();
+				if (interactable != null) interactable.OnLeft();
+			}
 		}
 	}
 }
