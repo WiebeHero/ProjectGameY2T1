@@ -1,7 +1,7 @@
 ﻿using System;
 using TerrainMovement;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using Cursor = UnityEngine.Cursor;
 
 public sealed class CarCrash : MonoBehaviour
@@ -30,27 +30,40 @@ public sealed class CarCrash : MonoBehaviour
 		
 		
 		//Check parent object
-		parentObject = grandmaButtonObject.GetComponentInParent<GameObject>();
-		if (parentObject == null) throw new Exception("Carcrash couldn't find parent object of grandma object");
+		parentObject = grandmaButtonObject.transform.parent.gameObject;
+		if (parentObject == null) throw new Exception("Car crash couldn't find parent object of grandma object");
 
-		GameObject childObject = childButtonObject.GetComponentInParent<GameObject>();
+		GameObject childObject = childButtonObject.transform.parent.gameObject;
 		if (!parentObject.Equals(childObject)) 
 			throw new Exception("Grandma object and child object should have the same parent object");
+
+		grandmaButton.onClick.AddListener(OnChooseGrandma);
+		childButton.onClick.AddListener(OnChooseChild);
 	}
-
 	
-	
-
 	public void Initiate()
 	{
+		CameraControl.SetActive(false);
 		parentObject.SetActive(true);		
 		Cursor.lockState = CursorLockMode.Confined;
 		MovingTerrainManager.Speed = 0;
 	}
+	
+	private void OnChooseGrandma()
+	{
+		Close();
+		//Display grandma events
+	}
+	
+	private void OnChooseChild()
+	{
+		Close();
+		//Display child events
+	}
 
-
-	private void Finish()
+	private void Close()
 	{
 		parentObject.SetActive(false);
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 }

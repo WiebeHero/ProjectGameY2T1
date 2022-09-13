@@ -1,10 +1,13 @@
 using System;
 using Managers;
+using UnityEditor;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
 
 public sealed class CameraControl : MonoBehaviour
 {
+    public static bool active { get; private set; }
+    
     [SerializeField] private Transform camOffset;
 
     [SerializeField] private float fov = 60f;
@@ -38,17 +41,20 @@ public sealed class CameraControl : MonoBehaviour
     private float prevRotX;
     private const float LOOK_BACK_THRESH = 100f;
 
+    public static void SetActive(bool newState) => active = newState;
+
     
-
-
     private void Start()
     {
+        active = true;
         cam = transform.GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
     }
     
     private void Update()
     {
+        if (!active) return;
+        
         prevRotX = rotX;
         
         rotX += Input.GetAxis("Mouse X") * rotationSpeed;
