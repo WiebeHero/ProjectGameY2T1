@@ -8,7 +8,7 @@ namespace Editor
     public class MovingTerrainEditor : UnityEditor.Editor
     {
         public SerializedProperty
-            god_Prop,
+            movingTerrainManager_Prop,
             road_Prop,
             settingType_Prop,
             timeToSpawn_Prop,
@@ -16,7 +16,7 @@ namespace Editor
 
         void OnEnable()
         {
-            god_Prop = serializedObject.FindProperty("god");
+            movingTerrainManager_Prop = serializedObject.FindProperty("manager");
             road_Prop = serializedObject.FindProperty("road");
             settingType_Prop = serializedObject.FindProperty("settingType");
             timeToSpawn_Prop = serializedObject.FindProperty("timeToSpawn");
@@ -27,7 +27,7 @@ namespace Editor
         {
             serializedObject.Update();
             MovingTerrain movingTerrain = target as MovingTerrain;
-            EditorGUILayout.ObjectField(god_Prop, new GUIContent("God"));
+            EditorGUILayout.ObjectField(movingTerrainManager_Prop, new GUIContent("MovingTerrainManager"));
             EditorGUILayout.ObjectField(road_Prop, new GUIContent("Road"));
             EditorGUILayout.Toggle(new GUIContent("Disabled"),movingTerrain.disabled);
             EditorGUILayout.Toggle(new GUIContent("Remove on Move"),movingTerrain.removeOnDespawn);
