@@ -1,44 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+
+using TerrainMovement;
 using UnityEngine;
 
-public class Car : MonoBehaviour
+public sealed class Car : MonoBehaviour
 {
     [SerializeField]
-    private GameObject speedOMeterObject;
+    private GameObject speedometerDial;
     
-    private SpeedOMeter speedOMeter;
+    public float speed;
 
-    void Start()
+    private void Start()
     {
-        if (this.speedOMeterObject != null)
-        {
-            SpeedOMeter speed = this.speedOMeterObject.GetComponent<SpeedOMeter>();
-            if (speed != null)
-            {
-                this.speedOMeter = speed;
-            }
-            else
-            {
-                Debug.LogWarning("The current 'speedOMeterObject' does not contain a 'speedOMeter' script!");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("The current car script does not contain a 'speedOMeterObject' assign it!");
-        }
+        if (speedometerDial == null) Debug.LogError("No dial attached");
+        
+        speed = 1.0f;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (this.speedOMeter.KMH == 0.0F)
-        {
-            this.speedOMeter.KMH = 1.0F;
-        }
-        else
-        {
-            this.speedOMeter.KMH = this.speedOMeter.KMH += 0.001F;
-        }
+        speed += 1f;
+        MovingTerrainManager.Speed = speed;
     }
 }
