@@ -14,6 +14,8 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private float panDuration;
 	[SerializeField] private Vector3 panTarget;
 
+	[Header("Animator")] [SerializeField] private Animator animator;
+	
 	[Header("Choice buttons")]
 	[SerializeField] private GameObject grandmaButtonObject;
 	[SerializeField] private GameObject childButtonObject;
@@ -66,13 +68,15 @@ public sealed class CarCrash : MonoBehaviour
 	private void OnChooseGrandma()
 	{
 		Close();
-		//Display grandma events
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
+		animator.SetTrigger("CrashGrandma");
 	}
 	
 	private void OnChooseChild()
 	{
 		Close();
-		//Display child events
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
+		animator.SetTrigger("CrashKids");
 	}
 
 	private void Close()

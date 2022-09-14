@@ -82,8 +82,8 @@ namespace TerrainMovement
                     Vector3 vector = transform.position;
                     
                     #if UNITY_EDITOR
-                        Debug.Log(meshRenderer.bounds.size.x);
-                        Debug.Log(roadCount);
+                        Debug.Log($"MeshRendderer sizeX: {meshRenderer.bounds.size.x}");
+                        Debug.Log("Road Count: " + roadCount);
                         Debug.Log(vector.x + meshRenderer.bounds.size.x * roadCount);
                     #endif
                     

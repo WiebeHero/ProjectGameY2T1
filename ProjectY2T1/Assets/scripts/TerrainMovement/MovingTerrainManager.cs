@@ -23,17 +23,20 @@ namespace TerrainMovement
 
         void FixedUpdate()
         {
-            if (speedMode == SpeedMode.Normal)
+            switch (speedMode)
             {
-                if (speed < 4.99)
-                {
-                    speed += 0.005F;
-                }
-            }
-
-            else if (speedMode == SpeedMode.Slow)
-            {
-                speed = Mathf.MoveTowards(speed, 0.05F, 0.07F);
+                case SpeedMode.Normal:
+                    if (speed < 4.99)
+                    {
+                        speed += 0.005F;
+                    }
+                    break;
+                case SpeedMode.Slow:
+                    speed = Mathf.MoveTowards(speed, 0.05F, 0.07F);
+                    break;
+                case SpeedMode.Frozen:
+                    speed = 0.0F;
+                    break;
             }
 
             for (int i = 0; i < roads.Count; i++)
@@ -59,7 +62,8 @@ namespace TerrainMovement
         public enum SpeedMode
         {
             Normal,
-            Slow
+            Slow,
+            Frozen
         }
     }
 }

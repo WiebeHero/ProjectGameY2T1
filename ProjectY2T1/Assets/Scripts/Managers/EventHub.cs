@@ -26,6 +26,8 @@ namespace Managers
 		
 		public static void TriggerEvent(CustomEvent customEventName)
 		{
+			if (EventTracker.it == null) throw new Exception("No EventTracker in scene");
+			
 			switch (customEventName)
 			{
 				case StartedLookingBackwards:
