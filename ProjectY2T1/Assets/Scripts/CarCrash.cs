@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
+using Managers;
 using TerrainMovement;
 using UnityEngine;
 using UnityEngine.UI;
-using Cursor = UnityEngine.Cursor;
 
 public sealed class CarCrash : MonoBehaviour
 {
@@ -59,8 +59,8 @@ public sealed class CarCrash : MonoBehaviour
 		cameraControl.PanTowards(panTarget, panDuration);
 		yield return new WaitUntil(cameraControl.DonePanning);
 		
-		parentObject.SetActive(true);		
-		Cursor.lockState = CursorLockMode.Confined;
+		parentObject.SetActive(true);
+		InformationManager.cursorLockMode = CursorLockMode.Confined;
 		MovingTerrainManager.Speed = 0.01f;
 	}
 	
@@ -79,6 +79,6 @@ public sealed class CarCrash : MonoBehaviour
 	private void Close()
 	{
 		parentObject.SetActive(false);
-		Cursor.lockState = CursorLockMode.Locked;
+		InformationManager.cursorLockMode = InformationManager.prevCursorLockMode;
 	}
 }

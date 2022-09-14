@@ -63,7 +63,7 @@ public sealed class CameraControl : MonoBehaviour
     {
         active = true;
         cam = transform.GetComponentInChildren<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
+        InformationManager.cursorLockMode = CursorLockMode.Locked;
     }
     
     private void Update()
