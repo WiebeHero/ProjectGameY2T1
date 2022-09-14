@@ -41,7 +41,7 @@ namespace TerrainMovement
                     throw new ArgumentOutOfRangeException();
             }
         }
-
+        
         public void FixedUpdate()
         {
             if (added || DateTimeOffset.Now.ToUnixTimeMilliseconds()
@@ -62,13 +62,12 @@ namespace TerrainMovement
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag("Car")) return; //Prevent collision with self
+            if (!other.gameObject.CompareTag("Car")) return; //Prevent collision with self 
             
             if (manager.roads.Contains(gameObject) && (gameObject.CompareTag("Road") || gameObject.CompareTag("TerrainSign")))
             {
                 List<GameObject> roads = manager.roads;
                 int roadCount = roads.Count; 
-
                 if (removeOnDespawn)
                 {
                     GameObject thisObject = gameObject;
