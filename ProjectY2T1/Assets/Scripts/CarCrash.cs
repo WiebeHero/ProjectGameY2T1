@@ -22,6 +22,9 @@ public sealed class CarCrash : MonoBehaviour
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
+	
+	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
+	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
 
 	private void Start()
@@ -68,14 +71,14 @@ public sealed class CarCrash : MonoBehaviour
 	{
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		animator.SetTrigger("CrashGrandma");
+		animator.SetTrigger(CrashGrandma);
 	}
 	
 	private void OnChooseChild()
 	{
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		animator.SetTrigger("CrashKids");
+		animator.SetTrigger(CrashKids);
 	}
 
 	private void Close()

@@ -6,7 +6,9 @@ using Cursor = UnityEngine.Cursor;
 
 public sealed class CameraControl : MonoBehaviour
 {
-    public static bool active { get; private set; }
+
+    public static CameraControl i;
+    public static bool active;
     
     [SerializeField] private Transform camOffset;
 
@@ -57,6 +59,12 @@ public sealed class CameraControl : MonoBehaviour
         camOffset.transform.DOLocalMoveX(0, duration);
         cam.transform.DORotate(targetRotation,duration).onComplete += () => panning = false;
 
+    }
+    
+    private void Awake()
+    {
+        if (i != null && i != this) Destroy(this);
+        i = this;
     }
     
     private void Start()

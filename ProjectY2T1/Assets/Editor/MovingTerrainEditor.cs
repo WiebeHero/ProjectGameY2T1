@@ -29,7 +29,7 @@ namespace Editor
         {
             serializedObject.Update();
             MovingTerrain movingTerrain = target as MovingTerrain;
-            EditorGUILayout.ObjectField(movingTerrainManager_Prop, new GUIContent("MovingTerrainManager"));
+            //EditorGUILayout.ObjectField(movingTerrainManager_Prop, new GUIContent("MovingTerrainManager"));
             EditorGUILayout.ObjectField(road_Prop, new GUIContent("Road"));
             EditorGUILayout.ObjectField(carCrash_Prop, new GUIContent("Car Crash Script"));
             EditorGUILayout.Toggle(new GUIContent("Disabled"),movingTerrain.disabled);

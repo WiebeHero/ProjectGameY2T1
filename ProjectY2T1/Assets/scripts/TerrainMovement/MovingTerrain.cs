@@ -5,8 +5,8 @@ using UnityEngine;
 namespace TerrainMovement
 {
     public sealed class MovingTerrain : MonoBehaviour
-    {
-        [SerializeField] private MovingTerrainManager manager;
+    { 
+        private MovingTerrainManager manager;
         [SerializeField] private SettingType settingType;
         [SerializeField] private CarCrash carCrash;
         [SerializeField] private long timeToSpawn;
@@ -17,9 +17,12 @@ namespace TerrainMovement
 
         private MeshRenderer meshRenderer;
 
+        private float startMoveTime;
+
         
         public void Start()
         {
+            manager = MovingTerrainManager.i;
             if (manager == null) throw new Exception("No MovingTerrainManager attached");
             if (road == null) throw new Exception("No road is attached");
             if (carCrash == null) throw new Exception("MovingTerrain has no CarCrash script attached");
@@ -44,6 +47,7 @@ namespace TerrainMovement
         
         public void FixedUpdate()
         {
+            
             if (added || DateTimeOffset.Now.ToUnixTimeMilliseconds()
                 < timeToSpawn || timeToSpawn <= 0) return;
             
@@ -81,7 +85,7 @@ namespace TerrainMovement
                     Vector3 vector = transform.position;
                     
                     #if UNITY_EDITOR
-                        Debug.Log($"MeshRendderer sizeX: {meshRenderer.bounds.size.x}");
+                        Debug.Log($"MeshRenderer sizeX: {meshRenderer.bounds.size.x}");
                         Debug.Log("Road Count: " + roadCount);
                         Debug.Log(vector.x + meshRenderer.bounds.size.x * roadCount);
                     #endif
