@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public sealed class CarCrash : MonoBehaviour
 {
-	[SerializeField] private Car car;
 	
 	[Header("Panning towards windshield")]
 	[SerializeField] private CameraControl cameraControl;
 	[SerializeField] private float panDuration;
 	[SerializeField] private Vector3 panTarget;
 
+	[Header("Animator")] [SerializeField] private Animator animator;
+	
 	[Header("Choice buttons")]
 	[SerializeField] private GameObject grandmaButtonObject;
 	[SerializeField] private GameObject childButtonObject;
@@ -25,7 +26,6 @@ public sealed class CarCrash : MonoBehaviour
 
 	private void Start()
 	{
-		if (car == null) throw new Exception("Car crash script has no car attached");
 		if (cameraControl == null) throw new Exception("Car crash script has no camera control attached");
 		if (grandmaButtonObject == null) throw new Exception("Grandma button object has not been attached");
 		if (childButtonObject == null) throw new Exception("Child button object has not been attached");
@@ -61,19 +61,21 @@ public sealed class CarCrash : MonoBehaviour
 		
 		parentObject.SetActive(true);
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
-		MovingTerrainManager.Speed = 0.01f;
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
 	
 	private void OnChooseGrandma()
 	{
 		Close();
-		//Display grandma events
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
+		animator.SetTrigger("CrashGrandma");
 	}
 	
 	private void OnChooseChild()
 	{
 		Close();
-		//Display child events
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
+		animator.SetTrigger("CrashKids");
 	}
 
 	private void Close()

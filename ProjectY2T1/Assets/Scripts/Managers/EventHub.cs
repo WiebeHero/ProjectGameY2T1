@@ -30,6 +30,8 @@ namespace Managers
 		
 		public static void TriggerEvent(CustomEvent customEventName)
 		{
+			if (EventTracker.it == null) throw new Exception("No EventTracker in scene");
+			
 			switch (customEventName)
 			{
 				case StartedLookingBackwards:
@@ -38,7 +40,7 @@ namespace Managers
 					break;
 				case StoppedLookingBackwards:
 					StoppedLookingBackwardsEvent?.Invoke();
-					EventTracker.it.RecordEvent(StoppedLookingBackwards);
+						EventTracker.it.RecordEvent(StoppedLookingBackwards);
 					break;
 				case StartedLookingAtPhone:
 					StartedLookingAtPhoneEvent?.Invoke();

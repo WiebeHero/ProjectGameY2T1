@@ -12,8 +12,6 @@ public sealed class Car : MonoBehaviour
     private void Start()
     {
         if (speedometerDial == null) Debug.LogError("No dial attached");
-        
-        speed = 1.0f;
     }
 
     private void FixedUpdate()
