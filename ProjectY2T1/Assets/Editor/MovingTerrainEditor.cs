@@ -12,7 +12,8 @@ namespace Editor
             road_Prop,
             settingType_Prop,
             timeToSpawn_Prop,
-            spawnAfterTile_Prop;
+            spawnAfterTile_Prop,
+            carCrash_Prop;
 
         void OnEnable()
         {
@@ -21,6 +22,7 @@ namespace Editor
             settingType_Prop = serializedObject.FindProperty("settingType");
             timeToSpawn_Prop = serializedObject.FindProperty("timeToSpawn");
             spawnAfterTile_Prop = serializedObject.FindProperty("spawnAfterTile");
+            carCrash_Prop = serializedObject.FindProperty("carCrash");
         }
 
         public override void OnInspectorGUI()
@@ -29,6 +31,7 @@ namespace Editor
             MovingTerrain movingTerrain = target as MovingTerrain;
             EditorGUILayout.ObjectField(movingTerrainManager_Prop, new GUIContent("MovingTerrainManager"));
             EditorGUILayout.ObjectField(road_Prop, new GUIContent("Road"));
+            EditorGUILayout.ObjectField(carCrash_Prop, new GUIContent("Car Crash Script"));
             EditorGUILayout.Toggle(new GUIContent("Disabled"),movingTerrain.disabled);
             EditorGUILayout.Toggle(new GUIContent("Remove on Move"),movingTerrain.removeOnDespawn);
         

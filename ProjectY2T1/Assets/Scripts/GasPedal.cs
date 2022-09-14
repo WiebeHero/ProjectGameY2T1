@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TerrainMovement;
 using UnityEngine;
 
 public class GasPedal : Interactable.Interactable
 {
-    [SerializeField] private Car car;
     
     protected override void OnLeftClick()
     {
@@ -13,9 +13,9 @@ public class GasPedal : Interactable.Interactable
     
     protected override void OnLeftClickHold()
     {
-        if (car.speed > 1.0F)
+        if (MovingTerrainManager.Speed > 1.0F)
         {
-            car.speed -= 0.15F;
+            MovingTerrainManager.Speed = MovingTerrainManager.Speed - 0.15F;
         }
     }
 }

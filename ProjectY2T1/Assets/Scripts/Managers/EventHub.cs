@@ -34,7 +34,7 @@ namespace Managers
 					break;
 				case StoppedLookingBackwards:
 					StoppedLookingBackwardsEvent?.Invoke();
-					EventTracker.it.RecordEvent(StoppedLookingBackwards);
+						EventTracker.it.RecordEvent(StoppedLookingBackwards);
 					break;
 				case StartedLookingAtPhone:
 					StartedLookingAtPhoneEvent?.Invoke();

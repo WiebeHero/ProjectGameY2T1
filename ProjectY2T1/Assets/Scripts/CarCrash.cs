@@ -8,7 +8,6 @@ using Cursor = UnityEngine.Cursor;
 
 public sealed class CarCrash : MonoBehaviour
 {
-	[SerializeField] private Car car;
 	
 	[Header("Panning towards windshield")]
 	[SerializeField] private CameraControl cameraControl;
@@ -26,7 +25,6 @@ public sealed class CarCrash : MonoBehaviour
 
 	private void Start()
 	{
-		if (car == null) throw new Exception("Car crash script has no car attached");
 		if (cameraControl == null) throw new Exception("Car crash script has no camera control attached");
 		if (grandmaButtonObject == null) throw new Exception("Grandma button object has not been attached");
 		if (childButtonObject == null) throw new Exception("Child button object has not been attached");
@@ -62,7 +60,7 @@ public sealed class CarCrash : MonoBehaviour
 		
 		parentObject.SetActive(true);		
 		Cursor.lockState = CursorLockMode.Confined;
-		MovingTerrainManager.Speed = 0;
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
 	
 	private void OnChooseGrandma()

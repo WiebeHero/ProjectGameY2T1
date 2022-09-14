@@ -5,31 +5,45 @@ namespace TerrainMovement
 {
     public class MovingTerrainManager : MonoBehaviour
     {
-        private List<GameObject> queue;
-
+        public static SpeedMode speedMode;
         private static float speed;
         private bool addRoad;
 
-        [SerializeField]
-        private Vector3 moveDirection;
+        [SerializeField] private Vector3 moveDirection;
         
+        public List<GameObject> roads { get; private set; }
+
 
         void Start()
         {
-            this.queue = new List<GameObject>();
-            this.queue.AddRange(GameObject.FindGameObjectsWithTag("Road"));
+            roads = new List<GameObject>();
+            roads.AddRange(GameObject.FindGameObjectsWithTag("Road"));
+            speedMode = SpeedMode.Normal;
         }
 
         void FixedUpdate()
         {
-            for (int i = 0; i < this.queue.Count; i++)
+            if (speedMode == SpeedMode.Normal)
             {
-                MovingTerrain terrainTemp = this.queue[i].GetComponent<MovingTerrain>();
+                if (speed < 4.99)
+                {
+                    speed += 0.005F;
+                }
+            }
+
+            else if (speedMode == SpeedMode.Slow)
+            {
+                speed = Mathf.MoveTowards(speed, 0.05F, 0.07F);
+            }
+
+            for (int i = 0; i < roads.Count; i++)
+            {
+                MovingTerrain terrainTemp = roads[i].GetComponent<MovingTerrain>();
                 if (terrainTemp != null)
                 {
                     if (!terrainTemp.disabled)
                     {
-                        this.queue[i].transform.position += moveDirection * speed;
+                        roads[i].transform.position += moveDirection * speed;
                     }
                 }
             }
@@ -37,26 +51,15 @@ namespace TerrainMovement
 
         public static float Speed
         {
-            get
-            {
-                return speed;
-            }
-            set
-            {
-                speed = value;
-            }
+            set => speed = value;
+            get => speed;
         }
 
-        public List<GameObject> Roads
+
+        public enum SpeedMode
         {
-            get
-            {
-                return this.queue;
-            }
-            set
-            {
-                this.queue = value;
-            }
+            Normal,
+            Slow
         }
     }
 }
