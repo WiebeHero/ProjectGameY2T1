@@ -10,7 +10,7 @@ public sealed class PhoneScript : MonoBehaviour
 		notification = transform.Find("Notification").gameObject;
 
 		EventHub.StartedLookingBackwardsEvent += ShowNotification;
-		EventHub.StoppedLookingAtPhoneEvent += HideNotification;
+		EventHub.StopLookingAt += HideNotification;
 	}
 
 	private void ShowNotification()

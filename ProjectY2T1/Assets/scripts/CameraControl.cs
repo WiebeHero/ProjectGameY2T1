@@ -45,6 +45,8 @@ public sealed class CameraControl : MonoBehaviour
     private float prevRotX;
     private const float LOOK_BACK_THRESH = 100f;
 
+    private GameObject hitted;
+
     public static void SetActive(bool newState) => active = newState;
 
 
@@ -153,12 +155,19 @@ public sealed class CameraControl : MonoBehaviour
                     out RaycastHit hit, interactionRange)
             )
         {
+            GameObject hitt = hit.collider.gameObject;
+            if (hitted == null)
+            {
+                hitted = hit.collider.gameObject;
+                hitt.GetComponent<Interactable.Interactable>()?.OnLookAt();
+            }
             if (Input.GetMouseButtonDown(0)) 
-                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeft();
+                hitt.GetComponent<Interactable.Interactable>()?.OnLeft();
             if (Input.GetMouseButton(0)) 
-                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeftHold();
-
-            if (hit.collider.gameObject.name == "phone")
+                hitt.GetComponent<Interactable.Interactable>()?.OnLeftHold();
+            
+            
+            /*if (hit.collider.gameObject.name == "phone")
             {
                 hitPhone = true;
                 if (Math.Abs(cam.fieldOfView - fov) < 0.01f)
@@ -169,16 +178,23 @@ public sealed class CameraControl : MonoBehaviour
                     lookingAtPhone = true;
                     zoomingIn = true;
                 }
+            }*/
+        }
+        else
+        {
+            if (hitted != null)
+            {
+                hitted.GetComponent<Interactable.Interactable>()?.OnStopLookAt();
+                hitted = null;
             }
         }
-        
-        if (!hitPhone && lookingAtPhone)
+        /*if (!hitPhone && lookingAtPhone)
         {
             EventHub.TriggerEvent
                 (EventHub.CustomEvent.StoppedLookingAtPhone);
             lookingAtPhone = false;
             zoomingOut = true;
-        }
+        }*/
         
         #if UNITY_EDITOR
         Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);

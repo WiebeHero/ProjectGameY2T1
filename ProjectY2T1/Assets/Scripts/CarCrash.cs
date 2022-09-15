@@ -19,6 +19,12 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private GameObject grandmaButtonObject;
 	[SerializeField] private GameObject childButtonObject;
 
+	[Header("Grandma and Children")] 
+	[SerializeField] private GameObject grandma;
+	[SerializeField] private GameObject child;
+	[SerializeField] private GameObject child2;
+	
+
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
@@ -75,14 +81,39 @@ public sealed class CarCrash : MonoBehaviour
 	{
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		animator.SetTrigger(CrashGrandma);
+		if (grandma == null) throw new Exception("The grandma is not assigned!");
+		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
+		if (rigid != null)
+		{
+			rigid.constraints = RigidbodyConstraints.None;
+			rigid.useGravity = true;
+		}
+		else
+		{
+			throw new Exception("The grandma has no rigidbody assigned!");
+		}
+		animator.SetTrigger("CrashGrandma");
 	}
 	
 	private void OnChooseChild()
 	{
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		animator.SetTrigger(CrashKids);
+		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
+		Rigidbody rigid = child.GetComponent<Rigidbody>();
+		Rigidbody rigid2 = child2.GetComponent<Rigidbody>();
+		if (rigid != null && rigid2 != null)
+		{
+			rigid.constraints = RigidbodyConstraints.None;
+			rigid2.constraints = RigidbodyConstraints.None;
+			rigid.useGravity = true;
+			rigid2.useGravity = true;
+		}
+		else
+		{
+			throw new Exception("Either 1 or both kids have no rigidbody assigned!");
+		}
+		animator.SetTrigger("CrashKids");
 	}
 
 	private void Close()

@@ -31,6 +31,7 @@ namespace TerrainMovement
             roads.AddRange(GameObject.FindGameObjectsWithTag("Road"));
             if (roads.Count == 0) Debug.LogWarning("MovingTerrainManager hasn't found any roads in scene!");
             speedMode = SpeedMode.Normal;
+            speed = 2.00F;
         }
 
         private void FixedUpdate()
