@@ -9,11 +9,9 @@ namespace Managers
 	{
 		public static event Action StartedLookingBackwardsEvent;
 		public static event Action StoppedLookingBackwardsEvent;
-		public static event Action StartedLookingAtPhoneEvent;
-		public static event Action StoppedLookingAtPhoneEvent;
-		public static event Action StartedLookingAtGasPedalEvent;
-		public static event Action StoppedLookingAtGasPedalEvent;
 		public static event Action SignAppearsEvent;
+		public static event Action StartLookingAt;
+		public static event Action StopLookingAt;
 
 		private static bool initialized;
 
@@ -21,10 +19,8 @@ namespace Managers
 		{
 			StartedLookingBackwards, 
 			StoppedLookingBackwards,
-			StartedLookingAtPhone,
-			StoppedLookingAtPhone,
-			StartedLookingAtGasPedal,
-			StoppedLookingAtGasPedal,
+			StartedLookingAt,
+			StoppedLookingAt,
 			SignAppears
 		}
 		
@@ -42,21 +38,13 @@ namespace Managers
 					StoppedLookingBackwardsEvent?.Invoke();
 						EventTracker.it.RecordEvent(StoppedLookingBackwards);
 					break;
-				case StartedLookingAtPhone:
-					StartedLookingAtPhoneEvent?.Invoke();
-					EventTracker.it.RecordEvent(StartedLookingAtPhone);
+				case StartedLookingAt:
+					StartLookingAt?.Invoke();
+					EventTracker.it.RecordEvent(StartedLookingAt);
 					break;
-				case StoppedLookingAtPhone:
-					StoppedLookingAtPhoneEvent?.Invoke();
-					EventTracker.it.RecordEvent(StoppedLookingAtPhone);
-					break;
-				case StartedLookingAtGasPedal:
-					StartedLookingAtGasPedalEvent?.Invoke();
-					EventTracker.it.RecordEvent(StartedLookingAtGasPedal);
-					break;
-				case StoppedLookingAtGasPedal:
-					StoppedLookingAtGasPedalEvent?.Invoke();
-					EventTracker.it.RecordEvent(StoppedLookingAtGasPedal);
+				case StoppedLookingAt:
+					StopLookingAt?.Invoke();
+					EventTracker.it.RecordEvent(StoppedLookingAt);
 					break;
 				case SignAppears:
 					SignAppearsEvent?.Invoke();
