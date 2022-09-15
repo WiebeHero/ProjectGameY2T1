@@ -74,7 +74,17 @@ public sealed class CarCrash : MonoBehaviour
 	{
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		
+		if (grandma == null) throw new Exception("The grandma is not assigned!");
+		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
+		if (rigid != null)
+		{
+			rigid.constraints = RigidbodyConstraints.None;
+			rigid.useGravity = true;
+		}
+		else
+		{
+			throw new Exception("The grandma has no rigidbody assigned!");
+		}
 		animator.SetTrigger("CrashGrandma");
 	}
 	
@@ -85,8 +95,17 @@ public sealed class CarCrash : MonoBehaviour
 		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
 		Rigidbody rigid = child.GetComponent<Rigidbody>();
 		Rigidbody rigid2 = child2.GetComponent<Rigidbody>();
-		rigid.constraints = RigidbodyConstraints.None;
-		rigid2.constraints = RigidbodyConstraints.None;
+		if (rigid != null && rigid2 != null)
+		{
+			rigid.constraints = RigidbodyConstraints.None;
+			rigid2.constraints = RigidbodyConstraints.None;
+			rigid.useGravity = true;
+			rigid2.useGravity = true;
+		}
+		else
+		{
+			throw new Exception("Either 1 or both kids have no rigidbody assigned!");
+		}
 		animator.SetTrigger("CrashKids");
 	}
 
