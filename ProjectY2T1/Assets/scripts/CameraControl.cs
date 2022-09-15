@@ -17,7 +17,7 @@ public sealed class CameraControl : MonoBehaviour
     [SerializeField] private float fov = 60f;
     
     [Header("Factors")]
-    [SerializeField] private float rotationSpeed = 10;
+    public static float rotationSpeed = 10;
     [SerializeField] private float leanFactor = 2;
     
     [Header("Clamp Values")]
@@ -67,6 +67,8 @@ public sealed class CameraControl : MonoBehaviour
     {
         if (i != null && i != this) Destroy(this);
         i = this;
+
+        InformationManager.isCrashing = false;
     }
     
     private void Start()

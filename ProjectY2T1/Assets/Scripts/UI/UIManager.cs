@@ -1,6 +1,7 @@
 ﻿using System;
 using Managers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -12,27 +13,32 @@ namespace UI
 		[SerializeField] private GameObject crossHair;
 		[SerializeField] private GameObject settingsObject;
 
+		[Header("Sliders")] 
+		[SerializeField] private Slider sensitivitySlider;
+		[SerializeField] private Slider volumeSlider;
+
 		public static GUI openGUI;
 		private bool menuActive;
 
 		//Button functions
 		public static void MenuContinue() => UIManager.i.OpenGUI(GUI.None);
 		public static void MenuSettings() => UIManager.i.OpenGUI(GUI.Settings);
-		public static void MenuExit() => UIManager.i.OpenGUI(GUI.None);
-		
+		public static void MenuExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu); 
+
+		public void UpdateRotationSpeed() => CameraControl.rotationSpeed = sensitivitySlider.value;
+		// public void UpdateVolume() =>  = sensitivitySlider.value;
+
 		private void Awake()
 		{
 			if (i != null && i != this) Destroy(this);
 			i = this;
-		}
-	
-		private void Start()
-		{
+			
 			if (menuObject == null) throw new Exception("UIManager has no menuObject assigned!");
 			if (settingsObject == null) throw new Exception("UIManager has no settingsObject attached!");
 			if (crossHair == null) throw new Exception("UIManager has no crossHair assigned!");
 			
 			openGUI = GUI.None;
+			UpdateRotationSpeed();
 		}
 
 		[Serializable]
@@ -67,7 +73,7 @@ namespace UI
 	
 				default:
 					if (openGUI != GUI.None) GUIEnumToGameObject(openGUI).SetActive(false);
-					openGUI = gui;
+					openGUI = gui; 
 					GUIEnumToGameObject(gui).SetActive(true);
 					InformationManager.cursorLockMode = CursorLockMode.Confined;
 					InformationManager.paused = true;
