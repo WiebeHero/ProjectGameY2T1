@@ -53,8 +53,12 @@ public sealed class CarCrash : MonoBehaviour
 		childButton.onClick.AddListener(OnChooseChild);
 	}
 	
-	public void Run() => StartCoroutine(Crash());
-	
+	public void Run()
+	{
+		InformationManager.isCrashing = true;
+		StartCoroutine(Crash());
+	}
+
 	private IEnumerator Crash()
 	{
 		//Wait for the camera to pan towards the windshield

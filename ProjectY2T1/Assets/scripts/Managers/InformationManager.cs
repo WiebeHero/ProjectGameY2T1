@@ -6,6 +6,7 @@ namespace Managers
 	public static class InformationManager
 	{
 		private static bool isPaused;
+		public static bool isCrashing;
 		
 		
 		private static CursorLockMode pCursorLockMode;
