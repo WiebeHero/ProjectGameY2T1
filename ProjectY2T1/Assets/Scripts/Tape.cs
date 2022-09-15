@@ -15,6 +15,16 @@ public class Tape : Interactable.Interactable
 			throw new Exception("Tape has no AudioSource");
 	}
 
+	protected override void OnLookingAt()
+	{
+		
+	}
+
+	protected override void OnStopLookingAt()
+	{
+		
+	}
+
 	protected override void OnLeftClick()
 	{
 		cassettePlayer.PlayTape(this);
