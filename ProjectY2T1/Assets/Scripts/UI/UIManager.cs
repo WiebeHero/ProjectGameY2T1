@@ -21,8 +21,8 @@ namespace UI
 		private bool menuActive;
 
 		//Button functions
-		public static void MenuContinue() => UIManager.i.OpenGUI(GUI.None);
-		public static void MenuSettings() => UIManager.i.OpenGUI(GUI.Settings);
+		public static void MenuContinue() => i.OpenGUI(GUI.None);
+		public static void MenuSettings() => i.OpenGUI(GUI.Settings);
 		public static void MenuExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu); 
 
 		public void UpdateRotationSpeed() => CameraControl.rotationSpeed = sensitivitySlider.value;

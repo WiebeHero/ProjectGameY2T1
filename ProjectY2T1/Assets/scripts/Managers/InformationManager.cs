@@ -1,4 +1,5 @@
 using TerrainMovement;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 
 namespace Managers
@@ -41,6 +42,13 @@ namespace Managers
 			MainMenu,
 			Wiebe,
 			Patrick
+		}
+
+		public static void Reset()
+		{
+			paused = false;
+			cursorLockMode = CursorLockMode.Confined;
+			isCrashing = false;
 		}
 	}
 }
