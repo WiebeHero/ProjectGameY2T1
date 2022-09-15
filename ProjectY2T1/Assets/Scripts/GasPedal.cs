@@ -34,9 +34,9 @@ public class GasPedal : Interactable.Interactable
     
     protected override void OnLeftClickHold()
     {
-        if (MovingTerrainManager.Speed > 1.0F)
+        if (MovingTerrainManager.speed > 1.0F)
         {
-            MovingTerrainManager.Speed = MovingTerrainManager.Speed - 0.15F;
+            MovingTerrainManager.speed = MovingTerrainManager.speed - 0.15F;
         }
     }
 }

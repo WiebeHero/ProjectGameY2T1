@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,32 +6,42 @@ namespace TerrainMovement
 {
     public class MovingTerrainManager : MonoBehaviour
     {
+        [NonSerialized]
+        public static MovingTerrainManager i;
         public static SpeedMode speedMode;
-        private static float speed;
+        public static float speed { set; get; }
+        public static bool active { set; get; }
+        
         private bool addRoad;
 
         [SerializeField] private Vector3 moveDirection;
         
         public List<GameObject> roads { get; private set; }
-
-
-        void Start()
+        
+        private void Awake()
         {
+            if (i != null && i != this) Destroy(this);
+            i = this;
+        }
+
+        private void Start()
+        {
+            active = true;
             roads = new List<GameObject>();
             roads.AddRange(GameObject.FindGameObjectsWithTag("Road"));
+            if (roads.Count == 0) Debug.LogWarning("MovingTerrainManager hasn't found any roads in scene!");
             speedMode = SpeedMode.Normal;
             speed = 2.00F;
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
+            if (!active) return;
+            
             switch (speedMode)
             {
                 case SpeedMode.Normal:
-                    if (speed < 4.99)
-                    {
-                        speed += 0.005F;
-                    }
+                    if (speed < 4.99) speed += 0.005F;
                     break;
                 case SpeedMode.Slow:
                     speed = Mathf.MoveTowards(speed, 0.05F, 0.07F);
@@ -38,28 +49,19 @@ namespace TerrainMovement
                 case SpeedMode.Frozen:
                     speed = 0.0F;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            for (int i = 0; i < roads.Count; i++)
+            foreach (GameObject road in roads)
             {
-                MovingTerrain terrainTemp = roads[i].GetComponent<MovingTerrain>();
-                if (terrainTemp != null)
-                {
-                    if (!terrainTemp.disabled)
-                    {
-                        roads[i].transform.position += moveDirection * speed;
-                    }
-                }
+                MovingTerrain terrainTemp = road.GetComponent<MovingTerrain>();
+                if (terrainTemp == null) continue;
+                if (!terrainTemp.disabled) 
+                    road.transform.position += moveDirection * speed;
             }
         }
-
-        public static float Speed
-        {
-            set => speed = value;
-            get => speed;
-        }
-
-
+        
         public enum SpeedMode
         {
             Normal,
