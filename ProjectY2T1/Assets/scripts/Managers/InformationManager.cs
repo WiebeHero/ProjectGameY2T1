@@ -1,10 +1,16 @@
+using TerrainMovement;
 using UnityEngine;
 
 namespace Managers
 {
 	public static class InformationManager
 	{
+		private static bool isPaused;
+		public static bool isCrashing;
+		
+		
 		private static CursorLockMode pCursorLockMode;
+		public static Scene currentScene;
 		
 		public static CursorLockMode cursorLockMode
 		{
@@ -18,5 +24,23 @@ namespace Managers
 		}
 
 		public static CursorLockMode prevCursorLockMode { get; private set; }
+
+		public static bool paused
+		{
+			get => isPaused;
+			set
+			{
+				isPaused = value;
+				CameraControl.active = !isPaused;
+				MovingTerrainManager.active = !isPaused;
+			}
+		}
+		
+		public enum Scene
+		{
+			MainMenu,
+			Wiebe,
+			Patrick
+		}
 	}
 }

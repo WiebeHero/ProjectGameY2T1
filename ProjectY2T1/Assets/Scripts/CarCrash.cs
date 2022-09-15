@@ -28,6 +28,9 @@ public sealed class CarCrash : MonoBehaviour
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
+	
+	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
+	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
 
 	private void Start()
@@ -56,8 +59,12 @@ public sealed class CarCrash : MonoBehaviour
 		childButton.onClick.AddListener(OnChooseChild);
 	}
 	
-	public void Run() => StartCoroutine(Crash());
-	
+	public void Run()
+	{
+		InformationManager.isCrashing = true;
+		StartCoroutine(Crash());
+	}
+
 	private IEnumerator Crash()
 	{
 		//Wait for the camera to pan towards the windshield

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public sealed class AudioManager : MonoBehaviour
 {
     public static AudioManager i;
 
@@ -16,10 +16,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (i == null) {
-            i = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else Destroy(gameObject);
+        if (i != null && i != this) Destroy(this);
+        i = this;
     }
 }

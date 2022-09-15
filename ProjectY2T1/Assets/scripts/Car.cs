@@ -17,6 +17,6 @@ public sealed class Car : MonoBehaviour
     private void FixedUpdate()
     {
         speed += 0.01f;
-        MovingTerrainManager.Speed = speed;
+        MovingTerrainManager.speed = speed;
     }
 }

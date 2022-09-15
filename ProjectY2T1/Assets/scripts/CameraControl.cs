@@ -1,19 +1,23 @@
 using System;
 using DG.Tweening;
 using Managers;
+using UI;
 using UnityEngine;
+using static UI.UIManager.GUI;
 using Cursor = UnityEngine.Cursor;
 
 public sealed class CameraControl : MonoBehaviour
 {
-    public static bool active { get; private set; }
+
+    public static CameraControl i;
+    public static bool active;
     
     [SerializeField] private Transform camOffset;
 
     [SerializeField] private float fov = 60f;
     
     [Header("Factors")]
-    [SerializeField] private float rotationSpeed = 10;
+    public static float rotationSpeed = 10;
     [SerializeField] private float leanFactor = 2;
     
     [Header("Clamp Values")]
@@ -61,6 +65,14 @@ public sealed class CameraControl : MonoBehaviour
 
     }
     
+    private void Awake()
+    {
+        if (i != null && i != this) Destroy(this);
+        i = this;
+
+        InformationManager.isCrashing = false;
+    }
+    
     private void Start()
     {
         active = true;
@@ -70,7 +82,10 @@ public sealed class CameraControl : MonoBehaviour
     
     private void Update()
     {
+        if (InformationManager.isCrashing) return;
+       
         CheckForInteraction();
+        KeyBoardInputs();
 
         if (!active) return;
 
@@ -87,6 +102,15 @@ public sealed class CameraControl : MonoBehaviour
         camOffset.transform.localPosition = new Vector3(rotX/clampX.y*leanFactor,1.561f,0f);
         
         CheckLookingBack();
+    }
+
+    private void KeyBoardInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+            UIManager.i.OpenGUI(UIManager.openGUI == Menu ? None : Menu);
+
+        if (Input.GetKeyDown(KeyCode.A)) 
+            SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
     }
 
     private void Pan()

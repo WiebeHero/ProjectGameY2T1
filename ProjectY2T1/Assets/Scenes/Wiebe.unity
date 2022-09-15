@@ -589,7 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 0
   carCrash: {fileID: 1965182601}
   timeToSpawn: 0
@@ -658,7 +657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 1
   carCrash: {fileID: 1965182601}
   timeToSpawn: 15000
@@ -3489,12 +3487,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 940666359}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &963510320 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 08e78625bb8f2e34bbbb7d0a9f3dedfa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1600356957}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &991651228
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,7 +4754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 0
   carCrash: {fileID: 1965182601}
   timeToSpawn: 0
@@ -6395,7 +6386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 0
   carCrash: {fileID: 1965182601}
   timeToSpawn: 0
@@ -7088,7 +7078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1919989025}
   - component: {fileID: 1919989024}
-  - component: {fileID: 1919989023}
+  - component: {fileID: 1919989026}
   m_Layer: 0
   m_Name: CrashSequence
   m_TagString: CrashSequence
@@ -7096,27 +7086,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1919989023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919989022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
-  settingType: 1
-  carCrash: {fileID: 1965182601}
-  timeToSpawn: 20000
-  spawnAfterTile: 0
-  road: {fileID: 963510320}
-  removeOnDespawn: 1
-  disabled: 1
-  added: 0
 --- !u!65 &1919989024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7155,6 +7124,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1919989026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919989022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingType: 0
+  carCrash: {fileID: 0}
+  timeToSpawn: 0
+  spawnAfterTile: 0
+  road: {fileID: 0}
+  removeOnDespawn: 0
+  disabled: 0
+  added: 0
 --- !u!1 &1923734639
 GameObject:
   m_ObjectHideFlags: 0
