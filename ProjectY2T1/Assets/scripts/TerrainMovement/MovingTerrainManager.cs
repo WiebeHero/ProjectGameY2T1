@@ -19,6 +19,7 @@ namespace TerrainMovement
             roads = new List<GameObject>();
             roads.AddRange(GameObject.FindGameObjectsWithTag("Road"));
             speedMode = SpeedMode.Normal;
+            speed = 2.00F;
         }
 
         void FixedUpdate()
