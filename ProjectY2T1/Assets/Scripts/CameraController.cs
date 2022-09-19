@@ -56,6 +56,7 @@ public sealed class CameraController : MonoBehaviour
     private void Awake()
     {
         if (i != null && i != this) Destroy(this);
+        Debug.Log("Test");
         i = this;
     }
     

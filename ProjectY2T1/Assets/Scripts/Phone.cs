@@ -8,7 +8,7 @@ public sealed class Phone : Interactable
 
 	private float originalFOV;
 
-	private void Awake() => originalFOV = CameraController.i.cam.fieldOfView;
+	private void Start() => originalFOV = CameraController.i.cam.fieldOfView;
 
 	protected override void OnLookingAt() => CameraController.i.Zoom(targetZoomFOV, startZoomDuration);
 	protected override void OnStopLookingAt() => CameraController.i.Zoom(originalFOV, stopZoomDuration);
