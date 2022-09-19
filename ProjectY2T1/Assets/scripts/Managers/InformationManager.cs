@@ -1,5 +1,4 @@
 using TerrainMovement;
-using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 
 namespace Managers
@@ -32,7 +31,7 @@ namespace Managers
 			set
 			{
 				isPaused = value;
-				CameraControl.active = !isPaused;
+				CameraController.active = !isPaused;
 				MovingTerrainManager.active = !isPaused;
 			}
 		}

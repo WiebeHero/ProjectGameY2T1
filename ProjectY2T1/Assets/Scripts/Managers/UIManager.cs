@@ -1,9 +1,8 @@
 ﻿using System;
-using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Managers
 {
 	public class UIManager : MonoBehaviour
 	{
@@ -23,9 +22,11 @@ namespace UI
 		//Button functions
 		public static void MenuContinue() => i.OpenGUI(GUI.None);
 		public static void MenuSettings() => i.OpenGUI(GUI.Settings);
-		public static void MenuExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu); 
+		public static void MenuExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
+		public static void OpenMenu() => i.OpenGUI(GUI.Menu);
+		public static void NoGUI() => i.OpenGUI(GUI.None);
 
-		public void UpdateRotationSpeed() => CameraControl.rotationSpeed = sensitivitySlider.value;
+		public void UpdateRotationSpeed() => CameraController.rotationSpeed = sensitivitySlider.value;
 		// public void UpdateVolume() =>  = sensitivitySlider.value;
 
 		private void Awake()
