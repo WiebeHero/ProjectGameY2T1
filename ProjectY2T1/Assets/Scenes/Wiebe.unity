@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4976.914, g: 4945.707, b: 6671.883, a: 1}
+  m_IndirectSpecularColor: {r: 4981.2705, g: 4953.205, b: 6686.7266, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -589,7 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 0
   carCrash: {fileID: 1965182601}
   timeToSpawn: 0
@@ -658,7 +657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 1
   carCrash: {fileID: 1965182601}
   timeToSpawn: 15000
@@ -1198,18 +1196,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &338832543 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1694797981305002627, guid: 0f6c1e7cae9d94d45b85235c4373bbc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 416413510}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f604f56149e7be4a8a7e4176600f7f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &415442977
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,7 +4748,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 0
   carCrash: {fileID: 1965182601}
   timeToSpawn: 0
@@ -4999,6 +4984,7 @@ GameObject:
   - component: {fileID: 1273734761}
   - component: {fileID: 1273734762}
   - component: {fileID: 1273734763}
+  - component: {fileID: 1273734764}
   m_Layer: 0
   m_Name: Pedal
   m_TagString: Untagged
@@ -5048,6 +5034,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foot: {fileID: 1398592756}
+  animator: {fileID: 1273734764}
+--- !u!95 &1273734764
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273734760}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a1b9ab0c4fb38c4b8fe27dfcd9a3258, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1306622982
 GameObject:
   m_ObjectHideFlags: 0
@@ -6395,7 +6402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 0
   carCrash: {fileID: 1965182601}
   timeToSpawn: 0
@@ -6813,6 +6819,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1695318795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695318793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f433f619fb407324a8c34908782d79b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1726841010
 GameObject:
   m_ObjectHideFlags: 0
@@ -7089,6 +7107,7 @@ GameObject:
   - component: {fileID: 1919989025}
   - component: {fileID: 1919989024}
   - component: {fileID: 1919989023}
+  - component: {fileID: 1919989026}
   m_Layer: 0
   m_Name: CrashSequence
   m_TagString: CrashSequence
@@ -7108,7 +7127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787aedae4d244a94a88f2fddf2d7c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 1965182600}
   settingType: 1
   carCrash: {fileID: 1965182601}
   timeToSpawn: 20000
@@ -7155,6 +7173,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1919989026
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919989022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.360199, y: 22.107277, z: 48.663143}
+  m_Center: {x: -65.1389, y: -1.480732, z: -1.5001049}
 --- !u!1 &1923734639
 GameObject:
   m_ObjectHideFlags: 0
@@ -7350,7 +7381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e10be77e81d42d198a707bb32b5045f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraControl: {fileID: 338832543}
   panDuration: 0.5
   panTarget: {x: 0, y: 90, z: 0}
   animator: {fileID: 1695318794}

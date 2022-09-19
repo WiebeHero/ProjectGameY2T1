@@ -14,4 +14,6 @@ public sealed class Phone : Interactable
 	protected override void OnStopLookingAt() => CameraController.i.Zoom(originalFOV, stopZoomDuration);
 	protected override void OnLeftClick() {}
 	protected override void OnLeftClickHold() {}
+	
+	protected override void OnLeftClickRelease() {}
 }

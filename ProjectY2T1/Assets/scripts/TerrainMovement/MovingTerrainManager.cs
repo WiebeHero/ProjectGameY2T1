@@ -17,6 +17,9 @@ namespace TerrainMovement
         [SerializeField] private Vector3 moveDirection;
         
         public List<GameObject> roads { get; private set; }
+
+        private float t;
+        private float recordedSpeed;
         
         private void Awake()
         {
@@ -44,7 +47,15 @@ namespace TerrainMovement
                     if (speed < 4.99) speed += 0.005F;
                     break;
                 case SpeedMode.Slow:
-                    speed = Mathf.MoveTowards(speed, 0.05F, 0.07F);
+                    if (recordedSpeed == 0.0F)
+                    {
+                        recordedSpeed = 5.0F;
+                    }
+                    if (t <= 0.98F)
+                    {
+                        t += 0.02F;
+                    }
+                    speed = Mathf.Lerp(recordedSpeed, 0.05F, t);
                     break;
                 case SpeedMode.Frozen:
                     speed = 0.0F;
