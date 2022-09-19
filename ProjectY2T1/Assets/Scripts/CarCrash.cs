@@ -12,6 +12,10 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private float panDuration;
 	[SerializeField] private Vector3 panTarget;
 
+	[Header("Move forwards")] 
+	[SerializeField] private float moveDuration;
+	[SerializeField] private Vector3 moveTarget;
+
 	[Header("Animator")] [SerializeField] private Animator animator;
 	
 	[Header("Choice buttons")]
@@ -23,6 +27,9 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private GameObject child;
 	[SerializeField] private GameObject child2;
 
+	[Header("SadStuff")] 
+	[SerializeField] private CoolText coolText;
+
 
 	private CameraController cameraController;
 	
@@ -32,7 +39,6 @@ public sealed class CarCrash : MonoBehaviour
 	
 	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
 	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
-
 
 	public static CarCrash i { get; private set; }
 
@@ -64,6 +70,7 @@ public sealed class CarCrash : MonoBehaviour
 			throw new Exception("Grandma object and child object should have the same parent object");
 
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
+		//grandmaButton.OnPointerEnter(OnChooseGrandma());
 		childButton.onClick.AddListener(OnChooseChild);
 	}
 	
@@ -75,14 +82,37 @@ public sealed class CarCrash : MonoBehaviour
 
 	private IEnumerator Crash()
 	{
+		coolText.StartSchmoovin();
+
 		//Wait for the camera to pan towards the windshield
 		CameraController.SetActive(false);
+		cameraController.MoveTowards(moveTarget,moveDuration);
 		cameraController.PanTowards(panTarget, panDuration);
 		yield return new WaitUntil(CameraController.DonePanning);
 		
 		parentObject.SetActive(true);
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
+	}
+
+	private void OnStartHoverGrandma()
+	{
+		
+	}
+
+	private void OnStopHoverGrandma()
+	{
+		
+	}
+
+	private void OnStartHoverChild()
+	{
+		
+	}
+	
+	private void OnStopHoverChild()
+	{
+		
 	}
 	
 	private void OnChooseGrandma()

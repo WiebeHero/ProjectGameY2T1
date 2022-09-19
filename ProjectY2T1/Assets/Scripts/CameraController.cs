@@ -55,6 +55,8 @@ public sealed class CameraController : MonoBehaviour
         cam.transform.DORotate(targetRotation,duration).onComplete += () => panning = false;
     }
     
+    public void MoveTowards(Vector3 targetPosition, float duration) => cam.transform.DOLocalMove(targetPosition, duration);
+
     private void Awake()
     {
         if (i != null && i != this) Destroy(this);
