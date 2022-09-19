@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 namespace TerrainMovement
@@ -18,6 +19,8 @@ namespace TerrainMovement
         private MeshRenderer meshRenderer;
 
         private float startMoveTime;
+
+        private bool activateColSequence;
 
         
         public void Start()
@@ -85,9 +88,9 @@ namespace TerrainMovement
                     Vector3 vector = transform.position;
                     
                     #if UNITY_EDITOR
-                        Debug.Log($"MeshRenderer sizeX: {meshRenderer.bounds.size.x}");
+                        /*Debug.Log($"MeshRenderer sizeX: {meshRenderer.bounds.size.x}");
                         Debug.Log("Road Count: " + roadCount);
-                        Debug.Log(vector.x + meshRenderer.bounds.size.x * roadCount);
+                        Debug.Log(vector.x + meshRenderer.bounds.size.x * roadCount);*/
                     #endif
                     
                     vector.x += meshRenderer.bounds.size.x * roadCount;
@@ -97,7 +100,13 @@ namespace TerrainMovement
             }
             else if(gameObject.CompareTag("CrashSequence"))
             {
+                EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
                 carCrash.Run();
+                if (activateColSequence)
+                {
+                    carCrash.OnChooseGrandma();
+                }
+                activateColSequence = true;
             }
         }
         public enum SettingType

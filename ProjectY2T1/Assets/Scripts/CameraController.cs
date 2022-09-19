@@ -33,7 +33,9 @@ public sealed class CameraController : MonoBehaviour
     private float prevRotX;
     private const float LOOK_BACK_THRESH = 100f;
 
+    //Temporary event variables
     private GameObject lastHitObject;
+    private bool left;
 
     public static void SetActive(bool newState) => active = newState;
     
@@ -123,22 +125,35 @@ public sealed class CameraController : MonoBehaviour
                 lastHitObject = hit.collider.gameObject;
                 hitObject.GetComponent<Interactable>()?.OnLookAt();
             }
-            
+
             if (Input.GetMouseButtonDown(0))
+            {
                 hitObject.GetComponent<Interactable>()?.OnLeft();
+                left = true;
+            }
             
-            if (Input.GetMouseButton(0)) 
+            else if (Input.GetMouseButton(0))
                 hitObject.GetComponent<Interactable>()?.OnLeftHold();
+            
+            else if (left)
+            {
+                hitObject.GetComponent<Interactable>()?.OnLeftRelease();
+                left = false;
+            }
         }
         else
         {
             if (lastHitObject != null)
             {
                 lastHitObject.GetComponent<Interactable>()?.OnStopLookAt();
+                if (left)
+                {
+                    lastHitObject.GetComponent<Interactable>()?.OnLeftRelease();
+                }
                 lastHitObject = null;
             }
         }
-
+        
         #if UNITY_EDITOR
         Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
         #endif

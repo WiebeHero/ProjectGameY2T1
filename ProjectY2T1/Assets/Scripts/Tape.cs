@@ -32,4 +32,6 @@ public class Tape : Interactable
 	}
 
 	protected override void OnLeftClickHold() {}
+	
+	protected override void OnLeftClickRelease() {}
 }
