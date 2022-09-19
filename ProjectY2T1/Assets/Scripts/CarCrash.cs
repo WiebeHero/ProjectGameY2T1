@@ -9,7 +9,6 @@ public sealed class CarCrash : MonoBehaviour
 {
 	
 	[Header("Panning towards windshield")]
-	[SerializeField] private CameraControl cameraControl;
 	[SerializeField] private float panDuration;
 	[SerializeField] private Vector3 panTarget;
 
@@ -23,8 +22,10 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private GameObject grandma;
 	[SerializeField] private GameObject child;
 	[SerializeField] private GameObject child2;
-	
 
+
+	private CameraController cameraController;
+	
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
@@ -33,21 +34,28 @@ public sealed class CarCrash : MonoBehaviour
 	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
 
+	public static CarCrash i { get; private set; }
+
+	private void Awake()
+	{
+		if (i != null && i != this) Destroy(this);
+		i = this;
+	}
+
 	private void Start()
 	{
-		if (cameraControl == null) throw new Exception("Car crash script has no camera control attached");
 		if (grandmaButtonObject == null) throw new Exception("Grandma button object has not been attached");
 		if (childButtonObject == null) throw new Exception("Child button object has not been attached");
 
-		//Check buttons
+		cameraController = CameraController.i;
+		if (cameraController == null) throw new Exception("No camera controller in scene found by CarCrash.cs");
+
 		grandmaButton = grandmaButtonObject.GetComponent<Button>();
 		if (grandmaButton == null) throw new Exception("Attached grandma button object doesn't have a button component");
 
 		childButton = childButtonObject.GetComponent<Button>();
 		if (childButton == null) throw new Exception("Attached Child button object doesn't have a button component");
 		
-		
-		//Check parent object
 		parentObject = grandmaButtonObject.transform.parent.gameObject;
 		if (parentObject == null) throw new Exception("Car crash couldn't find parent object of grandma object");
 
@@ -68,9 +76,9 @@ public sealed class CarCrash : MonoBehaviour
 	private IEnumerator Crash()
 	{
 		//Wait for the camera to pan towards the windshield
-		CameraControl.SetActive(false);
-		cameraControl.PanTowards(panTarget, panDuration);
-		yield return new WaitUntil(cameraControl.DonePanning);
+		CameraController.SetActive(false);
+		cameraController.PanTowards(panTarget, panDuration);
+		yield return new WaitUntil(CameraController.DonePanning);
 		
 		parentObject.SetActive(true);
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
@@ -79,41 +87,39 @@ public sealed class CarCrash : MonoBehaviour
 	
 	private void OnChooseGrandma()
 	{
+		if (grandma == null) throw new Exception("The grandma is not assigned!");
+		
+		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
+		if (rigid == null) throw new Exception("The grandma doesn't have a rigidbody!");
+		
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		if (grandma == null) throw new Exception("The grandma is not assigned!");
-		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
-		if (rigid != null)
-		{
-			rigid.constraints = RigidbodyConstraints.None;
-			rigid.useGravity = true;
-		}
-		else
-		{
-			throw new Exception("The grandma has no rigidbody assigned!");
-		}
-		animator.SetTrigger("CrashGrandma");
+		
+		rigid.constraints = RigidbodyConstraints.None;
+		rigid.useGravity = true;
+		
+		animator.SetTrigger(CrashGrandma);
 	}
 	
 	private void OnChooseChild()
 	{
-		Close();
-		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
 		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
+		
 		Rigidbody rigid = child.GetComponent<Rigidbody>();
 		Rigidbody rigid2 = child2.GetComponent<Rigidbody>();
-		if (rigid != null && rigid2 != null)
-		{
-			rigid.constraints = RigidbodyConstraints.None;
-			rigid2.constraints = RigidbodyConstraints.None;
-			rigid.useGravity = true;
-			rigid2.useGravity = true;
-		}
-		else
-		{
-			throw new Exception("Either 1 or both kids have no rigidbody assigned!");
-		}
-		animator.SetTrigger("CrashKids");
+		if (rigid == null || rigid2 == null) 
+			throw new Exception("One of the children doesn't have a rigidbody!");
+		
+		
+		Close();
+		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
+		
+		rigid.constraints = RigidbodyConstraints.None;
+		rigid2.constraints = RigidbodyConstraints.None;
+		rigid.useGravity = true;
+		rigid2.useGravity = true;
+		
+		animator.SetTrigger(CrashKids);
 	}
 
 	private void Close()
