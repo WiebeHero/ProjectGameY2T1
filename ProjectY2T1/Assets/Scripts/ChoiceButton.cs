@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public sealed class ChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
 	[SerializeField] private GameObject spotLight;
 
@@ -23,6 +23,11 @@ public class ChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
+	{
+		spotLight.SetActive(false);
+	}
+
+	public void OnPointerUp(PointerEventData eventData)
 	{
 		spotLight.SetActive(false);
 	}

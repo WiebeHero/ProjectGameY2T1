@@ -40,6 +40,8 @@ public sealed class CarCrash : MonoBehaviour
 	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
 	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
+	private float originalCamFov;
+	
 	public static CarCrash i { get; private set; }
 
 	private void Awake()
@@ -55,6 +57,8 @@ public sealed class CarCrash : MonoBehaviour
 
 		cameraController = CameraController.i;
 		if (cameraController == null) throw new Exception("No camera controller in scene found by CarCrash.cs");
+
+		originalCamFov = cameraController.cam.fieldOfView;
 
 		grandmaButton = grandmaButtonObject.GetComponent<Button>();
 		if (grandmaButton == null) throw new Exception("Attached grandma button object doesn't have a button component");
@@ -85,6 +89,11 @@ public sealed class CarCrash : MonoBehaviour
 		coolText.StartSchmoovin();
 
 		//Wait for the camera to pan towards the windshield
+
+		if (Math.Abs(cameraController.cam.fieldOfView - originalCamFov) > 0.0001f) 
+			cameraController.Zoom(originalCamFov, 0.2f);
+
+
 		CameraController.SetActive(false);
 		cameraController.MoveTowards(moveTarget,moveDuration);
 		cameraController.PanTowards(panTarget, panDuration);
@@ -95,26 +104,6 @@ public sealed class CarCrash : MonoBehaviour
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
 
-	private void OnStartHoverGrandma()
-	{
-		
-	}
-
-	private void OnStopHoverGrandma()
-	{
-		
-	}
-
-	private void OnStartHoverChild()
-	{
-		
-	}
-	
-	private void OnStopHoverChild()
-	{
-		
-	}
-	
 	private void OnChooseGrandma()
 	{
 		if (grandma == null) throw new Exception("The grandma is not assigned!");
