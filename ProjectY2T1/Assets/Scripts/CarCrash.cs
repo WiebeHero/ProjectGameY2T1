@@ -85,31 +85,31 @@ public sealed class CarCrash : MonoBehaviour
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
 	
-	private void OnChooseGrandma()
+	public void OnChooseGrandma()
 	{
 		if (grandma == null) throw new Exception("The grandma is not assigned!");
-		
+		Debug.Log("Test1");
 		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
 		if (rigid == null) throw new Exception("The grandma doesn't have a rigidbody!");
 		
+		Debug.Log("Test2");
 		Close();
+		Debug.Log("Test3");
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		
+		Debug.Log("Test4");
 		rigid.constraints = RigidbodyConstraints.None;
 		rigid.useGravity = true;
 		
 		animator.SetTrigger(CrashGrandma);
 	}
 	
-	private void OnChooseChild()
+	public void OnChooseChild()
 	{
 		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
 		
 		Rigidbody rigid = child.GetComponent<Rigidbody>();
 		Rigidbody rigid2 = child2.GetComponent<Rigidbody>();
-		if (rigid == null || rigid2 == null) 
-			throw new Exception("One of the children doesn't have a rigidbody!");
-		
+		if (rigid == null || rigid2 == null) throw new Exception("One of the children doesn't have a rigidbody!");
 		
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
