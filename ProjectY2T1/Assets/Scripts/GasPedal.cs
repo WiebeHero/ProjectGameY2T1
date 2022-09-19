@@ -5,7 +5,7 @@ using TerrainMovement;
 using Unity.Profiling.LowLevel.Unsafe;
 using UnityEngine;
 
-public class GasPedal : Interactable.Interactable
+public class GasPedal : Interactable
 {
 
     [SerializeField] private GameObject foot;

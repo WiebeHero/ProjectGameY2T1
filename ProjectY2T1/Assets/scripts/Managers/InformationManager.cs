@@ -31,7 +31,7 @@ namespace Managers
 			set
 			{
 				isPaused = value;
-				CameraControl.active = !isPaused;
+				CameraController.active = !isPaused;
 				MovingTerrainManager.active = !isPaused;
 			}
 		}
@@ -41,6 +41,13 @@ namespace Managers
 			MainMenu,
 			Wiebe,
 			Patrick
+		}
+
+		public static void Reset()
+		{
+			paused = false;
+			cursorLockMode = CursorLockMode.Confined;
+			isCrashing = false;
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Tape : Interactable.Interactable
+public class Tape : Interactable
 {
 	public AudioSource audioSource;
 	private CassettePlayer cassettePlayer;
