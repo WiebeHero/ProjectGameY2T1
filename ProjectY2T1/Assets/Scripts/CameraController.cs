@@ -1,19 +1,20 @@
-using System;
 using DG.Tweening;
 using Managers;
 using UnityEngine;
-using Cursor = UnityEngine.Cursor;
+using static Managers.UIManager.GUI;
 
-public sealed class CameraControl : MonoBehaviour
+public sealed class CameraController : MonoBehaviour
 {
-    public static bool active { get; private set; }
+
+    public static CameraController i;
+    public static bool active;
     
     [SerializeField] private Transform camOffset;
 
     [SerializeField] private float fov = 60f;
     
     [Header("Factors")]
-    [SerializeField] private float rotationSpeed = 10;
+    public static float rotationSpeed = 10;
     [SerializeField] private float leanFactor = 2;
     
     [Header("Clamp Values")]
@@ -41,34 +42,39 @@ public sealed class CameraControl : MonoBehaviour
     private float prevRotX;
     private const float LOOK_BACK_THRESH = 100f;
 
+    private GameObject lastHitObject;
+
     public static void SetActive(bool newState) => active = newState;
-
-
+    
     private static bool panning;
-    //private Vector3 targetRotation;
-    //private float panDuration;
-    public bool DonePanning() => !panning;
+    public static bool DonePanning() => !panning;
 
     public void PanTowards(Vector3 targetRotation, float duration)
     {
-        // panning = true;
-        // targetRotation = targetRotation_;
-        // panDuration = duration_;
         camOffset.transform.DOLocalMoveX(0, duration);
         cam.transform.DORotate(targetRotation,duration).onComplete += () => panning = false;
-
+    }
+    
+    private void Awake()
+    {
+        if (i != null && i != this) Destroy(this);
+        i = this;
     }
     
     private void Start()
     {
+        InformationManager.isCrashing = false;
         active = true;
         cam = transform.GetComponentInChildren<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
+        InformationManager.cursorLockMode = CursorLockMode.Locked;
     }
     
     private void Update()
     {
+        if (InformationManager.isCrashing) return;
+       
         CheckForInteraction();
+        KeyBoardInputs();
 
         if (!active) return;
 
@@ -87,8 +93,17 @@ public sealed class CameraControl : MonoBehaviour
         CheckLookingBack();
     }
 
-    private void Pan()
+    private void KeyBoardInputs()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (UIManager.openGUI == Menu) UIManager.NoGUI();
+            else UIManager.OpenMenu();
+        } 
+        //UIManager.i.OpenGUI(UIManager.openGUI == Menu ? None : Menu);
+
+        if (Input.GetKeyDown(KeyCode.A)) 
+            SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
     }
 
     private void FixedUpdate()
@@ -117,45 +132,35 @@ public sealed class CameraControl : MonoBehaviour
 
     private void CheckForInteraction()
     {
-
-        Input.GetMouseButton(0);
-        
         Transform camTransform = cam.transform;
 
-        bool hitPhone = false;
-        
         if (Physics.Raycast
-                (camTransform.position, camTransform.forward, 
-                    out RaycastHit hit, interactionRange)
-            )
+            (camTransform.position, camTransform.forward, 
+                out RaycastHit hit, interactionRange)
+           )
         {
-            if (Input.GetMouseButtonDown(0)) 
-                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeft();
-            if (Input.GetMouseButton(0)) 
-                hit.collider.gameObject.GetComponent<Interactable.Interactable>()?.OnLeftHold();
-
-            if (hit.collider.gameObject.name == "phone")
+            GameObject hitObject = hit.collider.gameObject;
+            if (lastHitObject == null)
             {
-                hitPhone = true;
-                if (Math.Abs(cam.fieldOfView - fov) < 0.01f)
-                {
-                    EventHub.TriggerEvent
-                        (EventHub.CustomEvent.StartedLookingAtPhone);
-                    
-                    lookingAtPhone = true;
-                    zoomingIn = true;
-                }
+                lastHitObject = hit.collider.gameObject;
+                hitObject.GetComponent<Interactable>()?.OnLookAt();
+            }
+            
+            if (Input.GetMouseButtonDown(0))
+                hitObject.GetComponent<Interactable>()?.OnLeft();
+            
+            if (Input.GetMouseButton(0)) 
+                hitObject.GetComponent<Interactable>()?.OnLeftHold();
+        }
+        else
+        {
+            if (lastHitObject != null)
+            {
+                lastHitObject.GetComponent<Interactable>()?.OnStopLookAt();
+                lastHitObject = null;
             }
         }
-        
-        if (!hitPhone && lookingAtPhone)
-        {
-            EventHub.TriggerEvent
-                (EventHub.CustomEvent.StoppedLookingAtPhone);
-            lookingAtPhone = false;
-            zoomingOut = true;
-        }
-        
+
         #if UNITY_EDITOR
         Debug.DrawRay(camTransform.position, camTransform.forward * interactionRange, Color.red);
         #endif
