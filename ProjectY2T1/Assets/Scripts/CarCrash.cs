@@ -103,6 +103,8 @@ public sealed class CarCrash : MonoBehaviour
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
+	
+	
   
 	public void OnChooseGrandma()
 	{

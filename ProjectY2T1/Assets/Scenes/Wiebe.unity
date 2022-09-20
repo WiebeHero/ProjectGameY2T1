@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4981.2656, g: 4953.1914, b: 6686.74, a: 1}
+  m_IndirectSpecularColor: {r: 4980.2627, g: 4952.498, b: 6686.5186, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -503,6 +503,19 @@ MonoBehaviour:
   startZoomDuration: 0.8
   stopZoomDuration: 0.5
   targetZoomFOV: 20
+--- !u!65 &142788106
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142788103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.04813427, y: 0.4894869, z: 0.18622011}
+  m_Center: {x: 0.003264776, y: 0.25525594, z: 0.0061934395}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -9564,8 +9577,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8479004, y: 18.267048, z: 49.842323}
-  m_Center: {x: -95.48122, y: 1.6320744, z: -0.26084518}
+  m_Size: {x: 3.7212524, y: 18.267048, z: 49.842323}
+  m_Center: {x: -83.60138, y: 1.6320744, z: -0.26084518}
 --- !u!4 &1919989025
 Transform:
   m_ObjectHideFlags: 0
@@ -9602,8 +9615,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.7144775, y: 22.107277, z: 48.663143}
-  m_Center: {x: -62.338257, y: -1.480732, z: -1.5001049}
+  m_Size: {x: 3.682228, y: 22.107277, z: 48.663143}
+  m_Center: {x: -56.319866, y: -1.480732, z: -1.5001049}
 --- !u!1 &1931454328
 GameObject:
   m_ObjectHideFlags: 0
@@ -9883,7 +9896,6 @@ GameObject:
   - component: {fileID: 1965182598}
   - component: {fileID: 1965182600}
   - component: {fileID: 1965182601}
-  - component: {fileID: 1965182602}
   - component: {fileID: 1965182603}
   - component: {fileID: 1965182604}
   - component: {fileID: 1965182606}
@@ -9938,28 +9950,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panDuration: 0.5
   panTarget: {x: 0, y: 90, z: 0}
-  moveDuration: 0
-  moveTarget: {x: 0, y: 0, z: 0}
-  animator: {fileID: 0}
+  moveDuration: 0.5
+  moveTarget: {x: 0, y: 0, z: 1.2}
+  animator: {fileID: 1695318794}
   grandmaButtonObject: {fileID: 1722500967}
   childButtonObject: {fileID: 1230870157}
   grandma: {fileID: 7879806899954847630}
   child: {fileID: 9027022215753475594}
   child2: {fileID: 53199486698264073}
   coolText: {fileID: 967095345}
---- !u!114 &1965182602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965182597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c364af353f2e45e1b3bee615922ca8d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carCrash: {fileID: 1965182601}
 --- !u!114 &1965182603
 MonoBehaviour:
   m_ObjectHideFlags: 0
