@@ -74,21 +74,18 @@ public sealed class CarCrash : MonoBehaviour
 			throw new Exception("Grandma object and child object should have the same parent object");
 
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
-		//grandmaButton.OnPointerEnter(OnChooseGrandma());
 		childButton.onClick.AddListener(OnChooseChild);
 	}
 	
 	public void Run()
 	{
 		InformationManager.isCrashing = true;
-		StartCoroutine(Crash());
+		Crash();
 	}
 
-	private IEnumerator Crash()
+	private void Crash()
 	{
 		coolText.StartSchmoovin();
-
-		//Wait for the camera to pan towards the windshield
 
 		if (Math.Abs(cameraController.cam.fieldOfView - originalCamFov) > 0.0001f) 
 			cameraController.Zoom(originalCamFov, 0.2f);
@@ -97,7 +94,6 @@ public sealed class CarCrash : MonoBehaviour
 		CameraController.SetActive(false);
 		cameraController.MoveTowards(moveTarget,moveDuration);
 		cameraController.PanTowards(panTarget, panDuration);
-		yield return new WaitUntil(CameraController.DonePanning);
 		
 		parentObject.SetActive(true);
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
