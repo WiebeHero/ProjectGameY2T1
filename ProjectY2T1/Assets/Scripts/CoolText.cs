@@ -22,8 +22,6 @@ public class CoolText : MonoBehaviour
             theVolume.weight = current;
             current += Time.deltaTime / transitionSpeed;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space)) schmoovin = true;
     }
 
     public void StartSchmoovin() => schmoovin = true;

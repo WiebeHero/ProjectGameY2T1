@@ -29,6 +29,14 @@ namespace Managers
 		public void UpdateRotationSpeed() => CameraController.rotationSpeed = sensitivitySlider.value;
 		// public void UpdateVolume() =>  = sensitivitySlider.value;
 
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				
+			}
+		}
+
 		private void Awake()
 		{
 			if (i != null && i != this) Destroy(this);
