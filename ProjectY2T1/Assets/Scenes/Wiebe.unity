@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4980.2627, g: 4952.498, b: 6686.5186, a: 1}
+  m_IndirectSpecularColor: {r: 4981.2695, g: 4953.1787, b: 6686.7427, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingType: 1
   carCrash: {fileID: 1965182601}
-  timeToSpawn: 15000
+  timeToSpawn: 10000
   spawnAfterTile: 0
   road: {fileID: 940666361}
   removeOnDespawn: 1

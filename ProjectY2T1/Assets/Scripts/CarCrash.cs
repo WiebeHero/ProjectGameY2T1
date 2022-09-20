@@ -102,7 +102,7 @@ public sealed class CarCrash : MonoBehaviour
 	
 	
   
-	public void OnChooseGrandma()
+	private void OnChooseGrandma()
 	{
 		if (grandma == null) throw new Exception("The grandma is not assigned!");
 		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
@@ -135,7 +135,7 @@ public sealed class CarCrash : MonoBehaviour
 		animator.SetTrigger(CrashKids);
 	}
 
-	private void Close()
+	public void Close()
 	{
 		parentObject.SetActive(false);
 		InformationManager.cursorLockMode = InformationManager.prevCursorLockMode;

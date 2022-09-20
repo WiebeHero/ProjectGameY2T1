@@ -97,16 +97,28 @@ namespace TerrainMovement
                     transform.position = vector;
                     roads.Add(gameObject);
                 }
+                if (gameObject.CompareTag("TerrainSign"))
+                {
+                    MovingTerrainManager.canBrake = false;
+                }
             }
             else if(gameObject.CompareTag("CrashSequence"))
             {
-                EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
-                carCrash.Run();
-                if (activateColSequence)
+                if (MovingTerrainManager.speed > 4.0F)
                 {
-                    carCrash.OnChooseGrandma();
+                    EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
+                    carCrash.Run();
+                    if (activateColSequence)
+                    {
+                        carCrash.OnChooseChild();
+                    }
+                    activateColSequence = true;
                 }
-                activateColSequence = true;
+                else
+                {
+                    carCrash.Close();
+                    MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
+                }
             }
         }
         public enum SettingType
