@@ -12,6 +12,8 @@ namespace Managers
 		public static event Action SignAppearsEvent;
 		public static event Action StartLookingAt;
 		public static event Action StopLookingAt;
+		public static event Action CarCrashStartEvent;
+		public static event Action CarCrashStopEvent;
 
 		private static bool initialized;
 
@@ -21,7 +23,9 @@ namespace Managers
 			StoppedLookingBackwards,
 			StartedLookingAt,
 			StoppedLookingAt,
-			SignAppears
+			SignAppears,
+			CrashStartEvent,
+			CrashStopEvent,
 		}
 		
 		public static void TriggerEvent(CustomEvent customEventName)
@@ -48,6 +52,14 @@ namespace Managers
 					break;
 				case SignAppears:
 					SignAppearsEvent?.Invoke();
+					EventTracker.it.RecordEvent(SignAppears);
+					break;
+				case CrashStartEvent:
+					CarCrashStartEvent?.Invoke();
+					EventTracker.it.RecordEvent(SignAppears);
+					break;
+				case CrashStopEvent:
+					CarCrashStopEvent?.Invoke();
 					EventTracker.it.RecordEvent(SignAppears);
 					break;
 				default:

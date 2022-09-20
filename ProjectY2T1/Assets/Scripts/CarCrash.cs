@@ -12,6 +12,10 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private float panDuration;
 	[SerializeField] private Vector3 panTarget;
 
+	[Header("Move forwards")] 
+	[SerializeField] private float moveDuration;
+	[SerializeField] private Vector3 moveTarget;
+
 	[Header("Animator")] [SerializeField] private Animator animator;
 	
 	[Header("Choice buttons")]
@@ -23,6 +27,9 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private GameObject child;
 	[SerializeField] private GameObject child2;
 
+	[Header("SadStuff")] 
+	[SerializeField] private CoolText coolText;
+
 
 	private CameraController cameraController;
 	
@@ -33,7 +40,8 @@ public sealed class CarCrash : MonoBehaviour
 	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
 	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
-
+	private float originalCamFov;
+	
 	public static CarCrash i { get; private set; }
 
 	private void Awake()
@@ -50,6 +58,8 @@ public sealed class CarCrash : MonoBehaviour
 		cameraController = CameraController.i;
 		if (cameraController == null) throw new Exception("No camera controller in scene found by CarCrash.cs");
 
+		originalCamFov = cameraController.cam.fieldOfView;
+
 		grandmaButton = grandmaButtonObject.GetComponent<Button>();
 		if (grandmaButton == null) throw new Exception("Attached grandma button object doesn't have a button component");
 
@@ -64,6 +74,7 @@ public sealed class CarCrash : MonoBehaviour
 			throw new Exception("Grandma object and child object should have the same parent object");
 
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
+		//grandmaButton.OnPointerEnter(OnChooseGrandma());
 		childButton.onClick.AddListener(OnChooseChild);
 	}
 	
@@ -75,8 +86,16 @@ public sealed class CarCrash : MonoBehaviour
 
 	private IEnumerator Crash()
 	{
+		coolText.StartSchmoovin();
+
 		//Wait for the camera to pan towards the windshield
+
+		if (Math.Abs(cameraController.cam.fieldOfView - originalCamFov) > 0.0001f) 
+			cameraController.Zoom(originalCamFov, 0.2f);
+
+
 		CameraController.SetActive(false);
+		cameraController.MoveTowards(moveTarget,moveDuration);
 		cameraController.PanTowards(panTarget, panDuration);
 		yield return new WaitUntil(CameraController.DonePanning);
 		
@@ -84,32 +103,28 @@ public sealed class CarCrash : MonoBehaviour
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
-	
-	private void OnChooseGrandma()
+  
+	public void OnChooseGrandma()
 	{
 		if (grandma == null) throw new Exception("The grandma is not assigned!");
-		
 		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
 		if (rigid == null) throw new Exception("The grandma doesn't have a rigidbody!");
 		
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
-		
 		rigid.constraints = RigidbodyConstraints.None;
 		rigid.useGravity = true;
 		
 		animator.SetTrigger(CrashGrandma);
 	}
 	
-	private void OnChooseChild()
+	public void OnChooseChild()
 	{
 		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
 		
 		Rigidbody rigid = child.GetComponent<Rigidbody>();
 		Rigidbody rigid2 = child2.GetComponent<Rigidbody>();
-		if (rigid == null || rigid2 == null) 
-			throw new Exception("One of the children doesn't have a rigidbody!");
-		
+		if (rigid == null || rigid2 == null) throw new Exception("One of the children doesn't have a rigidbody!");
 		
 		Close();
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Frozen;
