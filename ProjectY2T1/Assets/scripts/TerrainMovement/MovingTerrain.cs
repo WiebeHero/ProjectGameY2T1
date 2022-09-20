@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using Managers;
 using UnityEngine;
 
@@ -104,7 +105,7 @@ namespace TerrainMovement
             }
             else if(gameObject.CompareTag("CrashSequence"))
             {
-                if (MovingTerrainManager.speed > 4.0F)
+                if (MovingTerrainManager.speed > 4.0F || MovingTerrainManager.recordedSpeed > 4.0F)
                 {
                     EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
                     carCrash.Run();
@@ -116,7 +117,9 @@ namespace TerrainMovement
                 }
                 else
                 {
+                    EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
                     carCrash.Close();
+                    InformationManager.cursorLockMode = CursorLockMode.Locked;
                     MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
                 }
             }
