@@ -101,6 +101,8 @@ public sealed class CarCrash : MonoBehaviour
   
 	public void OnChooseGrandma()
 	{
+		FunFacts.chosenEnding = FunFacts.Ending.Grandma;
+		
 		if (grandma == null) throw new Exception("The grandma is not assigned!");
 		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
 		if (rigid == null) throw new Exception("The grandma doesn't have a rigidbody!");
@@ -115,6 +117,8 @@ public sealed class CarCrash : MonoBehaviour
 	
 	public void OnChooseChild()
 	{
+		FunFacts.chosenEnding = FunFacts.Ending.Kids;
+		
 		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
 		
 		Rigidbody rigid = child.GetComponent<Rigidbody>();

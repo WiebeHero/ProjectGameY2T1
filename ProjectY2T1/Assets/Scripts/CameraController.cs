@@ -96,11 +96,7 @@ public sealed class CameraController : MonoBehaviour
         {
             if (UIManager.openGUI == Menu) UIManager.NoGUI();
             else UIManager.OpenMenu();
-        } 
-        //UIManager.i.OpenGUI(UIManager.openGUI == Menu ? None : Menu);
-
-        if (Input.GetKeyDown(KeyCode.A)) 
-            SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
+        }
     }
 
     private void CheckForInteraction()

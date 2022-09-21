@@ -11,7 +11,7 @@ using Random = System.Random;
 public class FunFacts : MonoBehaviour
 {
 	[SerializeField] private GameObject funFactContainer;
-	[SerializeField] private List<GameObject> imageObjects;
+	[SerializeField] private List<GameObject> endingObjects;
 	[SerializeField] private List<GameObject> funFacts;
 	[SerializeField] private float fadeDuration;
 	[SerializeField] private Image mainMenuBackground;
@@ -19,11 +19,13 @@ public class FunFacts : MonoBehaviour
 	[NonSerialized] private Dictionary<string, GameObject> images;
 
 	public bool active { get; private set; }
+	public static Ending chosenEnding;
 	
 	private Image background;
 	private GameObject endingObject;
 	private Image ending;
-	
+	private TextMeshProUGUI endingText;
+
 	private GameObject selectedTextObject;
 	private TextMeshProUGUI selectedText;
 	
@@ -34,17 +36,10 @@ public class FunFacts : MonoBehaviour
 	private bool textTweenComplete;
 
 	public enum Ending
-	{
+	{ 
 		Grandma,
-		Kids,
-		Bunny,
 		Good,
-		Phone
-	}
-
-	public void ChooseEnding(Ending choice)
-	{
-		
+		Kids
 	}
 	
 	public void Begin()
@@ -52,7 +47,7 @@ public class FunFacts : MonoBehaviour
 		if (active) return;
 		active = true;
 		
-		ChooseEnding("TestTestTest");
+		ChooseEnding(Enum.GetName(typeof(Ending),chosenEnding));
 
 		if (endingObject != null)
 		{
@@ -62,15 +57,23 @@ public class FunFacts : MonoBehaviour
 		else Debug.LogWarning("No image chosen for the 'fun' facts");
 		
 		funFactContainer.SetActive(true);
-		
+
+		endingText = endingObject.GetComponentInChildren<TextMeshProUGUI>();
+
 		background.DOFade(1, fadeDuration).onComplete += () =>
 		{
 			ending.DOFade(1, fadeDuration).onComplete += () => imageTweenComplete = true;
+			
+			if (endingText != null) 
+				endingText.DOFade(1, fadeDuration);
 		};
 	}
+	
+	
 
 	private void ChooseEnding(string imageName)
 	{
+
 		if (!images.ContainsKey(imageName))
 			Debug.LogWarning($"Images doesn't contain key: {imageName}!");
 
@@ -79,8 +82,6 @@ public class FunFacts : MonoBehaviour
 	
 	private void Update()
 	{
-		// if (funFactContainer != null) Debug.LogWarning("Ja");
-		
 		if (active)
 		{
 			if (Input.anyKeyDown)
@@ -93,7 +94,11 @@ public class FunFacts : MonoBehaviour
 			}
 		}
 		//Testing
-		else if (Input.GetKeyDown(KeyCode.Space)) Begin();
+		else if (Input.GetKeyDown(KeyCode.Space))
+		{
+			chosenEnding = Ending.Grandma;
+			Begin();
+		}
 	}
 
 	private void Start()
@@ -109,7 +114,7 @@ public class FunFacts : MonoBehaviour
 
 		images = new Dictionary<string, GameObject>();
 		
-		foreach (GameObject imageObject in imageObjects)
+		foreach (GameObject imageObject in endingObjects)
 		{
 			Image image = imageObject.GetComponent<Image>();
 			
@@ -126,13 +131,6 @@ public class FunFacts : MonoBehaviour
 		{
 			SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
 			InformationManager.cursorLockMode = CursorLockMode.Confined;
-
-			// mainMenuBackground.DOFade(1, 0);
-			// background.DOFade(0, fadeDuration).onComplete += () =>
-			// {
-			// 	DOTween.KillAll();
-			// 	SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
-			// };
 		};
 	}
 
@@ -140,6 +138,8 @@ public class FunFacts : MonoBehaviour
 	{
 		DOTween.KillAll();
 		ending.DOFade(0, fadeDuration).onComplete += GenerateFunFact;
+		if (endingText != null) 
+			endingText.DOFade(0, fadeDuration);
 	}
 
 	private void GenerateFunFact()
