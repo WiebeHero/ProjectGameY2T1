@@ -11,8 +11,6 @@ public sealed class CameraController : MonoBehaviour
     public static bool active;
     
     [SerializeField] private Transform camOffset;
-
-    [SerializeField] private float fov = 60f;
     
     [Header("Factors")]
     public static float rotationSpeed = 10;
@@ -38,14 +36,11 @@ public sealed class CameraController : MonoBehaviour
     private bool left;
 
     public static void SetActive(bool newState) => active = newState;
-    
-    private static bool panning;
-    public static bool DonePanning() => !panning;
 
     public void PanTowards(Vector3 targetRotation, float duration)
     {
         camOffset.transform.DOLocalMoveX(0, duration);
-        cam.transform.DORotate(targetRotation,duration).onComplete += () => panning = false;
+        cam.transform.DORotate(targetRotation,duration).onComplete += () => { };
     }
     
     public void MoveTowards(Vector3 targetPosition, float duration) => cam.transform.DOLocalMove(targetPosition, duration);
@@ -56,15 +51,17 @@ public sealed class CameraController : MonoBehaviour
     private void Awake()
     {
         if (i != null && i != this) Destroy(this);
-        Debug.Log("Test");
         i = this;
+
+        cam = transform.GetComponentInChildren<Camera>();
+        if (cam == null) throw new Exception("No camera object found by controller!");
     }
     
     private void Start()
     {
         InformationManager.isCrashing = false;
         active = true;
-        cam = transform.GetComponentInChildren<Camera>();
+        
         InformationManager.cursorLockMode = CursorLockMode.Locked;
     }
     

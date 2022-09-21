@@ -90,7 +90,6 @@ public sealed class CarCrash : MonoBehaviour
 		if (Math.Abs(cameraController.cam.fieldOfView - originalCamFov) > 0.0001f) 
 			cameraController.Zoom(originalCamFov, 0.2f);
 
-
 		CameraController.SetActive(false);
 		cameraController.MoveTowards(moveTarget,moveDuration);
 		cameraController.PanTowards(panTarget, panDuration);
