@@ -33,7 +33,7 @@ public sealed class CameraController : MonoBehaviour
 
     //Temporary event variables
     private GameObject lastHitObject;
-    private bool left;
+    private bool holdingLMB;
 
     public static void SetActive(bool newState) => active = newState;
 
@@ -68,7 +68,7 @@ public sealed class CameraController : MonoBehaviour
     private void Update()
     {
         if (InformationManager.isCrashing) return;
-       
+        CheckForInteraction();
         KeyBoardInputs();
 
         if (!active) return;
@@ -103,11 +103,6 @@ public sealed class CameraController : MonoBehaviour
             SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
     }
 
-    private void FixedUpdate()
-    {
-        if (!InformationManager.isCrashing) CheckForInteraction();
-    }
-
     private void CheckForInteraction()
     {
         Transform camTransform = cam.transform;
@@ -118,35 +113,38 @@ public sealed class CameraController : MonoBehaviour
            )
         {
             GameObject hitObject = hit.collider.gameObject;
-            if (lastHitObject == null)
-            {
-                lastHitObject = hit.collider.gameObject;
-                hitObject.GetComponent<Interactable>()?.OnLookAt();
-            }
+            if (hitObject != null) lastHitObject = hitObject;
+
+            Interactable interactable = hitObject.GetComponent<Interactable>();
+            if (interactable == null) return;
+            
+            interactable.OnLookAt();
+            
 
             if (Input.GetMouseButtonDown(0))
             {
-                hitObject.GetComponent<Interactable>()?.OnLeft();
-                left = true;
+                interactable.OnLMB();
+                holdingLMB = true;
             }
             
             else if (Input.GetMouseButton(0))
-                hitObject.GetComponent<Interactable>()?.OnLeftHold();
+                interactable.OnLMBHold();
             
-            else if (left)
+            else if (holdingLMB)
             {
-                hitObject.GetComponent<Interactable>()?.OnLeftRelease();
-                left = false;
+                interactable.OnLMBRelease();
+                holdingLMB = false;
             }
         }
         else
         {
             if (lastHitObject != null)
             {
-                lastHitObject.GetComponent<Interactable>()?.OnStopLookAt();
-                if (left)
+                Interactable interactable = lastHitObject.GetComponent<Interactable>();
+                if (interactable != null)
                 {
-                    lastHitObject.GetComponent<Interactable>()?.OnLeftRelease();
+                    interactable.OnStopLookAt();
+                    if (holdingLMB) interactable.OnLMBRelease();
                 }
                 lastHitObject = null;
             }

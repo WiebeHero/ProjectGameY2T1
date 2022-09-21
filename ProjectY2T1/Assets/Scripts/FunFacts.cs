@@ -79,6 +79,8 @@ public class FunFacts : MonoBehaviour
 	
 	private void Update()
 	{
+		// if (funFactContainer != null) Debug.LogWarning("Ja");
+		
 		if (active)
 		{
 			if (Input.anyKeyDown)
@@ -122,13 +124,15 @@ public class FunFacts : MonoBehaviour
 	{
 		selectedText.DOFade(0, fadeDuration).onComplete += () =>
 		{
-			background.DOFade(0, fadeDuration).onComplete += () =>
-			{
-				DOTween.KillAll();
-				SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
-			};
+			SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
+			InformationManager.cursorLockMode = CursorLockMode.Confined;
 
-			mainMenuBackground.DOFade(1, fadeDuration);
+			// mainMenuBackground.DOFade(1, 0);
+			// background.DOFade(0, fadeDuration).onComplete += () =>
+			// {
+			// 	DOTween.KillAll();
+			// 	SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
+			// };
 		};
 	}
 

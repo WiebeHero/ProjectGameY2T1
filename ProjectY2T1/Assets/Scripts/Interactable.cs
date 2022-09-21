@@ -13,9 +13,9 @@ public abstract class Interactable : MonoBehaviour
 		LeftClickRelease += OnLeftClickRelease;
 	}
 
-	public void OnLeft() => LeftClick?.Invoke();
-	public void OnLeftHold() => LeftClickHold?.Invoke();
-	public void OnLeftRelease() => LeftClickRelease?.Invoke();
+	public void OnLMB() => LeftClick?.Invoke();
+	public void OnLMBHold() => LeftClickHold?.Invoke();
+	public void OnLMBRelease() => LeftClickRelease?.Invoke();
 	public void OnLookAt() => StartLookingAt?.Invoke();
 	public void OnStopLookAt() => StopLookingAt?.Invoke();
 
