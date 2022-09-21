@@ -20,6 +20,7 @@ namespace TerrainMovement
         private MeshRenderer meshRenderer;
 
         private float startMoveTime;
+        private float timeWaited;
 
         private bool activateColSequence;
 
@@ -49,12 +50,11 @@ namespace TerrainMovement
             }
         }
         
-        public void FixedUpdate()
+        private void FixedUpdate()
         {
-            
             if (added || DateTimeOffset.Now.ToUnixTimeMilliseconds()
                 < timeToSpawn || timeToSpawn <= 0) return;
-            
+            Debug.Log("Deezios");
             added = true;
             disabled = false;
             
@@ -66,6 +66,12 @@ namespace TerrainMovement
             GameObject thisObject = gameObject;
             thisObject.transform.position = lastPosition;
             queue.Add(thisObject);
+        }
+
+        private void Update()
+        {
+            //Debug.Log((long)(Time.deltaTime * 1000));
+            //if (InformationManager.paused && settingType == SettingType.SpawnAfterTimePassed) timeToSpawn += (long)(Time.deltaTime * 1000);
         }
 
         private void OnTriggerEnter(Collider other)
