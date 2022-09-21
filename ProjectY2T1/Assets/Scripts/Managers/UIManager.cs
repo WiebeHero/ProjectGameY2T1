@@ -1,5 +1,8 @@
 ﻿using System;
+using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Managers
 {
@@ -10,24 +13,20 @@ namespace Managers
 		[SerializeField] private GameObject menuObject;
 		[SerializeField] private GameObject crossHair;
 		[SerializeField] private GameObject confirmationObject;
+		[SerializeField] private Texture2D mouseRed;
+		[SerializeField] private Texture2D mouseNormal;
 		
 		public static GUI openGUI;
 		private bool menuActive;
 
 		//Button functions
 		public static void MenuContinue() => i.OpenGUI(GUI.None);
-
 		public static void OpenMenu() => i.OpenGUI(GUI.Menu);
 		public static void NoGUI() => i.OpenGUI(GUI.None);
 		public static void OpenConfirmation() => i.OpenGUI(GUI.Confirmation);
-		public static void CloseConfirmation()
-		{
-			Debug.LogWarning("does");
-			i.OpenGUI(GUI.Menu);
-		}
-
+		public static void CloseConfirmation() => i.OpenGUI(GUI.Menu);
 		public static void ConfirmExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
-
+		
 		private void Awake()
 		{
 			if (i != null && i != this) Destroy(this);
@@ -38,6 +37,15 @@ namespace Managers
 			if (crossHair == null) throw new Exception("UIManager has no crossHair assigned!");
 			
 			openGUI = GUI.None;
+		}
+
+		private void Start()
+		{
+			EventHub.PointerEnterButtonEvent += () => 
+				Cursor.SetCursor(mouseRed, new Vector2(0,0), CursorMode.Auto);
+			
+			EventHub.PointerExitButtonEvent += () => 
+				Cursor.SetCursor(mouseNormal, new Vector2(0,0), CursorMode.Auto);
 		}
 
 		[Serializable]

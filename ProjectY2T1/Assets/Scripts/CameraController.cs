@@ -23,6 +23,12 @@ public sealed class CameraController : MonoBehaviour
 
     [Header("Interaction")]
     [SerializeField] private float interactionRange = 5;
+
+    [Header("Pointer")] 
+    [SerializeField] private GameObject pointerA;
+    [SerializeField] private GameObject pointerB;
+    private bool pointing;
+    private bool pointersActive;
     
     //Camera
     [NonSerialized] public Camera cam;
@@ -63,6 +69,12 @@ public sealed class CameraController : MonoBehaviour
         active = true;
         
         InformationManager.cursorLockMode = CursorLockMode.Locked;
+
+        EventHub.CarCrashStartEvent += () =>
+        {
+            pointerA.SetActive(false);
+            pointerB.SetActive(false);
+        };
     }
     
     private void Update()
@@ -113,6 +125,13 @@ public sealed class CameraController : MonoBehaviour
 
             Interactable interactable = hitObject.GetComponent<Interactable>();
             if (interactable == null) return;
+
+
+            if (!pointing)
+            {
+                pointerB.SetActive(true);
+                pointing = true;
+            }
             
             interactable.OnLookAt();
             
@@ -134,6 +153,13 @@ public sealed class CameraController : MonoBehaviour
         }
         else
         {
+            if (pointing)
+            {
+                pointerB.SetActive(false);
+                pointing = false;
+            }
+            
+            
             if (lastHitObject != null)
             {
                 Interactable interactable = lastHitObject.GetComponent<Interactable>();

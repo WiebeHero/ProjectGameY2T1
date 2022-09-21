@@ -14,7 +14,6 @@ public class FunFacts : MonoBehaviour
 	[SerializeField] private List<GameObject> endingObjects;
 	[SerializeField] private List<GameObject> funFacts;
 	[SerializeField] private float fadeDuration;
-	[SerializeField] private Image mainMenuBackground;
 
 	[NonSerialized] private Dictionary<string, GameObject> images;
 
@@ -123,6 +122,8 @@ public class FunFacts : MonoBehaviour
 			
 			else images.Add(imageObject.name, imageObject);
 		}
+
+		chosenEnding = Ending.Good;
 	}
 
 	private void EndSequence()
