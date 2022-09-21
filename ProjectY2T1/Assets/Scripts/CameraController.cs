@@ -57,10 +57,6 @@ public sealed class CameraController : MonoBehaviour
     {
         if (i != null && i != this) Destroy(this);
         i = this;
-    }
-    
-    private void Start()
-    {
         InformationManager.isCrashing = false;
         active = true;
         cam = transform.GetComponentInChildren<Camera>();

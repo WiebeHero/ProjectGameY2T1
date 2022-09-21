@@ -75,6 +75,10 @@ public sealed class CarCrash : MonoBehaviour
 
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
 		childButton.onClick.AddListener(OnChooseChild);
+
+		AudioSource source = GetComponent<AudioSource>();
+		if (source == null) throw new Exception("Audio source component is not present!");
+		EventHub.CarCrashStartEvent += source.Stop;
 	}
 	
 	public void Run()

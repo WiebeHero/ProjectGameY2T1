@@ -6,6 +6,6 @@ public class MainMenu : MonoBehaviour
 	public static void StartGame()
 	{
 		InformationManager.Reset();
-		SceneSwapper.i.SwapScene(InformationManager.Scene.Patrick);
+		SceneSwapper.i.SwapScene(InformationManager.Scene.Wiebe);
 	}
 }
