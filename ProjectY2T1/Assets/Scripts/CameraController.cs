@@ -56,18 +56,14 @@ public sealed class CameraController : MonoBehaviour
     {
         DOTween.KillAll();
         DOTween.To(() => cam.fieldOfView, x => cam.fieldOfView = x, newFov, duration)
-            .onComplete += () =>
-        {
-            cam.fieldOfView = newFov;
-            Debug.Log("Final FOV: " + cam.fieldOfView);
-        };
+            .onComplete += () => cam.fieldOfView = newFov;
 
     }
 
     private void Awake()
     {
         if (i != null && i != this) Destroy(this);
-        i = this;
+        else i = this;
 
         cam = transform.GetComponentInChildren<Camera>();
         if (cam == null) throw new Exception("No camera object found by controller!");
@@ -83,11 +79,19 @@ public sealed class CameraController : MonoBehaviour
         EventHub.CarCrashStartEvent += Bleh;
     }
 
+    private void OnDisable()
+    {
+        EventHub.CarCrashStartEvent -= Bleh;
+    }
+
     private void Bleh()
     {
+        // if (pointerA == null) pointerA = GameObject.Find("PointerA");
+        // if (pointerB == null) pointerB = GameObject.Find("PointerB");
+        
+        
         Debug.Log(pointerA);
         pointerA.SetActive(false);
-
         pointerB.SetActive(false);
     }
     
@@ -112,7 +116,6 @@ public sealed class CameraController : MonoBehaviour
         camOffset.transform.localPosition = new Vector3(rotX/clampX.y*leanFactor,1.561f,0f);
         
         CheckLookingBack();
-        
     }
     
 

@@ -1,54 +1,30 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+// ReSharper disable InconsistentNaming
 
 public class Tape : Interactable
 {
-    [SerializeField] private AudioClip clip;
+    [SerializeField] private AudioClip clip_;
     [SerializeField] private AnimationClip clipAnimation;
     [SerializeField] private CassettePlayer cassettePlayer;
-    [SerializeField] private CassettePlayer.Tapes tapeType;
-    private static readonly int Tapes = Animator.StringToHash("Tapes");
+    [SerializeField] private CassettePlayer.Tapes tapeType_;
 
     private void Start()
     {
         if (cassettePlayer == null) 
-            throw new Exception($"No Cassette Player assigned to tape");
+            Debug.LogWarning($"No Cassette Player assigned to tape");
     }
 
-    protected override void OnLookingAt()
-    {
-        //Debug.Log("Deez");
-    }
+    protected override void OnLookingAt(){}
 
-    protected override void OnStopLookingAt()
-    {
-        
-    }
+    protected override void OnStopLookingAt(){}
 
-    protected override void OnLeftClick()
-    {
-        //Debug.Log("Deez2");
-        //cassettePlayer.PlayTape(this);
-        //gameObject.SetActive(false);
-        cassettePlayer.PlayTape(this);
-    }
+    protected override void OnLeftClick() => cassettePlayer.PlayTape(this);
 
-    protected override void OnLeftClickHold() {}
+    protected override void OnLeftClickHold(){}
     
-    protected override void OnLeftClickRelease() {}
+    protected override void OnLeftClickRelease(){}
 
-    public AudioClip Clip
-    {
-        get => clip;
-    }
-    public AnimationClip AnimationClip
-    {
-        get => clipAnimation;
-    }
-    
-
-    public CassettePlayer.Tapes TapeType
-    {
-        get => tapeType;
-    }
+    public AudioClip clip => clip_;
+    public AnimationClip animationClip => clipAnimation;
+    public CassettePlayer.Tapes tapeType => tapeType_;
 }

@@ -1,16 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindShieldTrigger : MonoBehaviour
+public sealed class WindShieldTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject window;
     [SerializeField] private List<GameObject> watchOutFor;
     private AudioSource source;
     private bool played;
 
-    void Awake()
+    private void Awake()
     {
         source = GetComponent<AudioSource>();
         if (source == null) throw new Exception("There is no Audio Source component!");
@@ -21,6 +20,7 @@ public class WindShieldTrigger : MonoBehaviour
         if (watchOutFor.Contains(other.gameObject))
         {
             window.SetActive(true);
+            
             if (!played)
             {
                 played = true;

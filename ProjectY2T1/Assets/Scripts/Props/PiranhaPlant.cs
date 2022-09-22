@@ -41,7 +41,7 @@ namespace Props
 			amountReached = true;
 			if (audioSource != null) audioSource.Play();
 			
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(0.8f);
 			
 			plant.SetActive(false);
 			grownPlant.SetActive(true);
