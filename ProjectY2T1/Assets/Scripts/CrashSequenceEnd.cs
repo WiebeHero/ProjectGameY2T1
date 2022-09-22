@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 
@@ -12,8 +11,9 @@ public class CrashSequenceEnd : MonoBehaviour
     {
         if (screechSource == null || crashSource == null || bumpSource == null) throw new Exception("AudioSource component not present.");
     }
-    public void CrashSequenceEnding()
+    public IEnumerator HoldUpWaitAMinute()
     {
+        yield return new WaitForSeconds(2);
         EventHub.TriggerEvent(EventHub.CustomEvent.CrashStopEvent);
     }
 

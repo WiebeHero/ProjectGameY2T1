@@ -60,7 +60,9 @@ namespace TerrainMovement
             
             List<GameObject> queue = manager.roads;
             Vector3 lastPosition = queue[^1].transform.position; //^1 means index from end, useful information for future]
-            Debug.Log(lastPosition);
+            
+            
+            //Debug.Log(lastPosition);
             lastPosition.x += meshRenderer.bounds.size.x;
 
             GameObject thisObject = gameObject;

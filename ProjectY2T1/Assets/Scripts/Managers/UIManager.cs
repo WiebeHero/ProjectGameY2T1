@@ -1,6 +1,8 @@
 ﻿using System;
+using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Managers
 {
@@ -10,44 +12,53 @@ namespace Managers
 	
 		[SerializeField] private GameObject menuObject;
 		[SerializeField] private GameObject crossHair;
-		[SerializeField] private GameObject settingsObject;
-
-		[Header("Sliders")] 
-		[SerializeField] private Slider sensitivitySlider;
-		[SerializeField] private Slider volumeSlider;
-
+		[SerializeField] private GameObject confirmationObject;
+		[SerializeField] private Texture2D mouseRed;
+		[SerializeField] private Texture2D mouseNormal;
+		
 		public static GUI openGUI;
 		private bool menuActive;
 
 		//Button functions
 		public static void MenuContinue() => i.OpenGUI(GUI.None);
-		public static void MenuSettings() => i.OpenGUI(GUI.Settings);
-		public static void MenuExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
 		public static void OpenMenu() => i.OpenGUI(GUI.Menu);
 		public static void NoGUI() => i.OpenGUI(GUI.None);
-
-		public void UpdateRotationSpeed() => CameraController.rotationSpeed = sensitivitySlider.value;
-		// public void UpdateVolume() =>  = sensitivitySlider.value;
-
+		public static void OpenConfirmation() => i.OpenGUI(GUI.Confirmation);
+		public static void CloseConfirmation() => i.OpenGUI(GUI.Menu);
+		public static void ConfirmExit() => SceneSwapper.i.SwapScene(InformationManager.Scene.MainMenu);
+		
 		private void Awake()
 		{
 			if (i != null && i != this) Destroy(this);
 			i = this;
 			
 			if (menuObject == null) throw new Exception("UIManager has no menuObject assigned!");
-			if (settingsObject == null) throw new Exception("UIManager has no settingsObject attached!");
+			if (confirmationObject == null) throw new Exception("UIManager has no confirmationObject attached!");
 			if (crossHair == null) throw new Exception("UIManager has no crossHair assigned!");
 			
 			openGUI = GUI.None;
-			UpdateRotationSpeed();
+		}
+
+		private void Start()
+		{
+			EventHub.PointerEnterButtonEvent += () => 
+				Cursor.SetCursor(mouseRed, new Vector2(0,0), CursorMode.Auto);
+			
+			EventHub.PointerExitButtonEvent += () => 
+				Cursor.SetCursor(mouseNormal, new Vector2(0,0), CursorMode.Auto);
 		}
 
 		[Serializable]
 		public enum GUI
 		{
 			Menu,
-			Settings,
+			Confirmation,
 			None
+		}
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.A)) OpenGUI(GUI.None);
 		}
 
 		private GameObject GUIEnumToGameObject(GUI gui)
@@ -55,7 +66,7 @@ namespace Managers
 			return gui switch
 			{
 				GUI.Menu => menuObject,
-				GUI.Settings => settingsObject,
+				GUI.Confirmation => confirmationObject,
 				GUI.None => null,
 				_ => throw new ArgumentOutOfRangeException(nameof(gui), gui, null)
 			};
@@ -70,6 +81,7 @@ namespace Managers
 					openGUI = GUI.None;
 					InformationManager.cursorLockMode = CursorLockMode.Locked;
 					InformationManager.paused = false;
+					crossHair.SetActive(true);
 					break;
 	
 				default:

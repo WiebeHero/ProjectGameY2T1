@@ -22,8 +22,19 @@ namespace Managers
 			
 			//DontDestroyOnLoad(car);
 			SceneManager.LoadSceneAsync(buildIndex);
+			InformationManager.currentScene = scene;
+
 			//SceneManager.sceneLoaded += (scene_, _) => 
-				//SceneManager.MoveGameObjectToScene(car, SceneManager.GetSceneByBuildIndex(scene_.buildIndex));
+			//SceneManager.MoveGameObjectToScene(car, SceneManager.GetSceneByBuildIndex(scene_.buildIndex));
+		}
+
+		public static void QuitGame()
+		{
+			#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+			#endif
+        
+			Application.Quit();
 		}
 	}
 }
