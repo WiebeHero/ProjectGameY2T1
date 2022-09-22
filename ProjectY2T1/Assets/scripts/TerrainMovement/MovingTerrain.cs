@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using Managers;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace TerrainMovement
         private MeshRenderer meshRenderer;
 
         private float startMoveTime;
+        private float timeWaited;
 
         private bool activateColSequence;
 
@@ -48,23 +50,30 @@ namespace TerrainMovement
             }
         }
         
-        public void FixedUpdate()
+        private void FixedUpdate()
         {
-            
             if (added || DateTimeOffset.Now.ToUnixTimeMilliseconds()
                 < timeToSpawn || timeToSpawn <= 0) return;
-            
+            Debug.Log("Deezios");
             added = true;
             disabled = false;
             
             List<GameObject> queue = manager.roads;
             Vector3 lastPosition = queue[^1].transform.position; //^1 means index from end, useful information for future]
-            Debug.Log(lastPosition);
+            
+            
+            //Debug.Log(lastPosition);
             lastPosition.x += meshRenderer.bounds.size.x;
 
             GameObject thisObject = gameObject;
             thisObject.transform.position = lastPosition;
             queue.Add(thisObject);
+        }
+
+        private void Update()
+        {
+            //Debug.Log((long)(Time.deltaTime * 1000));
+            //if (InformationManager.paused && settingType == SettingType.SpawnAfterTimePassed) timeToSpawn += (long)(Time.deltaTime * 1000);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -97,16 +106,30 @@ namespace TerrainMovement
                     transform.position = vector;
                     roads.Add(gameObject);
                 }
+                if (gameObject.CompareTag("TerrainSign"))
+                {
+                    MovingTerrainManager.canBrake = false;
+                }
             }
             else if(gameObject.CompareTag("CrashSequence"))
             {
-                EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
-                carCrash.Run();
-                if (activateColSequence)
+                if (MovingTerrainManager.speed > 4.0F || MovingTerrainManager.recordedSpeed > 4.0F)
                 {
-                    carCrash.OnChooseGrandma();
+                    EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
+                    carCrash.Run();
+                    if (activateColSequence)
+                    {
+                        carCrash.OnChooseChild();
+                    }
+                    activateColSequence = true;
                 }
-                activateColSequence = true;
+                else
+                {
+                    EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
+                    carCrash.Close();
+                    InformationManager.cursorLockMode = CursorLockMode.Locked;
+                    MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
+                }
             }
         }
         public enum SettingType

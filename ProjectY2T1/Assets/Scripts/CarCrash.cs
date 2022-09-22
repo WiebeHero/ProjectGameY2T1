@@ -36,12 +36,11 @@ public sealed class CarCrash : MonoBehaviour
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
-	
-	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
-	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
 	private float originalCamFov;
-	
+	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
+	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
+
 	public static CarCrash i { get; private set; }
 
 	private void Awake()
@@ -74,38 +73,41 @@ public sealed class CarCrash : MonoBehaviour
 			throw new Exception("Grandma object and child object should have the same parent object");
 
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
-		//grandmaButton.OnPointerEnter(OnChooseGrandma());
 		childButton.onClick.AddListener(OnChooseChild);
+
+		AudioSource source = GetComponent<AudioSource>();
+		if (source == null) throw new Exception("Audio source component is not present!");
+		EventHub.CarCrashStartEvent += source.Stop;
 	}
 	
 	public void Run()
 	{
 		InformationManager.isCrashing = true;
-		StartCoroutine(Crash());
+		Crash();
 	}
 
-	private IEnumerator Crash()
+	private void Crash()
 	{
 		coolText.StartSchmoovin();
-
-		//Wait for the camera to pan towards the windshield
 
 		if (Math.Abs(cameraController.cam.fieldOfView - originalCamFov) > 0.0001f) 
 			cameraController.Zoom(originalCamFov, 0.2f);
 
-
 		CameraController.SetActive(false);
 		cameraController.MoveTowards(moveTarget,moveDuration);
 		cameraController.PanTowards(panTarget, panDuration);
-		yield return new WaitUntil(CameraController.DonePanning);
 		
 		parentObject.SetActive(true);
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
+	
+	
   
-	public void OnChooseGrandma()
+	private void OnChooseGrandma()
 	{
+		FunFacts.chosenEnding = FunFacts.Ending.Grandma;
+		
 		if (grandma == null) throw new Exception("The grandma is not assigned!");
 		Rigidbody rigid = grandma.GetComponent<Rigidbody>();
 		if (rigid == null) throw new Exception("The grandma doesn't have a rigidbody!");
@@ -120,6 +122,8 @@ public sealed class CarCrash : MonoBehaviour
 	
 	public void OnChooseChild()
 	{
+		FunFacts.chosenEnding = FunFacts.Ending.Kids;
+		
 		if (child == null || child2 == null) throw new Exception("One of the children is not assigned!");
 		
 		Rigidbody rigid = child.GetComponent<Rigidbody>();
@@ -137,7 +141,7 @@ public sealed class CarCrash : MonoBehaviour
 		animator.SetTrigger(CrashKids);
 	}
 
-	private void Close()
+	public void Close()
 	{
 		parentObject.SetActive(false);
 		InformationManager.cursorLockMode = InformationManager.prevCursorLockMode;

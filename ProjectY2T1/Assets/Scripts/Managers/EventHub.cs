@@ -14,6 +14,9 @@ namespace Managers
 		public static event Action StopLookingAt;
 		public static event Action CarCrashStartEvent;
 		public static event Action CarCrashStopEvent;
+		public static event Action PointerEnterButtonEvent;
+		public static event Action PointerExitButtonEvent;
+		
 
 		private static bool initialized;
 
@@ -26,12 +29,12 @@ namespace Managers
 			SignAppears,
 			CrashStartEvent,
 			CrashStopEvent,
+			PointerEnterButton,
+			PointerExitButton
 		}
 		
 		public static void TriggerEvent(CustomEvent customEventName)
 		{
-			if (EventTracker.it == null) throw new Exception("No EventTracker in scene");
-			
 			switch (customEventName)
 			{
 				case StartedLookingBackwards:
@@ -56,11 +59,17 @@ namespace Managers
 					break;
 				case CrashStartEvent:
 					CarCrashStartEvent?.Invoke();
-					EventTracker.it.RecordEvent(SignAppears);
+					EventTracker.it.RecordEvent(CrashStartEvent);
 					break;
 				case CrashStopEvent:
 					CarCrashStopEvent?.Invoke();
-					EventTracker.it.RecordEvent(SignAppears);
+					EventTracker.it.RecordEvent(CrashStopEvent);
+					break;
+				case PointerEnterButton:
+					PointerEnterButtonEvent?.Invoke();
+					break;
+				case PointerExitButton:
+					PointerExitButtonEvent?.Invoke();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(customEventName), customEventName, null);
