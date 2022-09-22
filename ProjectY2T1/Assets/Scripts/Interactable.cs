@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
 	public event Action LeftClick, LeftClickHold, LeftClickRelease, StartLookingAt, StopLookingAt;
+
 	protected Interactable()
 	{
 		LeftClick += OnLeftClick;
@@ -17,6 +18,7 @@ public abstract class Interactable : MonoBehaviour
 	public void OnLMBHold() => LeftClickHold?.Invoke();
 	public void OnLMBRelease() => LeftClickRelease?.Invoke();
 	public void OnLookAt() => StartLookingAt?.Invoke();
+
 	public void OnStopLookAt() => StopLookingAt?.Invoke();
 
 	protected abstract void OnLeftClick();

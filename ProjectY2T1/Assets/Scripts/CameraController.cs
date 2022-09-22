@@ -3,6 +3,7 @@ using DG.Tweening;
 using Managers;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using static Managers.UIManager.GUI;
 
 public sealed class CameraController : MonoBehaviour
@@ -30,6 +31,7 @@ public sealed class CameraController : MonoBehaviour
     [SerializeField] private GameObject pointerB;
     private bool pointing;
     private bool pointersActive;
+    private bool firstLook;
     
     //Camera
     [NonSerialized] public Camera cam;
@@ -52,8 +54,17 @@ public sealed class CameraController : MonoBehaviour
     
     public void MoveTowards(Vector3 targetPosition, float duration) => cam.transform.DOLocalMove(targetPosition, duration);
 
-    public void Zoom(float newFov, float duration) => 
-        DOTween.To(() => cam.fieldOfView, x => cam.fieldOfView = x, newFov, duration);
+    public void Zoom(float newFov, float duration)
+    {
+        DOTween.KillAll();
+        DOTween.To(() => cam.fieldOfView, x => cam.fieldOfView = x, newFov, duration)
+            .onComplete += () =>
+        {
+            cam.fieldOfView = newFov;
+            Debug.Log("Final FOV: " + cam.fieldOfView);
+        };
+
+    }
 
     private void Awake()
     {
@@ -73,7 +84,9 @@ public sealed class CameraController : MonoBehaviour
 
         EventHub.CarCrashStartEvent += () =>
         {
+            Debug.Log(pointerA);
             pointerA.SetActive(false);
+            
             pointerB.SetActive(false);
         };
     }
@@ -134,8 +147,12 @@ public sealed class CameraController : MonoBehaviour
                 pointerB.SetActive(true);
                 pointing = true;
             }
-            
-            interactable.OnLookAt();
+
+            if (!firstLook)
+            {
+                interactable.OnLookAt();
+                firstLook = true;
+            }
             
 
             if (Input.GetMouseButtonDown(0))
@@ -168,6 +185,7 @@ public sealed class CameraController : MonoBehaviour
                 if (interactable != null)
                 {
                     interactable.OnStopLookAt();
+                    firstLook = false;
                     if (holdingLMB) interactable.OnLMBRelease();
                 }
                 lastHitObject = null;

@@ -72,8 +72,7 @@ namespace TerrainMovement
 
         private void Update()
         {
-            //Debug.Log((long)(Time.deltaTime * 1000));
-            //if (InformationManager.paused && settingType == SettingType.SpawnAfterTimePassed) timeToSpawn += (long)(Time.deltaTime * 1000);
+            if (InformationManager.paused && settingType == SettingType.SpawnAfterTimePassed) timeToSpawn += (long)(Time.deltaTime * 1000);
         }
 
         private void OnTriggerEnter(Collider other)
