@@ -56,6 +56,7 @@ public class FunFacts : MonoBehaviour
 		else Debug.LogWarning("No image chosen for the 'fun' facts");
 		
 		funFactContainer.SetActive(true);
+		
 
 		endingText = endingObject.GetComponentInChildren<TextMeshProUGUI>();
 
