@@ -378,10 +378,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 4f9656457b27d734a9b55b9fd072379f, type: 3}
+  clip_: {fileID: 8300000, guid: d31e1af0dd7f65b4783afd2609aef7e0, type: 3}
   clipAnimation: {fileID: 7400000, guid: 620c0757441400244909925c8b364cd0, type: 2}
   cassettePlayer: {fileID: 657652938938763287}
-  tapeType: 2
+  tapeType_: 2
 --- !u!1 &1723534828797042801
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,10 +533,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: d31e1af0dd7f65b4783afd2609aef7e0, type: 3}
+  clip_: {fileID: 8300000, guid: 4f9656457b27d734a9b55b9fd072379f, type: 3}
   clipAnimation: {fileID: 7400000, guid: 2258b8d54d7238c479c0729b2d758c1c, type: 2}
   cassettePlayer: {fileID: 657652938938763287}
-  tapeType: 4
+  tapeType_: 4
 --- !u!1 &2548367566330442849
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,10 +595,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: e4c84404852b35040b41bed549b16d39, type: 3}
+  clip_: {fileID: 8300000, guid: e4c84404852b35040b41bed549b16d39, type: 3}
   clipAnimation: {fileID: 7400000, guid: 8e9a68ef1b079bb4f82dd0793f4cec90, type: 2}
   cassettePlayer: {fileID: 657652938938763287}
-  tapeType: 3
+  tapeType_: 3
 --- !u!1 &4238998190898674372
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,10 +657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clip_: {fileID: 8300000, guid: 7f44180adbe8415459c04a971108322c, type: 3}
   clipAnimation: {fileID: 7400000, guid: b46ff4db50e07e241bfa4cd31180c681, type: 2}
   cassettePlayer: {fileID: 657652938938763287}
-  tapeType: 6
+  tapeType_: 6
 --- !u!1 &4620935644583887748
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,10 +904,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 7f44180adbe8415459c04a971108322c, type: 3}
+  clip_: {fileID: 8300000, guid: ea39bb46d303d6243b2387f555091dfe, type: 3}
   clipAnimation: {fileID: 7400000, guid: cacad5c4ddfd425458530417a3fdf2fc, type: 2}
   cassettePlayer: {fileID: 657652938938763287}
-  tapeType: 1
+  tapeType_: 1
 --- !u!1 &5716438096957143638
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,8 +970,8 @@ MonoBehaviour:
   startZoomDuration: 0.8
   stopZoomDuration: 0.5
   targetZoomFOV: 20
-  recieve: {fileID: 0}
-  typing: {fileID: 0}
+  receive: {fileID: 8300000, guid: cb132d890d848f643a112ca49b787761, type: 3}
+  typing: {fileID: 8300000, guid: 93120f28d0f66494c9a03f2b829d8b54, type: 3}
   animator: {fileID: 0}
   texts:
   - {fileID: 7018105130127718645}
@@ -3377,10 +3377,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: ea39bb46d303d6243b2387f555091dfe, type: 3}
+  clip_: {fileID: 8300000, guid: 7f44180adbe8415459c04a971108322c, type: 3}
   clipAnimation: {fileID: 7400000, guid: c46eb6b19d6a0f94995949bb3883de66, type: 2}
   cassettePlayer: {fileID: 657652938938763287}
-  tapeType: 5
+  tapeType_: 5
 --- !u!1001 &7018105129772416530
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -112,6 +112,8 @@ namespace TerrainMovement
             }
             else if(gameObject.CompareTag("CrashSequence"))
             {
+                Debug.Log("Current speed: " + MovingTerrainManager.speed);
+                Debug.Log("Recoreded speed: " + MovingTerrainManager.recordedSpeed);
                 if (MovingTerrainManager.speed > 4.0F || MovingTerrainManager.recordedSpeed > 4.0F)
                 {
                     EventHub.TriggerEvent(EventHub.CustomEvent.CrashStartEvent);
@@ -128,6 +130,7 @@ namespace TerrainMovement
                     carCrash.Close();
                     InformationManager.cursorLockMode = CursorLockMode.Locked;
                     MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
+                    EventHub.TriggerEvent(EventHub.CustomEvent.CrashStopEvent);
                 }
             }
         }

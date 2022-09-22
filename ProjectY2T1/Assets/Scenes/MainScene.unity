@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4982.379, g: 4954.1523, b: 6688.6875, a: 1}
+  m_IndirectSpecularColor: {r: 4981.2812, g: 4953.1797, b: 6686.74, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1095,7 +1095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingType: 1
   carCrash: {fileID: 1965182601}
-  timeToSpawn: 10000
+  timeToSpawn: 82000
   spawnAfterTile: 0
   road: {fileID: 940666361}
   removeOnDespawn: 1
@@ -9483,7 +9483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingType: 1
   carCrash: {fileID: 1965182601}
-  timeToSpawn: 20000
+  timeToSpawn: 90000
   spawnAfterTile: 0
   road: {fileID: 963510320}
   removeOnDespawn: 1
@@ -11236,6 +11236,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853127879220989885, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
         type: 3}
