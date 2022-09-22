@@ -77,7 +77,7 @@ public sealed class CarCrash : MonoBehaviour
 
 		AudioSource source = GetComponent<AudioSource>();
 		if (source == null) throw new Exception("Audio source component is not present!");
-		EventHub.CarCrashStartEvent += source.Stop;
+		if (source.clip != null) EventHub.CarCrashStartEvent += source.Stop;
 	}
 	
 	public void Run()
