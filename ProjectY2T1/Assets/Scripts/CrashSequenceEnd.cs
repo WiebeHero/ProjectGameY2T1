@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 
 public class CrashSequenceEnd : MonoBehaviour
 {
-    public void CrashSequenceEnding()
+    public IEnumerator HoldUpWaitAMinute()
     {
+        yield return new WaitForSeconds(2);
         EventHub.TriggerEvent(EventHub.CustomEvent.CrashStopEvent);
     }
 }
