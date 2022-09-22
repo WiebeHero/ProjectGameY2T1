@@ -33,7 +33,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: car/Armature/phone/Canvas/Texts/Text (2)
+    path: car/Armature/car/phone/Canvas/Texts/Text (2)
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -52,7 +52,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: car/Armature/phone/Canvas/Texts/Text (1)
+    path: car/Armature/car/phone/Canvas/Texts/Text (1)
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -71,7 +71,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -99,7 +99,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -118,7 +118,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -137,7 +137,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -156,7 +156,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -168,49 +168,49 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2074914250
+      path: 974133051
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1350696457
+      path: 289228024
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1656200331
+      path: 587933306
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1656200331
+      path: 587933306
       attribute: 538195251
       script: {fileID: 0}
       typeID: 224
       customType: 28
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1656200331
+      path: 587933306
       attribute: 2537237887
       script: {fileID: 0}
       typeID: 224
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1656200331
+      path: 587933306
       attribute: 3762036201
       script: {fileID: 0}
       typeID: 224
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1656200331
+      path: 587933306
       attribute: 2033536083
       script: {fileID: 0}
       typeID: 224
@@ -254,7 +254,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: car/Armature/phone/Canvas/Texts/Text (2)
+    path: car/Armature/car/phone/Canvas/Texts/Text (2)
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -273,7 +273,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: car/Armature/phone/Canvas/Texts/Text (1)
+    path: car/Armature/car/phone/Canvas/Texts/Text (1)
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -292,7 +292,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -320,7 +320,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -339,7 +339,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -358,7 +358,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -377,7 +377,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: car/Armature/phone/Canvas/Texts/Text (3)
+    path: car/Armature/car/phone/Canvas/Texts/Text (3)
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []
