@@ -30,6 +30,8 @@ namespace Managers
 			get => isPaused;
 			set
 			{
+				EventHub.TriggerEvent(value ? EventHub.CustomEvent.OnPause : EventHub.CustomEvent.OnContinue);
+
 				isPaused = value;
 				CameraController.active = !isPaused;
 				MovingTerrainManager.active = !isPaused;

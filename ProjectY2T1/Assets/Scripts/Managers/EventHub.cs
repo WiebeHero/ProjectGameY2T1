@@ -16,6 +16,8 @@ namespace Managers
 		public static event Action CarCrashStopEvent;
 		public static event Action PointerEnterButtonEvent;
 		public static event Action PointerExitButtonEvent;
+		public static event Action OnPauseEvent;
+		public static event Action OnContinueEvent;
 		
 
 		private static bool initialized;
@@ -30,7 +32,9 @@ namespace Managers
 			CrashStartEvent,
 			CrashStopEvent,
 			PointerEnterButton,
-			PointerExitButton
+			PointerExitButton,
+			OnPause,
+			OnContinue
 		}
 		
 		public static void TriggerEvent(CustomEvent customEventName)
@@ -70,6 +74,12 @@ namespace Managers
 					break;
 				case PointerExitButton:
 					PointerExitButtonEvent?.Invoke();
+					break;
+				case OnPause:
+					OnPauseEvent?.Invoke();
+					break;
+				case OnContinue:
+					OnContinueEvent?.Invoke();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(customEventName), customEventName, null);
