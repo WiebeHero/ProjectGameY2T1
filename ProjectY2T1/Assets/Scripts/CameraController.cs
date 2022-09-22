@@ -1,9 +1,7 @@
 using System;
 using DG.Tweening;
 using Managers;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using static Managers.UIManager.GUI;
 
 public sealed class CameraController : MonoBehaviour
@@ -79,16 +77,18 @@ public sealed class CameraController : MonoBehaviour
     {
         InformationManager.isCrashing = false;
         active = true;
-        
+
         InformationManager.cursorLockMode = CursorLockMode.Locked;
 
-        EventHub.CarCrashStartEvent += () =>
-        {
-            Debug.Log(pointerA);
-            pointerA.SetActive(false);
-            
-            pointerB.SetActive(false);
-        };
+        EventHub.CarCrashStartEvent += Bleh;
+    }
+
+    private void Bleh()
+    {
+        Debug.Log(pointerA);
+        pointerA.SetActive(false);
+
+        pointerB.SetActive(false);
     }
     
     private void Update()
