@@ -39,7 +39,7 @@ namespace Managers
 		public enum Scene
 		{
 			MainMenu,
-			Wiebe,
+			MainScene,
 			Patrick
 		}
 
