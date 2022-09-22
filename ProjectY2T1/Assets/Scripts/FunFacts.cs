@@ -73,7 +73,6 @@ public class FunFacts : MonoBehaviour
 
 	private void ChooseEnding(string imageName)
 	{
-
 		if (!images.ContainsKey(imageName))
 			Debug.LogWarning($"Images doesn't contain key: {imageName}!");
 
@@ -126,6 +125,8 @@ public class FunFacts : MonoBehaviour
 
 		chosenEnding = Ending.Good;
 	}
+
+	private void OnDisable() => EventHub.CarCrashStopEvent -= Begin;
 
 	private void EndSequence()
 	{

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,23 +11,11 @@ public sealed class ChoiceButton : MonoBehaviour, IPointerEnterHandler, IPointer
 	private void Awake()
 	{
 		button = GetComponent<Button>();
-		if (button == null) throw new Exception("How can a choice button not have a button!!!!????");
-		
-		if (spotLight == null) throw new Exception("No spotlight attached to this choice button");
+		if (button == null) Debug.LogWarning("How can a choice button not have a button!!!!????");
+		if (spotLight == null) Debug.LogWarning("No spotlight attached to this choice button");
 	}
 
-	public void OnPointerEnter(PointerEventData eventData)
-	{
-		spotLight.SetActive(true);
-	}
-
-	public void OnPointerExit(PointerEventData eventData)
-	{
-		spotLight.SetActive(false);
-	}
-
-	public void OnPointerUp(PointerEventData eventData)
-	{
-		spotLight.SetActive(false);
-	}
+	public void OnPointerEnter(PointerEventData eventData) => spotLight.SetActive(true);
+	public void OnPointerExit(PointerEventData eventData) => spotLight.SetActive(false);
+	public void OnPointerUp(PointerEventData eventData) => spotLight.SetActive(false);
 }
