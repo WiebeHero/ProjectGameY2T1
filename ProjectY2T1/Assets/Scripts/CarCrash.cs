@@ -36,12 +36,11 @@ public sealed class CarCrash : MonoBehaviour
 	private GameObject parentObject;
 	private Button grandmaButton;
 	private Button childButton;
-	
-	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
-	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
 
 	private float originalCamFov;
-	
+	private static readonly int CrashKids = Animator.StringToHash("CrashKids");
+	private static readonly int CrashGrandma = Animator.StringToHash("CrashGrandma");
+
 	public static CarCrash i { get; private set; }
 
 	private void Awake()

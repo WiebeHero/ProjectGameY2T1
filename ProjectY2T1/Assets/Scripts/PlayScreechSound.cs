@@ -7,7 +7,7 @@ public class PlayScreechSound : MonoBehaviour
     [SerializeField] private AudioSource source;
     private bool played;
     
-    public void PlayScreech()
+    public void PlayScreech(int i)
     {
         if (!played)
         {
