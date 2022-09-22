@@ -19,11 +19,5 @@ public sealed class Car : MonoBehaviour
         Debug.LogWarning(rotateAxis);
     }
 
-    private void FixedUpdate()
-    {
-        // speed += 0.01f;
-        // MovingTerrainManager.speed = speed;
-        speedometerDial.transform.Rotate(speedometerDial.transform.forward, 0.1f);
-        //speedometerDial.transform.DOLocalRotate(rotateAxis, 0);
-    }
+    private void FixedUpdate() => speedometerDial.transform.Rotate(speedometerDial.transform.forward, 0.1f);
 }

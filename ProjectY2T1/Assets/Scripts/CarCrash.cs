@@ -31,6 +31,8 @@ public sealed class CarCrash : MonoBehaviour
 	[SerializeField] private CoolText coolText;
 
 
+	private AudioSource audioSource;
+
 	private CameraController cameraController;
 	
 	private GameObject parentObject;
@@ -75,11 +77,18 @@ public sealed class CarCrash : MonoBehaviour
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
 		childButton.onClick.AddListener(OnChooseChild);
 
-		AudioSource source = GetComponent<AudioSource>();
-		if (source == null) throw new Exception("Audio source component is not present!");
-		if (source.clip != null) EventHub.CarCrashStartEvent += source.Stop;
+		audioSource = GetComponent<AudioSource>();
+		if (audioSource == null) throw new Exception("Audio source component is not present!");
+		if (audioSource.clip != null) EventHub.CarCrashStartEvent += audioSource.Stop;
 	}
-	
+
+	private void OnDisable()
+	{
+		grandmaButton.onClick.RemoveListener(OnChooseGrandma);
+		childButton.onClick.RemoveListener(OnChooseChild);
+		EventHub.CarCrashStartEvent -= audioSource.Stop;
+	}
+
 	public void Run()
 	{
 		InformationManager.isCrashing = true;

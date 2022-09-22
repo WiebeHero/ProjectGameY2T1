@@ -1,22 +1,20 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 
 public class CassettePlayer : MonoBehaviour
 {
-    public event Action LastTapeStoppedPlayingEvent;
     [SerializeField] private Animator tapeAnimator;
 
     private AudioSource source;
     private bool tapeIsPlaying;
     private Tape currentlyPlaying;
+    private static readonly int Tapes1 = Animator.StringToHash("Tapes");
 
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        if (source == null) throw new Exception("No Audio Source detected on Cassete Player!");
+        if (source == null) Debug.LogWarning("No Audio Source detected on Cassete Player!");
     }
 
     public enum Tapes
@@ -35,37 +33,23 @@ public class CassettePlayer : MonoBehaviour
         else source.UnPause();
     }
 
-    private void FixedUpdate()
-    {
-        /*if (!tapeIsPlaying) return;
-        if (!currentlyPlaying.AudioSource.isPlaying)
-        {
-            currentlyPlaying.gameObject.SetActive(true);
-            LastTapeStoppedPlayingEvent?.Invoke();
-            currentlyPlaying = null;
-        }*/
-    }
-
     public void PlayTape(Tape tape)
     {
-        if(currentlyPlaying != null) tapeAnimator.SetInteger("Tapes", 0);
+        if(currentlyPlaying != null) tapeAnimator.SetInteger(Tapes1, 0);
         currentlyPlaying = tape;
         source.Stop();
-        StartCoroutine(PlayTapeAfter(tape.AnimationClip.length));
+        StartCoroutine(PlayTapeAfter(tape.animationClip.length));
     }
 
-    IEnumerator PlayTapeAfter(float length)
+    private IEnumerator PlayTapeAfter(float length)
     {
         yield return new WaitForSeconds(length);
-        if(currentlyPlaying != null) tapeAnimator.SetInteger("Tapes", (int)currentlyPlaying.TapeType);
+        if(currentlyPlaying != null) tapeAnimator.SetInteger(Tapes1, (int)currentlyPlaying.tapeType);
 
-        source.clip = currentlyPlaying.Clip;
+        source.clip = currentlyPlaying.clip;
 
         source.Play();
     }
 
-    public Animator Animator
-    {
-        get => tapeAnimator;
-    }
+    public Animator animator => tapeAnimator;
 }

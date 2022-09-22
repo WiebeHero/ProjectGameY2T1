@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
 using UnityEngine;
 
 public class ArtsieTextExperiment : MonoBehaviour
@@ -10,33 +7,24 @@ public class ArtsieTextExperiment : MonoBehaviour
     public Material theMaterial;
     public float transitionSpeed;
 
-    bool schmoovin;
-    float current;
+    private bool schmoovin;
+    private float current;
+    private static readonly int Text = Shader.PropertyToID("_Text");
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        theMaterial.SetFloat("_Text", 0f);
-    }
+    private void Start() => theMaterial.SetFloat(Text, 0f);
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (schmoovin && current <= 1)
         {
-            theMaterial.SetFloat("_Text", current);
+            theMaterial.SetFloat(Text, current);
             theVolume.weight = current;
             current += Time.deltaTime / transitionSpeed;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            schmoovin = true;            
-        }
+        if (Input.GetKeyDown(KeyCode.Space)) 
+            schmoovin = true;
     }
 
-    public void StartSchmoovin()
-    {
-        schmoovin = true;
-    }
+    public void StartSchmoovin() => schmoovin = true;
 }
