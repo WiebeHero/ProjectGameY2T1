@@ -19,7 +19,7 @@ public class Tape : Interactable
 
     protected override void OnLookingAt()
     {
-        Debug.Log("Deez");
+        //Debug.Log("Deez");
     }
 
     protected override void OnStopLookingAt()
@@ -29,7 +29,7 @@ public class Tape : Interactable
 
     protected override void OnLeftClick()
     {
-        Debug.Log("Deez2");
+        //Debug.Log("Deez2");
         //cassettePlayer.PlayTape(this);
         //gameObject.SetActive(false);
         cassettePlayer.Animator.SetInteger(Tapes, (int)tapeType);

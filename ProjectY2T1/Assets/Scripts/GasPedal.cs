@@ -25,14 +25,14 @@ public class GasPedal : Interactable
 
     private void FixedUpdate()
     {
-        if (looking)
+        if (looking && MovingTerrainManager.canBrake)
         {
             foot.SetActive(true);
             if (color.a <= 0.98F) color.a += 0.02F;
         }
         else
         {
-            if(foot.activeSelf)
+            if(foot.activeSelf || MovingTerrainManager.canBrake)
                 if (color.a >= 0.02F)
                     color.a -= 0.02F;
                 else
@@ -58,7 +58,7 @@ public class GasPedal : Interactable
     
     protected override void OnLeftClickHold()
     {
-        if (MovingTerrainManager.speed > 2.0F)
+        if (MovingTerrainManager.speed > 2.0F && MovingTerrainManager.canBrake)
         {
             MovingTerrainManager.speed -= 0.15F;
         }

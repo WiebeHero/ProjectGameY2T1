@@ -9,22 +9,26 @@ namespace TerrainMovement
         [NonSerialized]
         public static MovingTerrainManager i;
         public static SpeedMode speedMode;
+        public static bool canBrake;
+        public static float recordedSpeed;
         public static float speed { set; get; }
         public static bool active { set; get; }
         
         private bool addRoad;
+        private float tempSpeed;
 
         [SerializeField] private Vector3 moveDirection;
         
         public List<GameObject> roads { get; private set; }
 
         private float t;
-        private float recordedSpeed;
+        private bool first;
         
         private void Awake()
         {
             if (i != null && i != this) Destroy(this);
             i = this;
+            canBrake = true;
         }
 
         private void Start()
@@ -44,18 +48,20 @@ namespace TerrainMovement
             switch (speedMode)
             {
                 case SpeedMode.Normal:
-                    if (speed < 4.99) speed += 0.005F;
+                    if (speed < 4.99 && canBrake) speed += 0.005F;
                     break;
                 case SpeedMode.Slow:
-                    if (recordedSpeed == 0.0F)
+                    if (!first)
                     {
-                        recordedSpeed = 5.0F;
+                        first = true;
+                        recordedSpeed = speed;
+                        tempSpeed = 5.0F;
                     }
-                    if (t <= 0.98F)
-                    {
-                        t += 0.02F;
-                    }
-                    speed = Mathf.Lerp(recordedSpeed, 0.05F, t);
+
+                    if (t <= 0.98F) t += recordedSpeed <= 4.0F ? 0.01F : 0.02F;
+                    else t = 1.0F;
+                    speed = Mathf.Lerp(recordedSpeed <= 4.0F ? recordedSpeed : tempSpeed, 0.05F, t);
+                    if (speed <= 0.06F && recordedSpeed <= 4.0F) speedMode = SpeedMode.Frozen;
                     break;
                 case SpeedMode.Frozen:
                     speed = 0.0F;

@@ -75,6 +75,10 @@ public sealed class CarCrash : MonoBehaviour
 
 		grandmaButton.onClick.AddListener(OnChooseGrandma);
 		childButton.onClick.AddListener(OnChooseChild);
+
+		AudioSource source = GetComponent<AudioSource>();
+		if (source == null) throw new Exception("Audio source component is not present!");
+		EventHub.CarCrashStartEvent += source.Stop;
 	}
 	
 	public void Run()
@@ -98,8 +102,10 @@ public sealed class CarCrash : MonoBehaviour
 		InformationManager.cursorLockMode = CursorLockMode.Confined;
 		MovingTerrainManager.speedMode = MovingTerrainManager.SpeedMode.Slow;
 	}
+	
+	
   
-	public void OnChooseGrandma()
+	private void OnChooseGrandma()
 	{
 		FunFacts.chosenEnding = FunFacts.Ending.Grandma;
 		
@@ -136,7 +142,7 @@ public sealed class CarCrash : MonoBehaviour
 		animator.SetTrigger(CrashKids);
 	}
 
-	private void Close()
+	public void Close()
 	{
 		parentObject.SetActive(false);
 		InformationManager.cursorLockMode = InformationManager.prevCursorLockMode;
