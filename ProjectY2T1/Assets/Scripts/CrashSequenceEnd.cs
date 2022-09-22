@@ -21,6 +21,7 @@ public class CrashSequenceEnd : MonoBehaviour
     {
         screechSource.Play();
         Debug.Log("Played1!");
+        Debug.Log("Hihi");
     }
     
     public void PlayCrash()
