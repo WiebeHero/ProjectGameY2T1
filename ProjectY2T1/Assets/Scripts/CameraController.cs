@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using Managers;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static Managers.UIManager.GUI;
 
@@ -115,11 +116,12 @@ public sealed class CameraController : MonoBehaviour
     {
         Transform camTransform = cam.transform;
 
+        
         if (Physics.Raycast
             (camTransform.position, camTransform.forward, 
-                out RaycastHit hit, interactionRange)
-           )
+                out RaycastHit hit, interactionRange))
         {
+
             GameObject hitObject = hit.collider.gameObject;
             if (hitObject != null) lastHitObject = hitObject;
 
