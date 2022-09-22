@@ -80,13 +80,15 @@ public sealed class CameraController : MonoBehaviour
 
         InformationManager.cursorLockMode = CursorLockMode.Locked;
 
-        EventHub.CarCrashStartEvent += () =>
-        {
-            Debug.Log(pointerA);
-            pointerA.SetActive(false);
+        EventHub.CarCrashStartEvent += Bleh;
+    }
 
-            pointerB.SetActive(false);
-        };
+    private void Bleh()
+    {
+        Debug.Log(pointerA);
+        pointerA.SetActive(false);
+
+        pointerB.SetActive(false);
     }
     
     private void Update()

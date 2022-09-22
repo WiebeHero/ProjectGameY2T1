@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4976.8867, g: 4945.6836, b: 6671.7812, a: 1}
+  m_IndirectSpecularColor: {r: 4981.3174, g: 4953.8687, b: 6688.9434, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9050,7 +9050,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -9079,7 +9079,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 101.268326, w: 0}
+  m_margin: {x: -76.81716, y: 0, z: 101.268326, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -11129,6 +11129,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.48316416
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.20973012
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.028059402
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.22494233
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.00031352328
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018105129547266980, guid: 58522e3d70b1a3e46a48053dba1481bb,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7018105129547266982, guid: 58522e3d70b1a3e46a48053dba1481bb,
         type: 3}
