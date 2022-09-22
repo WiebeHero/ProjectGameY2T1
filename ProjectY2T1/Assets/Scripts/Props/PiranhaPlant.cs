@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using DG.Tweening;
+using UnityEngine;
 
 namespace Props
 {
@@ -10,11 +13,15 @@ namespace Props
 		
 		private int amountClicked;
 		private bool amountReached;
-
+		private AudioSource audioSource;
+		private Timer timer;
+		
 		private void Start()
 		{
+			timer = plant.AddComponent<Timer>();
 			amountReached = false;
 			amountClicked = 0;
+			audioSource = GetComponent<AudioSource>();
 		}
 
 		protected override void OnLeftClick()
@@ -25,10 +32,19 @@ namespace Props
 
 			if (amountClicked == necessaryClicks)
 			{
-				amountReached = true;
-				plant.SetActive(false);
-				grownPlant.SetActive(true);
+				StartCoroutine(PopUp());
 			}
+		}
+
+		private IEnumerator PopUp()
+		{
+			amountReached = true;
+			if (audioSource != null) audioSource.Play();
+			
+			yield return new WaitForSeconds(1f);
+			
+			plant.SetActive(false);
+			grownPlant.SetActive(true);
 		}
 
 		protected override void OnLeftClickHold() {}
