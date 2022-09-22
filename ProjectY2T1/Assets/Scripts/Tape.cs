@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Tape : Interactable
 {
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip clip;
+    [SerializeField] private AnimationClip clipAnimation;
     [SerializeField] private CassettePlayer cassettePlayer;
     [SerializeField] private CassettePlayer.Tapes tapeType;
     private static readonly int Tapes = Animator.StringToHash("Tapes");
@@ -12,9 +13,6 @@ public class Tape : Interactable
     {
         if (cassettePlayer == null) 
             throw new Exception($"No Cassette Player assigned to tape");
-
-        if (audioSource == null)
-            throw new Exception("Tape has no AudioSource");
     }
 
     protected override void OnLookingAt()
@@ -32,16 +30,25 @@ public class Tape : Interactable
         //Debug.Log("Deez2");
         //cassettePlayer.PlayTape(this);
         //gameObject.SetActive(false);
-        cassettePlayer.Animator.SetInteger(Tapes, (int)tapeType);
+        cassettePlayer.PlayTape(this);
     }
 
     protected override void OnLeftClickHold() {}
     
     protected override void OnLeftClickRelease() {}
 
-    public AudioSource AudioSource
+    public AudioClip Clip
     {
-        get => audioSource;
-        set => audioSource = value;
+        get => clip;
+    }
+    public AnimationClip AnimationClip
+    {
+        get => clipAnimation;
+    }
+    
+
+    public CassettePlayer.Tapes TapeType
+    {
+        get => tapeType;
     }
 }

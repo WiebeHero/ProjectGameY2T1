@@ -178,6 +178,148 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1002852507062733523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1876082564739919488}
+  - component: {fileID: 4853127879220989885}
+  - component: {fileID: 657652938938763287}
+  m_Layer: 0
+  m_Name: TapeSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1876082564739919488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002852507062733523}
+  m_LocalRotation: {x: -0.000000029802319, y: 0.70710564, z: -0.000000119209275, w: 0.70710796}
+  m_LocalPosition: {x: 1.51, y: -4.48, z: 3.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7183101899824682277}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &4853127879220989885
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002852507062733523}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 6.052414
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &657652938938763287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002852507062733523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91224d1ffc300c4091c4d0690ee51fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tapeAnimator: {fileID: 0}
 --- !u!1 &1106244623892071828
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +329,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5368215500838533063}
+  - component: {fileID: 8867060879269788294}
+  - component: {fileID: 4485405026914206390}
   m_Layer: 0
   m_Name: tape 2
   m_TagString: Untagged
@@ -209,6 +353,35 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8867060879269788294
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106244623892071828}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24077976, y: 0.53861934, z: 0.04242671}
+  m_Center: {x: -0.002709345, y: -0.23068953, z: 0.002351664}
+--- !u!114 &4485405026914206390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106244623892071828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 4f9656457b27d734a9b55b9fd072379f, type: 3}
+  clipAnimation: {fileID: 7400000, guid: 620c0757441400244909925c8b364cd0, type: 2}
+  cassettePlayer: {fileID: 657652938938763287}
+  tapeType: 2
 --- !u!1 &1723534828797042801
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +484,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2822438672248963750}
+  - component: {fileID: 4013775500216412628}
+  - component: {fileID: 300967259495714237}
   m_Layer: 0
   m_Name: tape 4
   m_TagString: Untagged
@@ -333,6 +508,35 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4013775500216412628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495145562203075025}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24077976, y: 0.53861934, z: 0.04242671}
+  m_Center: {x: -0.002709345, y: -0.23068953, z: 0.002351664}
+--- !u!114 &300967259495714237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495145562203075025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: d31e1af0dd7f65b4783afd2609aef7e0, type: 3}
+  clipAnimation: {fileID: 7400000, guid: 2258b8d54d7238c479c0729b2d758c1c, type: 2}
+  cassettePlayer: {fileID: 657652938938763287}
+  tapeType: 4
 --- !u!1 &2548367566330442849
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +546,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8657910046774338097}
+  - component: {fileID: 1980842172027806388}
+  - component: {fileID: 6346232570903781664}
   m_Layer: 0
   m_Name: tape 3
   m_TagString: Untagged
@@ -364,6 +570,35 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1980842172027806388
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548367566330442849}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24077976, y: 0.53861934, z: 0.04242671}
+  m_Center: {x: -0.002709345, y: -0.23068953, z: 0.002351664}
+--- !u!114 &6346232570903781664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548367566330442849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: e4c84404852b35040b41bed549b16d39, type: 3}
+  clipAnimation: {fileID: 7400000, guid: 8e9a68ef1b079bb4f82dd0793f4cec90, type: 2}
+  cassettePlayer: {fileID: 657652938938763287}
+  tapeType: 3
 --- !u!1 &4238998190898674372
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +608,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1764667570476251999}
+  - component: {fileID: 172886560739823113}
+  - component: {fileID: 6162068297293475032}
   m_Layer: 0
   m_Name: tape 6
   m_TagString: Untagged
@@ -395,6 +632,35 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &172886560739823113
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238998190898674372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24077976, y: 0.53861934, z: 0.04242671}
+  m_Center: {x: -0.002709345, y: -0.23068953, z: 0.002351664}
+--- !u!114 &6162068297293475032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238998190898674372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 0}
+  clipAnimation: {fileID: 7400000, guid: b46ff4db50e07e241bfa4cd31180c681, type: 2}
+  cassettePlayer: {fileID: 657652938938763287}
+  tapeType: 6
 --- !u!1 &4620935644583887748
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,6 +706,7 @@ Transform:
   - {fileID: 163724783336859167}
   - {fileID: 1764667570476251999}
   - {fileID: 1258254283646550097}
+  - {fileID: 1876082564739919488}
   m_Father: {fileID: 1900304917207469277}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -588,6 +855,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3936549052614981172}
+  - component: {fileID: 7245250956998029963}
+  - component: {fileID: 165708461429638892}
   m_Layer: 0
   m_Name: tape 1
   m_TagString: Untagged
@@ -610,6 +879,35 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7245250956998029963
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594192638666639136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24077976, y: 0.53861934, z: 0.04242671}
+  m_Center: {x: -0.002709345, y: -0.23068953, z: 0.002351664}
+--- !u!114 &165708461429638892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594192638666639136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 7f44180adbe8415459c04a971108322c, type: 3}
+  clipAnimation: {fileID: 7400000, guid: cacad5c4ddfd425458530417a3fdf2fc, type: 2}
+  cassettePlayer: {fileID: 657652938938763287}
+  tapeType: 1
 --- !u!1 &5716438096957143638
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +970,8 @@ MonoBehaviour:
   startZoomDuration: 0.8
   stopZoomDuration: 0.5
   targetZoomFOV: 20
+  recieve: {fileID: 0}
+  typing: {fileID: 0}
   animator: {fileID: 0}
   texts:
   - {fileID: 7018105130127718645}
@@ -3028,6 +3328,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163724783336859167}
+  - component: {fileID: 8256174073006805041}
+  - component: {fileID: 9127265831681202205}
   m_Layer: 0
   m_Name: tape 5
   m_TagString: Untagged
@@ -3050,6 +3352,35 @@ Transform:
   m_Father: {fileID: 7183101899824682277}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8256174073006805041
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387109253072684808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24077976, y: 0.53861934, z: 0.04242671}
+  m_Center: {x: -0.002709345, y: -0.23068953, z: 0.002351664}
+--- !u!114 &9127265831681202205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387109253072684808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cf1dfa84a34b28b6b58bb6cd67b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: ea39bb46d303d6243b2387f555091dfe, type: 3}
+  clipAnimation: {fileID: 7400000, guid: c46eb6b19d6a0f94995949bb3883de66, type: 2}
+  cassettePlayer: {fileID: 657652938938763287}
+  tapeType: 5
 --- !u!1001 &7018105129772416530
 PrefabInstance:
   m_ObjectHideFlags: 0

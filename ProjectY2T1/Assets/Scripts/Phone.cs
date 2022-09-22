@@ -8,6 +8,9 @@ public sealed class Phone : Interactable
 	[Header("Zoom")] [SerializeField] private float startZoomDuration;
 	[SerializeField] private float stopZoomDuration;
 	[SerializeField] private float targetZoomFOV;
+	
+	[Header("Phone Audio")]
+	[SerializeField] private AudioClip recieve, typing;
 	private long timer, maxTimer;
 	private bool myTurn;
 
@@ -17,13 +20,15 @@ public sealed class Phone : Interactable
 
 	private float originalFOV;
 	private int progress;
+	private AudioSource source;
 
 	private void Start()
 	{
 		maxTimer = 6500L;
 		originalFOV = CameraController.i.cam.fieldOfView;
-		if (animator == null) throw new Exception("No animator found for the phone!");
 		timer = DateTimeOffset.Now.ToUnixTimeMilliseconds() + maxTimer;
+		if (animator == null) throw new Exception("No animator found for the phone!");
+		source = GetComponent<AudioSource>();
 	}
 
 	public void Update()
@@ -33,8 +38,10 @@ public sealed class Phone : Interactable
 
 	public void FixedUpdate()
 	{
-		if (progress < texts.Count && DateTimeOffset.Now.ToUnixTimeMilliseconds() >= timer && !myTurn)
+		if (progress < texts.Count && DateTimeOffset.Now.ToUnixTimeMilliseconds() >= timer && !myTurn && !InformationManager.isCrashing)
 		{
+			source.clip = recieve;
+			source.Play();
 			texts[progress].SetActive(true);
 			animator.SetTrigger("Phone Progress");
 			progress++;
@@ -55,6 +62,8 @@ public sealed class Phone : Interactable
 	{
 		if (progress < texts.Count && myTurn)
 		{
+			source.clip = typing;
+			source.Play();
 			texts[progress].SetActive(true);
 			animator.SetTrigger("Phone Progress");
 			progress++;

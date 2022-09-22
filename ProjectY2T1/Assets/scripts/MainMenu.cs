@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 	public static void StartGame()
 	{
 		InformationManager.Reset();
-		SceneSwapper.i.SwapScene(InformationManager.Scene.Wiebe);
+		SceneSwapper.i.SwapScene(InformationManager.Scene.MainScene);
 	}
 	
 	private void Start()
